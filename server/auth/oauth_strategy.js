@@ -1,8 +1,11 @@
 var passport = require('passport'),
 	Oauth2Strategy = require('passport-oauth').Oauth2Strategy,
-	facebook = require('passport-facebook');
 
-// for express app = passport.initialize() reqd' to initialize passport
+// REQ'd ON FRONT END
+// <a href="/auth/provider">Log In with OAuth Provider</a>
+
+// ? 
+// for express app = passport.initialize() reqd' to initialize passport 
 
 // AUTHENTICATE
 
