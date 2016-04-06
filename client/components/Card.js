@@ -39,14 +39,12 @@ export default class DishCard extends React.Component {
         <CardText>
           {this.props.data.food_desc}
         </CardText>
-        <CardText>
+        <row>
           ${this.props.data.cost / 100}
-        </CardText>
-        <CardActions>
-          <RaisedButton label={"Spicy? "+ this.props.data.spicy} />
-          <RaisedButton label={"Gluten Free? "+ this.props.data.gluten_free}  />
-          <RaisedButton label={"Vegitarian? "+ this.props.data.vegitarian} />
-        </CardActions>
+          {this.props.data.spicy ? " [🌶]" : ""}
+          {this.props.data.gluten_free ? " [🚫🍞]" : ""}
+          {this.props.data.vegitarian ? " [🌽]" : ""}
+        </row>
       </Card>
     );
   }
