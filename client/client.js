@@ -99,6 +99,19 @@ class Layout extends React.Component {
         vegitarian: false,
         gluten_free: false,
         spicy: false  
+      },
+      {
+        user_id: 2,
+        category_id: 2,
+        datetime: 1459537552836,
+        food_item_name: "Irish Stew",
+        food_desc: "Classic Irish cuisine. Because the Irish are know for their food.",
+        restaurant_name: "B.D. Riley's",
+        cost: 1595,
+        picture: '/photoStorage/irish_stew.png',
+        vegitarian: false,
+        gluten_free: false,
+        spicy: false  
       }
       ];
   }
