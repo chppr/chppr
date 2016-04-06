@@ -1,17 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Router, Route, IndexRoute, hashHistory } from "react-router";
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Toolbar from "./components/Toolbar"
 import CardFeed from "./components/CardFeed"
+injectTapEventPlugin();
 
-// import Layout from "./components/Layout";
 class Layout extends React.Component {
-  
+  constructor() {
+    super();
+    this.state = {
+      testVal: "Testing"
+    };
+  }
+  changeVariable(testVal) {
+    this.setState({testVal});
+  }
   render() {
   	return (
   	  <div>
-  	    <p>Main Layout Rendering</p>
-  	    <Toolbar/>
+  	    <p>YumSnap! Main Component</p>
+  	    <Toolbar changeVariable={this.changeVariable.bind(this)} value={this.state.testVal}/>
+  	    <p>this.state is - {this.state.testVal}</p>
   	    <CardFeed/>
   	  </div>
   	);
