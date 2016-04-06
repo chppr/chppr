@@ -33,6 +33,9 @@
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-router": "^2.0.1",
+    "passport-facebook": "^2.1.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "react-tap-event-plugin": "^0.2.2",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
