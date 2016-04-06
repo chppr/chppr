@@ -24,24 +24,28 @@ export default class DishCard extends React.Component {
         className="col-md-6 col-lg-4"
         style={cardStyle}>
         <CardHeader
-          title="URL Avatar"
-          subtitle="Subtitle"
+          title={"User Number "+ this.props.data.user_id}
+          subtitle={"Category Number "+ this.props.data.category_id}
           avatar="http://lorempixel.com/200/200/nature/"
         />
         <CardMedia>
           <img src="http://lorempixel.com/600/337/food/" />
+          <p> pretend img src is: {this.props.data.picture} </p>
         </CardMedia>
-        <CardTitle title="Some super great dish" subtitle="omg so good" />
+        <CardTitle
+          title={this.props.data.food_item_name}
+          subtitle={this.props.data.restaurant_name}
+        />
         <CardText>
-          This was the best dish ever. Chef So and So is a genius. Oh my gosh wow I literally can't even.
+          {this.props.data.food_desc}
         </CardText>
         <CardText>
-          $8.99
+          ${this.props.data.cost / 100}
         </CardText>
         <CardActions>
-          <RaisedButton label="Spicy" />
-          <RaisedButton label="Gluten-Free" />
-          <RaisedButton label="Vegitarian" />
+          <RaisedButton label={"Spicy? "+ this.props.data.spicy} />
+          <RaisedButton label={"Gluten Free? "+ this.props.data.gluten_free}  />
+          <RaisedButton label={"Vegitarian? "+ this.props.data.vegitarian} />
         </CardActions>
       </Card>
     );
