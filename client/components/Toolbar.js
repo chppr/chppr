@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';                         
 import Checkbox from 'material-ui/lib/checkbox';                                      // Patrick D added this
 import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';               // Patrick D added this
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';  // Patrick D added this
+import RaisedButton from 'material-ui/lib/raised-button';                             // Patrick D added this
 import AuthPanel from "./AuthPanel";
 
 export default class Toolbar extends React.Component {
@@ -20,47 +21,59 @@ export default class Toolbar extends React.Component {
 
     const styles = {
       block: {
-        maxWidth: 250,
+        background: "white",
+        maxWidth: 175,
+        padding: 15,
       },
       checkbox: {
-        marginBottom: 16,
+        // marginBottom: 16,
         // clear: 'none'
+      },
+      button: {
+        margin: 12,
       }
     };
 
     return (
       <AppBar
-        title="YumSnap!!!"
+        title="YumSnap!"
         iconElementLeft= {
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={'all'} primaryText="All"/>
-            <MenuItem value={'asian'} primaryText="Asian"/>
-            <MenuItem value={'american'} primaryText="American"/>
-            <MenuItem value={'italian'} primaryText="Italian"/>
-            <MenuItem value={'french'} primaryText="French"/>
-          </DropDownMenu>
+          <div>
+            <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+              <MenuItem value={'all'} primaryText="All"/>
+              <MenuItem value={'asian'} primaryText="Asian"/>
+              <MenuItem value={'american'} primaryText="American"/>
+              <MenuItem value={'italian'} primaryText="Italian"/>
+              <MenuItem value={'french'} primaryText="French"/>
+            </DropDownMenu>
+
+          </div>
         }
         iconElementRight={
-          <div style={styles.block}>            
-            <Checkbox
-              label="Gluten-free"
-              style={styles.checkbox}
-            />
-            <Checkbox
-              label="Vegetarian"
-              style={styles.checkbox}
-            />
-            <Checkbox
-              label="Not-spicy"
-              // defaultChecked={true}
-              style={styles.checkbox}
-            />
-            <Checkbox
-              checkedIcon={<ActionFavorite />}
-              uncheckedIcon={<ActionFavoriteBorder />}
-              label="Favorites"
-              style={styles.checkbox}
-            />
+          <div>
+            <RaisedButton label="ADD" default={true} style={styles.button} />
+            <RaisedButton label="Login" default={true} style={styles.button} />
+            <div style={styles.block}>            
+              <Checkbox
+                label="Gluten-free"
+                style={styles.checkbox}
+              />
+              <Checkbox
+                label="Vegetarian"
+                style={styles.checkbox}
+              />
+              <Checkbox
+                label="Not-Spicy"
+                // defaultChecked={true}
+                style={styles.checkbox}
+              />
+              <Checkbox
+                checkedIcon={<ActionFavorite />}
+                uncheckedIcon={<ActionFavoriteBorder />}
+                label="Favorites"
+                style={styles.checkbox}
+              />
+            </div>
           </div>
         }
       />
