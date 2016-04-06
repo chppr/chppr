@@ -2,14 +2,20 @@ import React from "react";
 
 export default class AuthPanel extends React.Component {
   handleClick(e) {
-  	console.log('button pressed');
-  	this.props.authToggle();
+    console.log("button pressed");
+    this.props.authToggle();
+  }
+  authStatus() {
+    return this.props.auth ? "LOGOUT" : "LOGIN";
   }
   render() {
-  	// console.log(this.state.auth);
+    console.log("AuthPanel props:", this.props);
     return (
       <div>
-		<button onClick={this.handleClick.bind(this)}>LOGIN</button>
+        <h5>AuthPanel Component nested inside the Toolbar</h5>
+        <button onClick={this.handleClick.bind(this)}>
+          {this.authStatus()}
+        </button>
       </div>
     );
   }

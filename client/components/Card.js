@@ -4,7 +4,7 @@ export default class Card extends React.Component {
   render() {
     return (
       <div>
-        <h5>This is a Card Component inside the CardFeed</h5>
+        <h5>Card Component nested inside the CardFeed</h5>
       </div>
     );
   }
