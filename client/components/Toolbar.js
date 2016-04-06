@@ -4,16 +4,17 @@ import AuthPanel from "./AuthPanel"
 
 
 export default class Toolbar extends React.Component {
+  
   handleChange(e) {
+  	console.log('key pressed');
   	const testVal = e.target.value;
     this.props.changeVariable(testVal);
   }
   render() {
-  	// this.props.changeVariable("Hello");
+	console.log("Toolbar props:", this.props);
     return (
       <div>
-        <AppBar title="Title" iconClassNameRight="muidocs-icon-navigation-expand-more"/>
-		<AuthPanel/>
+		<AuthPanel authToggle={this.props.authToggle}/>
         <select>
 		  <option value="asian">Asian</option>
 		  <option value="american">American</option>
@@ -29,9 +30,7 @@ export default class Toolbar extends React.Component {
   }
 }
 
-
-
-
+        // <AppBar title="Title" iconClassNameRight="muidocs-icon-navigation-expand-more"/>
 
 // import React from 'react';
 // import AppBar from 'material-ui/lib/app-bar';
