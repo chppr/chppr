@@ -14,12 +14,14 @@ import AddCard from "./AddCard";
 
 export default class Navbar extends React.Component {
 
+  // ToDo: Refactor all Handle functions to generic handle w/ parameter
   handleCategory(event, index, value) {
     console.log('category changed to', value);
     this.props.categorySelect(value);
   }
-  handleVeg() {
+  handleVeg(a,b,c) {
     console.log('veg clicked');
+    console.log('a:',a,'b:',b,'c:',c);
     this.props.vegToggle();
   }
   handleGf() {
@@ -31,11 +33,11 @@ export default class Navbar extends React.Component {
     this.props.noSpiceToggle();
   }
   handleShowAdd() {
-    console.log("AddCard pressed");
+    console.log('AddCard pressed');
     this.props.showAddToggle();
   }
   handleShowFavs() {
-    console.log("showFavs pressed");
+    console.log('showFavs pressed');
     this.props.showFavsToggle();
   }
 

@@ -22,6 +22,8 @@ class Layout extends React.Component {
       showAdd: false,
       showFavs: false
     };
+
+  // ToDo: Refactor all Toggle functions to generic toggle w/ parameter
   }
   authToggle() {
     this.setState({auth: !this.state.auth});
