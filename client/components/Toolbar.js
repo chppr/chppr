@@ -32,14 +32,13 @@ export default class Navbar extends React.Component {
   render () {
 
     const styles = {
-      block: {
-        // background: "white",
-        // maxWidth: 175,
-        padding: 15,
+      toolbar: {
+        // background: "#ff4081",
+        color: "black"
       },
       checkbox: {
-        // marginBottom: 16,
-        // clear: 'none'
+        maxWidth: 175,
+        marginTop: 16,
       },
       button: {
         margin: 12,
@@ -47,7 +46,7 @@ export default class Navbar extends React.Component {
     };
 
     return (
-      <Toolbar>
+      <Toolbar style={styles.toolbar}>
         <ToolbarTitle text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu value={this.state.valueCategory} onChange={this.handleChange}>
@@ -58,11 +57,25 @@ export default class Navbar extends React.Component {
              <MenuItem value={'french'} primaryText="French"/>
            </DropDownMenu>
         <ToolbarSeparator />
-          <DropDownMenu value={this.state.valueOptions} onChange={this.handleChangeMultiple} multiple={true}>
-            <MenuItem value={'gluten-free'} primaryText="Gluten-Free"/>
-            <MenuItem value={'vegetarian'} primaryText="Vegetarian"/>
-            <MenuItem value={'not-spicy'} primaryText="Not-Spicy"/>
-          </DropDownMenu>
+          <Checkbox
+            label="Gluten-free"
+            style={styles.checkbox}
+          />
+          <Checkbox
+            label="Vegetarian"
+            style={styles.checkbox}
+          />
+          <Checkbox
+            label="Not-Spicy"
+            // defaultChecked={true}
+            style={styles.checkbox}
+          />
+          <Checkbox
+            checkedIcon={<ActionFavorite />}
+            uncheckedIcon={<ActionFavoriteBorder />}
+            label="Favorites"
+            style={styles.checkbox}
+          />
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <RaisedButton label="ADD" default={true} style={styles.button} />
@@ -74,6 +87,11 @@ export default class Navbar extends React.Component {
 }
 
 
+          // <DropDownMenu value={this.state.valueOptions} onChange={this.handleChangeMultiple} multiple={true}>
+          //   <MenuItem value={'gluten-free'} primaryText="Gluten-Free"/>
+          //   <MenuItem value={'vegetarian'} primaryText="Vegetarian"/>
+          //   <MenuItem value={'not-spicy'} primaryText="Not-Spicy"/>
+          // </DropDownMenu>
 
 ////// THE "APPBAR" ////////
 //
