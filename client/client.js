@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Toolbar from "./components/Toolbar"
+import Navbar from "./components/Navbar"
+import AddCard from "./components/AddCard"
 import CardFeed from "./components/CardFeed"
 
 injectTapEventPlugin();
@@ -12,22 +13,34 @@ class Layout extends React.Component {
   constructor() {
     super();
     this.state = {
-      testVal: "Testing",
       auth: false,
       veg: false,
+      gf: false,
+      noSpice: false,
       category: "all",
-      cardData: this.getCardData()
+      cardData: this.getCardData(),
+      showAdd: false,
+      showFavs: false
     };
-  }
-  changeVariable(testVal) {
-    this.setState({testVal});
   }
   authToggle() {
     this.setState({auth: !this.state.auth});
   }
+  showAddToggle() {
+    this.setState({showAdd: !this.state.showAdd});
+  }
   vegToggle() {
     this.setState({veg: !this.state.veg});
   }
+  gfToggle() {
+    this.setState({gf: !this.state.gf});
+  }
+  noSpiceToggle() {
+    this.setState({noSpice: !this.state.noSpice});
+  }
+  showFavsToggle() {
+    this.setState({showFavs: !this.state.showFavs});
+  }  
   categorySelect(category) {
     this.setState({category});
   }
@@ -120,23 +133,34 @@ class Layout extends React.Component {
     console.log("client.js state:", this.state);
     return (
       <div>
-        <p>YumSnap! Main Component</p>
         {/* Pass methods & state vars to Toolbar Component through props */}
-        <Toolbar
-          testVal={this.state.testVal}
-          changeVariable={this.changeVariable.bind(this)}
+        <Navbar
           auth={this.state.auth}
           authToggle={this.authToggle.bind(this)}
           veg={this.state.veg}
           vegToggle={this.vegToggle.bind(this)}
+          gf={this.state.gf}
+          gfToggle={this.gfToggle.bind(this)}
+          noSpice={this.state.noSpice}
+          noSpiceToggle={this.noSpiceToggle.bind(this)}
           category={this.state.category}
           categorySelect={this.categorySelect.bind(this)}
+          showAdd={this.state.showAdd}
+          showAddToggle={this.showAddToggle.bind(this)}
+          showFavs={this.state.showFavs}
+          showFavsToggle={this.showFavsToggle.bind(this)}
         />
         <br/>
-        <p>this.state.testVal is - {this.state.testVal}</p>
-        <p>this.state.auth is - {String(this.state.auth)}</p>
-        <p>this.state.veg is - {String(this.state.veg)}</p>
-        <p>this.state.category is - {this.state.category}</p>
+        <p>
+        state.category - {this.state.category}   |   
+        state.veg - {String(this.state.veg)}   |   
+        state.gf - {String(this.state.gf)}   |   
+        state.noSpice - {String(this.state.noSpice)}   |   
+        state.showFavs - {String(this.state.showFavs)}   |   
+        state.auth - {String(this.state.auth)}
+        </p>
+        { this.state.showAdd ? <AddCard/> : null }
+        <hr/>
         <CardFeed
           cardData={this.state.cardData}
         />

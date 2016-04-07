@@ -10,28 +10,55 @@ import Checkbox from 'material-ui/lib/checkbox';
 import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';
 import AuthPanel from "./AuthPanel";
+import AddCard from "./AddCard";
 
 export default class Navbar extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      valueCategory: 'all',
-    };
+  handleCategory(event, index, value) {
+    console.log('category changed to', value);
+    this.props.categorySelect(value);
   }
-
-  handleChange = (event, index, value) => this.setState({valueCategory: value});
+  handleVeg() {
+    console.log('veg clicked');
+    this.props.vegToggle();
+  }
+  handleGf() {
+    console.log('gf clicked');
+    this.props.gfToggle();
+  }
+  handleNoSpice() {
+    console.log('noSpice clicked');
+    this.props.noSpiceToggle();
+  }
+  handleShowAdd() {
+    console.log("AddCard pressed");
+    this.props.showAddToggle();
+  }
+  handleShowFavs() {
+    console.log("showFavs pressed");
+    this.props.showFavsToggle();
+  }
 
   render () {
 
     const styles = {
+      title: {
+        // background: "#ff4081",
+        fontWeight: 700, 
+        fontSize: "25px",
+        // marginRight: "25px",
+      },
       toolbar: {
         // background: "#ff4081",
-        color: "black"
+        color: "black",
       },
+      // dropdown: {
+      //   background: "#ff4081",
+      // },
       checkbox: {
-        maxWidth: 175,
+        maxWidth: 150,
         marginTop: 16,
+        paddingLeft: 10,
       },
       button: {
         margin: 12,
@@ -40,9 +67,9 @@ export default class Navbar extends React.Component {
 
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle text="YumSnap!" />
+        <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
-          <DropDownMenu value={this.state.valueCategory} onChange={this.handleChange}>
+          <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
              <MenuItem value={'all'} primaryText="All"/>
              <MenuItem value={'asian'} primaryText="Asian"/>
              <MenuItem value={'american'} primaryText="American"/>
@@ -51,19 +78,24 @@ export default class Navbar extends React.Component {
            </DropDownMenu>
         <ToolbarSeparator />
           <Checkbox
-            label="Gluten-free"
+            value="veg"
+            onClick={this.handleVeg.bind(this)}
+            label="Vegetarian"
             style={styles.checkbox}
           />
           <Checkbox
-            label="Vegetarian"
+            label="Gluten-free"
+            onClick={this.handleGf.bind(this)}
             style={styles.checkbox}
           />
           <Checkbox
             label="Not-Spicy"
             // defaultChecked={true}
+            onClick={this.handleNoSpice.bind(this)}
             style={styles.checkbox}
           />
           <Checkbox
+            onClick={this.handleShowFavs.bind(this)}
             checkedIcon={<ActionFavorite />}
             uncheckedIcon={<ActionFavoriteBorder />}
             label="Favorites"
@@ -71,8 +103,8 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <RaisedButton label="ADD" default={true} style={styles.button} />
-          <RaisedButton label="Login" default={true} style={styles.button} />
+          <RaisedButton onClick={this.handleShowAdd.bind(this)} label="ADD" default={true} style={styles.button} />  
+          <AuthPanel authToggle={this.props.authToggle} auth={this.props.auth}/>
         </ToolbarGroup>
       </Toolbar>
     )

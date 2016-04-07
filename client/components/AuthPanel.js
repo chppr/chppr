@@ -1,8 +1,9 @@
 import React from "react";
+import RaisedButton from 'material-ui/lib/raised-button';
 
 export default class AuthPanel extends React.Component {
-  handleClick(e) {
-    console.log("button pressed");
+  handleAuth() {
+    console.log("login pressed");
     this.props.authToggle();
   }
   authStatus() {
@@ -10,13 +11,16 @@ export default class AuthPanel extends React.Component {
   }
   render() {
     console.log("AuthPanel props:", this.props);
+    const styles = {
+      button: {
+        margin: 12,
+      }
+    };
     return (
-      <div>
-        <h5>AuthPanel Component nested inside the Toolbar</h5>
-        <button onClick={this.handleClick.bind(this)}>
-          {this.authStatus()}
-        </button>
-      </div>
+        <RaisedButton onClick={this.handleAuth.bind(this)} label={this.authStatus()} default={true} style={styles.button} />
     );
   }
 }
+        // <button onClick={this.handleClick.bind(this)}>
+          // {this.authStatus()}
+        // </button>
