@@ -75,7 +75,7 @@ export default class Navbar extends React.Component {
 
 
 
-////// MY APPBAR ////////
+////// THE "APPBAR" ////////
 //
 // import React from "react";
 // import AppBar from 'material-ui/lib/app-bar';
