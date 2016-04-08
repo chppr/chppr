@@ -7,12 +7,12 @@ var config = require( './../webpack.config.js')
 var compiler = webpack(config)  
 
 var Path = require('path')
-var sess = require('express-session');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser')
 
-
 var passport = require('passport')
+var flash    = require('connect-flash'); // messages stored in session
 
 var Posts = require('./../client/models/posts');
 var Users = require('./../client/models/users');
@@ -130,6 +130,14 @@ routes.post('/login', function (req, res) {
 })
 
 
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// route for passport
+require('./models/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // Static assets (html, etc.)
 var assetFolder = Path.resolve(__dirname, '../client')

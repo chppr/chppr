@@ -29,4 +29,4 @@ node_modules/
 bower_components/
 
 # authentication keys
-server/auth/client_secret.js
+server/config/auth.js
