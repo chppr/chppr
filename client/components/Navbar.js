@@ -19,36 +19,69 @@ export default class Navbar extends React.Component {
     console.log('category changed to', value);
     this.props.categorySelect(value);
   }
-  handleVeg(a,b,c) {
-    console.log('veg clicked');
-    console.log('a:',a,'b:',b,'c:',c);
-    this.props.vegToggle();
+  // handleVeg() {
+  //   window.setTimeout(
+  //     function(){
+  //     console.log('veg clicked');
+  //     this.props.vegToggle()}.bind(this),
+  //     0
+  //   );
+  // }
+
+  handleVeg() {
+    window.setTimeout(
+      function(){
+      // console.log('THIS:',this);
+      this.props.stateToggle('veg')}.bind(this),
+      0
+    );
   }
+
   handleGf() {
-    console.log('gf clicked');
-    this.props.gfToggle();
+    window.setTimeout(
+      function(){
+      console.log('gf clicked');
+      this.props.stateToggle('gf')}.bind(this),
+      0
+    );
   }
   handleNoSpice() {
-    console.log('noSpice clicked');
-    this.props.noSpiceToggle();
-  }
-  handleShowAdd() {
-    console.log('AddCard pressed');
-    this.props.showAddToggle();
+    window.setTimeout(
+      function(){
+      console.log('noSpice clicked');
+      this.props.stateToggle('noSpice')}.bind(this),
+      0
+    );
   }
   handleShowFavs() {
-    console.log('showFavs pressed');
-    this.props.showFavsToggle();
+    window.setTimeout(
+      function(){
+      console.log('showFavs clicked');
+      this.props.stateToggle('showFavs')}.bind(this),
+      0
+    );
+  }  
+  handleShowAdd() {
+    console.log('AddCard pressed');
+    this.props.stateToggle('showAdd');
   }
 
   render () {
 
     const styles = {
       title: {
-        // background: "#ff4081",
+        color: "red",
+        minWidth: 160,
+        maxWidth: 160,
         fontWeight: 700, 
-        fontSize: "25px",
-        // marginRight: "25px",
+        fontSize: "30px",
+        marginRight: 0,
+        // background: "blue",
+      },
+      dropdown: {
+        marginRight: 100,
+        width: 30,
+        // background: "blue",
       },
       toolbar: {
         // background: "#ff4081",
@@ -72,13 +105,12 @@ export default class Navbar extends React.Component {
         <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
-             <MenuItem value={'all'} primaryText="All"/>
-             <MenuItem value={'asian'} primaryText="Asian"/>
-             <MenuItem value={'american'} primaryText="American"/>
-             <MenuItem value={'italian'} primaryText="Italian"/>
-             <MenuItem value={'french'} primaryText="French"/>
-           </DropDownMenu>
-        <ToolbarSeparator />
+              <MenuItem value={'all'} primaryText="All"/>
+              <MenuItem value={'asian'} primaryText="Asian"/>
+              <MenuItem value={'american'} primaryText="American"/>
+              <MenuItem value={'italian'} primaryText="Italian"/>
+              <MenuItem value={'french'} primaryText="French"/>
+          </DropDownMenu>
           <Checkbox
             value="veg"
             onClick={this.handleVeg.bind(this)}
@@ -98,8 +130,8 @@ export default class Navbar extends React.Component {
           />
           <Checkbox
             onClick={this.handleShowFavs.bind(this)}
-            checkedIcon={<ActionFavorite />}
-            uncheckedIcon={<ActionFavoriteBorder />}
+            checkedIcon={<ActionFavorite/>}
+            uncheckedIcon={<ActionFavoriteBorder/>}
             label="Favorites"
             style={styles.checkbox}
           />
@@ -112,45 +144,3 @@ export default class Navbar extends React.Component {
     )
   }
 }
-
-/// HUGH'S ORIGINAL TOOLBAR
-// export default class Toolbar extends React.Component {
-//   handleChange(e) {
-//     console.log('key pressed');
-//     const testVal = e.target.value;
-//     this.props.changeVariable(testVal);
-//   }
-//   handleVeg(e) {
-//     console.log('veg clicked');
-//     this.props.vegToggle();
-//   }
-//   handleCategory(e) {
-//     console.log('category changed');
-//     const category = e.target.value;
-//     this.props.categorySelect(category);
-//   }
-//   render() {
-//     // console.log("Toolbar props:", this.props);
-//     return (
-//       <div>
-//         <h2>Toolbar Component</h2>
-//         <select onChange={this.handleCategory.bind(this)}>
-//           <option value="all">All</option>
-//           <option value="asian">Asian</option>
-//           <option value="american">American</option>
-//           <option value="italian">Italian</option>
-//           <option value="french">French</option>
-//         </select>
-//           <label>
-//             <input
-//               type="checkbox"
-//               value="veg"
-//               onChange={this.handleVeg.bind(this)}
-//             />Vegetarian</label><br/>
-//         <input onChange={this.handleChange.bind(this)} />
-//         {/* Pass authToggle & auth to AuthPanel Component through props */}
-//         <AuthPanel authToggle={this.props.authToggle} auth={this.props.auth}/>
-//       </div>
-//     );
-//   }
-// }

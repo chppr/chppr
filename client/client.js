@@ -30,27 +30,35 @@ class Layout extends React.Component {
       gfClick: false,
       spicyClick: false,
     };
+  }
+
+  // inputChangeHandler : function (event) {
+  //     this.setState({ [event.target.id]: event.target.value });
+  // }
+
+  stateToggle(event) {
+    this.setState({ [event]: !this.state[event] });
+  }
 
   // ToDo: Refactor all Toggle functions to generic toggle w/ parameter
-  }
-  authToggle() {
-    this.setState({auth: !this.state.auth});
-  }
-  showAddToggle() {
-    this.setState({showAdd: !this.state.showAdd});
-  }
-  vegToggle() {
-    this.setState({veg: !this.state.veg});
-  }
-  gfToggle() {
-    this.setState({gf: !this.state.gf});
-  }
-  noSpiceToggle() {
-    this.setState({noSpice: !this.state.noSpice});
-  }
-  showFavsToggle() {
-    this.setState({showFavs: !this.state.showFavs});
-  }  
+  // authToggle() {
+  //   this.setState({auth: !this.state.auth});
+  // }
+  // showAddToggle() {
+  //   this.setState({showAdd: !this.state.showAdd});
+  // }
+  // vegToggle() {
+  //   this.setState({veg: !this.state.veg});
+  // }
+  // gfToggle() {
+  //   this.setState({gf: !this.state.gf});
+  // }
+  // noSpiceToggle() {
+  //   this.setState({noSpice: !this.state.noSpice});
+  // }
+  // showFavsToggle() {
+  //   this.setState({showFavs: !this.state.showFavs});
+  // }  
   categorySelect(category) {
     this.setState({category});
   }
@@ -170,19 +178,14 @@ class Layout extends React.Component {
         {/* Pass methods & state vars to Toolbar Component through props */}
         <Navbar
           auth={this.state.auth}
-          authToggle={this.authToggle.bind(this)}
           veg={this.state.veg}
-          vegToggle={this.vegToggle.bind(this)}
           gf={this.state.gf}
-          gfToggle={this.gfToggle.bind(this)}
           noSpice={this.state.noSpice}
-          noSpiceToggle={this.noSpiceToggle.bind(this)}
           category={this.state.category}
           categorySelect={this.categorySelect.bind(this)}
           showAdd={this.state.showAdd}
-          showAddToggle={this.showAddToggle.bind(this)}
           showFavs={this.state.showFavs}
-          showFavsToggle={this.showFavsToggle.bind(this)}
+          stateToggle={this.stateToggle.bind(this)}
         />
         <br/>
         <p>
