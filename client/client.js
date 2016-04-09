@@ -20,7 +20,15 @@ class Layout extends React.Component {
       category: "all",
       cardData: this.getCardData(),
       showAdd: false,
-      showFavs: false
+      showFavs: false,
+      dishName: '',
+      restaurantName: '',
+      dishDescription: '',
+      dishPrice: '',
+      dishRating: '',
+      vegClick: false,
+      gfClick: false,
+      spicyClick: false,
     };
 
   // ToDo: Refactor all Toggle functions to generic toggle w/ parameter
@@ -45,6 +53,30 @@ class Layout extends React.Component {
   }  
   categorySelect(category) {
     this.setState({category});
+  }
+  dishNameInput(dishName) {
+    this.setState({dishName: dishName});
+  }
+  restaurantNameInput(restaurantName) {
+    this.setState({restaurantName: restaurantName});
+  }
+  dishDescriptionInput(dishDescription) {
+    this.setState({dishDescription: dishDescription});
+  }
+  dishPriceInput(dishPrice) {
+    this.setState({dishPrice: dishPrice});
+  }
+  dishRatingInput(dishRating) {
+    this.setState({dishRating: dishRating});
+  }
+  vegInput() {
+    this.setState({vegClick: !this.state.vegClick});
+  }
+  gfInput() {
+    this.setState({gfClick: !this.state.gfClick});
+  }
+  spicyInput() {
+    this.setState({spicyClick: !this.state.spicyClick});
   }
 
   getCardData(){
@@ -161,7 +193,16 @@ class Layout extends React.Component {
         state.showFavs - {String(this.state.showFavs)}   |   
         state.auth - {String(this.state.auth)}
         </p>
-        { this.state.showAdd ? <AddCard/> : null }
+        { this.state.showAdd ? <AddCard 
+          dishNameInput={this.dishNameInput.bind(this)}
+          restaurantNameInput={this.restaurantNameInput.bind(this)}
+          dishDescriptionInput={this.dishDescriptionInput.bind(this)}
+          dishPriceInput={this.dishPriceInput.bind(this)}
+          dishRatingInput={this.dishRatingInput.bind(this)}
+          vegInput={this.vegInput.bind(this)}
+          gfInput={this.gfInput.bind(this)}
+          spicyInput={this.spicyInput.bind(this)}
+          /> : null }
         <hr/>
         <CardFeed
           cardData={this.state.cardData}
