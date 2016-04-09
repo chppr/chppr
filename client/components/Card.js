@@ -43,7 +43,7 @@ export default class DishCard extends React.Component {
           ${this.props.data.cost / 100}
           {this.props.data.spicy ? " [🌶]" : ""}
           {this.props.data.gluten_free ? " [🚫🍞]" : ""}
-          {this.props.data.vegitarian ? " [🌽]" : ""}
+          {this.props.data.vegetarian ? " [🌽]" : ""}
         </row>
       </Card>
     );

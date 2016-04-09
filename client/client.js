@@ -76,7 +76,7 @@ class Layout extends React.Component {
         restaurant_name: "Hut's Hamburgers",
         cost: 1325,
         picture: '/photoStorage/burger1.png',
-        vegitarian: false,
+        vegetarian: false,
         gluten_free: false,
         spicy: true
       },
@@ -89,7 +89,7 @@ class Layout extends React.Component {
         restaurant_name: "Daily Juice",
         cost: 749,
         picture: '/photoStorage/kiwiSmoothie.png',
-        vegitarian: true,
+        vegetarian: true,
         gluten_free: true,
         spicy: false  
       },
@@ -102,7 +102,7 @@ class Layout extends React.Component {
         restaurant_name: "Roaring Fork",
         cost: 2682,
         picture: '/photoStorage/lamb1.png',
-        vegitarian: false,
+        vegetarian: false,
         gluten_free: false,
         spicy: false 
       },
@@ -115,7 +115,7 @@ class Layout extends React.Component {
         restaurant_name: "JuiceLand",
         cost: 801,
         picture: '/photoStorage/juice1.png',
-        vegitarian: true,
+        vegetarian: true,
         gluten_free: true,
         spicy: true  
       },
@@ -128,7 +128,7 @@ class Layout extends React.Component {
         restaurant_name: "B.D. Riley's",
         cost: 1455,
         picture: '/photoStorage/fishAndChips1.png',
-        vegitarian: false,
+        vegetarian: false,
         gluten_free: false,
         spicy: false  
       },
@@ -141,7 +141,7 @@ class Layout extends React.Component {
         restaurant_name: "B.D. Riley's",
         cost: 1595,
         picture: '/photoStorage/irish_stew.png',
-        vegitarian: false,
+        vegetarian: false,
         gluten_free: false,
         spicy: false  
       }
@@ -186,6 +186,9 @@ class Layout extends React.Component {
           /> : null }
         <hr/>
         <CardFeed
+          boolVeg={this.state.veg}
+          boolGF={this.state.gf}
+          boolNoSpice={this.state.noSpice}
           cardData={this.state.cardData}
         />
       </div>
