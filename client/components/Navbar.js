@@ -14,60 +14,25 @@ import AddCard from "./AddCard";
 
 export default class Navbar extends React.Component {
 
-  // ToDo: Refactor all Handle functions to generic handle w/ parameter
   handleCategory(event, index, value) {
-    console.log('category changed to', value);
     this.props.categorySelect(value);
   }
-  // handleVeg() {
-  //   window.setTimeout(
-  //     function(){
-  //     console.log('veg clicked');
-  //     this.props.vegToggle()}.bind(this),
-  //     0
-  //   );
-  // }
 
-  handleVeg() {
+  // YES, this setTimeout looks janky but it was the only way I found that displays the checked boxes after selecting them
+  handleToggle(e) {
+    const toggleFilter = e.target.value;
     window.setTimeout(
       function(){
-      // console.log('THIS:',this);
-      this.props.stateToggle('veg')}.bind(this),
+      this.props.stateToggle(toggleFilter)}.bind(this),
       0
     );
   }
 
-  handleGf() {
-    window.setTimeout(
-      function(){
-      console.log('gf clicked');
-      this.props.stateToggle('gf')}.bind(this),
-      0
-    );
-  }
-  handleNoSpice() {
-    window.setTimeout(
-      function(){
-      console.log('noSpice clicked');
-      this.props.stateToggle('noSpice')}.bind(this),
-      0
-    );
-  }
-  handleShowFavs() {
-    window.setTimeout(
-      function(){
-      console.log('showFavs clicked');
-      this.props.stateToggle('showFavs')}.bind(this),
-      0
-    );
-  }  
   handleShowAdd() {
-    console.log('AddCard pressed');
     this.props.stateToggle('showAdd');
   }
 
   render () {
-
     const styles = {
       title: {
         color: "red",
@@ -84,12 +49,8 @@ export default class Navbar extends React.Component {
         // background: "blue",
       },
       toolbar: {
-        // background: "#ff4081",
         color: "black",
       },
-      // dropdown: {
-      //   background: "#ff4081",
-      // },
       checkbox: {
         maxWidth: 150,
         marginTop: 16,
@@ -113,23 +74,25 @@ export default class Navbar extends React.Component {
           </DropDownMenu>
           <Checkbox
             value="veg"
-            onClick={this.handleVeg.bind(this)}
+            onClick={this.handleToggle.bind(this)}
             label="Vegetarian"
             style={styles.checkbox}
           />
           <Checkbox
+            value="gf"
             label="Gluten-free"
-            onClick={this.handleGf.bind(this)}
+            onClick={this.handleToggle.bind(this)}
             style={styles.checkbox}
           />
           <Checkbox
+            value="noSpice"
             label="Not-Spicy"
-            // defaultChecked={true}
-            onClick={this.handleNoSpice.bind(this)}
+            onClick={this.handleToggle.bind(this)}
             style={styles.checkbox}
           />
           <Checkbox
-            onClick={this.handleShowFavs.bind(this)}
+            value="showFavs"
+            onClick={this.handleToggle.bind(this)}
             checkedIcon={<ActionFavorite/>}
             uncheckedIcon={<ActionFavoriteBorder/>}
             label="Favorites"
@@ -138,7 +101,6 @@ export default class Navbar extends React.Component {
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <RaisedButton onClick={this.handleShowAdd.bind(this)} label="ADD" default={true} style={styles.button} />  
-          <AuthPanel authToggle={this.props.authToggle} auth={this.props.auth}/>
         </ToolbarGroup>
       </Toolbar>
     )

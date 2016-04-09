@@ -32,33 +32,10 @@ class Layout extends React.Component {
     };
   }
 
-  // inputChangeHandler : function (event) {
-  //     this.setState({ [event.target.id]: event.target.value });
-  // }
-
   stateToggle(event) {
-    this.setState({ [event]: !this.state[event] });
+    this.setState({[event]: !this.state[event]});
   }
 
-  // ToDo: Refactor all Toggle functions to generic toggle w/ parameter
-  // authToggle() {
-  //   this.setState({auth: !this.state.auth});
-  // }
-  // showAddToggle() {
-  //   this.setState({showAdd: !this.state.showAdd});
-  // }
-  // vegToggle() {
-  //   this.setState({veg: !this.state.veg});
-  // }
-  // gfToggle() {
-  //   this.setState({gf: !this.state.gf});
-  // }
-  // noSpiceToggle() {
-  //   this.setState({noSpice: !this.state.noSpice});
-  // }
-  // showFavsToggle() {
-  //   this.setState({showFavs: !this.state.showFavs});
-  // }  
   categorySelect(category) {
     this.setState({category});
   }
@@ -172,6 +149,7 @@ class Layout extends React.Component {
   }
 
   render() {
+
     console.log("client.js state:", this.state);
     return (
       <div>
@@ -181,10 +159,10 @@ class Layout extends React.Component {
           veg={this.state.veg}
           gf={this.state.gf}
           noSpice={this.state.noSpice}
-          category={this.state.category}
-          categorySelect={this.categorySelect.bind(this)}
           showAdd={this.state.showAdd}
           showFavs={this.state.showFavs}
+          category={this.state.category}
+          categorySelect={this.categorySelect.bind(this)}
           stateToggle={this.stateToggle.bind(this)}
         />
         <br/>
