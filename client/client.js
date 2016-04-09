@@ -29,6 +29,7 @@ class Layout extends React.Component {
       vegClick: false,
       gfClick: false,
       spicyClick: false,
+      photo: null
     };
   }
 
@@ -38,6 +39,9 @@ class Layout extends React.Component {
 
   categorySelect(category) {
     this.setState({category});
+  }
+  photoInput(files) {
+    this.setState({photo: files});
   }
   dishNameInput(dishName) {
     this.setState({dishName: dishName});
@@ -62,6 +66,35 @@ class Layout extends React.Component {
   }
   spicyInput() {
     this.setState({spicyClick: !this.state.spicyClick});
+  }
+  addCardSubmit() {
+    var newDish = {
+      user_id: "TODO",
+      category_id: "TODO",
+      datetime: Date.now(),
+      food_item_name: this.state.dishName,
+      food_desc: this.state.dishDescription,
+      restaurant_name: this.state.restaurantName,
+      cost: Number(this.state.dishPrice),
+      picture: this.state.photo ? this.state.photo[0].preview : null,
+      vegetarian: this.state.vegClick,
+      gluten_free: this.state.gfClick,
+      spicy: this.state.spicyClick
+    }
+    this.state.cardData.push(newDish);
+    this.setState({showAdd: false});
+    this.setState({
+      dishName: '',
+      restaurantName: '',
+      dishDescription: '',
+      dishPrice: '',
+      dishRating: '',
+      vegClick: false,
+      gfClick: false,
+      spicyClick: false,
+      photo: null
+    });
+    console.log('New Dish!: ', this.state.cardData[this.state.cardData.length -1]);
   }
 
   getCardData(){
@@ -183,6 +216,8 @@ class Layout extends React.Component {
           vegInput={this.vegInput.bind(this)}
           gfInput={this.gfInput.bind(this)}
           spicyInput={this.spicyInput.bind(this)}
+          addCardSubmit={this.addCardSubmit.bind(this)}
+          photoInput={this.photoInput.bind(this)}
           /> : null }
         <hr/>
         <CardFeed

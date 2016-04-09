@@ -8,6 +8,7 @@ export default class AddCard extends React.Component {
 
   onDrop (files) {
     console.log('Received file(s): ', files);
+    this.props.photoInput(files);
   }
   handleDishName(e) {
     this.props.dishNameInput(e.target.value);
@@ -25,17 +26,16 @@ export default class AddCard extends React.Component {
     this.props.dishRatingInput(e.target.value);
   }
   handleVegClick() {
-    this.props.vegInput();
+    window.setTimeout(this.props.vegInput, 0);
   }
   handleGFClick() {
-    this.props.gfInput();
+    window.setTimeout(this.props.gfInput, 0);
   }
   handleSpicyClick() {
-    this.props.spicyInput();
+    window.setTimeout(this.props.spicyInput, 0);
   }
   handleSubmit() {
-    // console.log("Add-Card Form Submitted");
-    console.log(this.state);
+    this.props.addCardSubmit();
   }
 
   render() {
@@ -50,7 +50,7 @@ export default class AddCard extends React.Component {
 
     return (
       <div>
-        <Dropzone onDrop={this.onDrop}>
+        <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>
           <div>Drag your photo here, or click to select files to upload.</div>
         </Dropzone> 
         <TextField
