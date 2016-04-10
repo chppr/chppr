@@ -53,7 +53,7 @@ class Layout extends React.Component {
     this.setState({dishDescription: dishDescription});
   }
   dishPriceInput(dishPrice) {
-    this.setState({dishPrice: dishPrice});
+    this.setState({dishPrice: dishPrice*100});
   }
   dishRatingInput(dishRating) {
     this.setState({dishRating: dishRating});
@@ -69,6 +69,7 @@ class Layout extends React.Component {
   }
   addCardSubmit() {
     var newDish = {
+      // TODO - figure out categories and users
       user_id: "TODO",
       category_id: "TODO",
       datetime: Date.now(),
@@ -94,7 +95,6 @@ class Layout extends React.Component {
       spicyClick: false,
       photo: null
     });
-    console.log('New Dish!: ', this.state.cardData[this.state.cardData.length -1]);
   }
 
   getCardData(){
@@ -218,6 +218,7 @@ class Layout extends React.Component {
           spicyInput={this.spicyInput.bind(this)}
           addCardSubmit={this.addCardSubmit.bind(this)}
           photoInput={this.photoInput.bind(this)}
+          photo={this.state.photo ? this.state.photo[0].preview : null}
           /> : null }
         <hr/>
         <CardFeed

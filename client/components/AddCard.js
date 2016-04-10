@@ -44,56 +44,73 @@ export default class AddCard extends React.Component {
       checkbox: {
         maxWidth: 150,
         marginTop: 16,
+        // paddingLeft: 10,
+      },
+      dropzone: {
+        // float: 'left'
+      },
+      block: {
+        display: 'inline-block',
         paddingLeft: 10,
+      },
+      text: {
+        padding: 5
+      },
+      boxes: {
+        // float: 'left'
       }
     };
 
     return (
-      <div>
-        <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>
-          <div>Drag your photo here, or click to select files to upload.</div>
-        </Dropzone> 
-        <TextField
-          onChange={this.handleDishName.bind(this)}
-          hintText="Enter Name of Dish"
-          floatingLabelText="Enter Name of Dish"
-        /><br/>
-        <TextField
-          onChange={this.handleRestaurantName.bind(this)}
-          hintText="Enter Name of Restaurant"
-          floatingLabelText="Enter Name of Restaurant"
-        /><br/>
-        <TextField
-          onChange={this.handleDishDescription.bind(this)}
-          hintText="Enter Description of Dish"
-          floatingLabelText="Enter Description of Dish"
-        /><br/>
-        <TextField
-          onChange={this.handleDishPrice.bind(this)}
-          hintText="Enter Price of Dish"
-          floatingLabelText="Enter Price of Dish"
-        /><br/>
-        <TextField
-          onChange={this.handleDishRating.bind(this)}
-          hintText="Enter Your Rating of Dish"
-          floatingLabelText="Enter Your Rating of Dish"
-        /><br/>
-        <Checkbox
-          onClick={this.handleVegClick.bind(this)}
-          label="Vegetarian"
-          style={styles.checkbox}
-        />
-        <Checkbox
-          label="Gluten-free"
-          onClick={this.handleGFClick.bind(this)}
-          style={styles.checkbox}
-        />
-        <Checkbox
-          label="Spicy"
-          onClick={this.handleSpicyClick.bind(this)}
-          style={styles.checkbox}
-        />
-        <RaisedButton onClick={this.handleSubmit.bind(this)} label="Submit" default={true} />  
+      <div style={styles.block}>
+        <div style={styles.dropzone}>
+          <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>
+            <div style={styles.text}>Drag your photo here, or click to select a file to upload.</div>
+          </Dropzone>
+
+        {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}
+        
+        </div>
+
+        <div style={styles.boxes}>
+          <TextField
+            onChange={this.handleDishName.bind(this)}
+            floatingLabelText="Enter Name of Dish"
+          /><br/>
+          <TextField
+            onChange={this.handleRestaurantName.bind(this)}
+            floatingLabelText="Enter Name of Restaurant"
+          /><br/>
+          <TextField
+            onChange={this.handleDishDescription.bind(this)}
+            floatingLabelText="Enter Description of Dish"
+          /><br/>
+          <TextField
+            onChange={this.handleDishPrice.bind(this)}
+            floatingLabelText="Enter Price of Dish"
+          /><br/>
+          <TextField
+            onChange={this.handleDishRating.bind(this)}
+            floatingLabelText="Enter Your Rating of Dish"
+          /><br/>
+          <Checkbox
+            onClick={this.handleVegClick.bind(this)}
+            label="Vegetarian"
+            style={styles.checkbox}
+          />
+          <Checkbox
+            label="Gluten-free"
+            onClick={this.handleGFClick.bind(this)}
+            style={styles.checkbox}
+          />
+          <Checkbox
+            label="Spicy"
+            onClick={this.handleSpicyClick.bind(this)}
+            style={styles.checkbox}
+          /><br/>
+          <RaisedButton onClick={this.handleSubmit.bind(this)} label="Submit" default={true} /> 
+        </div> 
+
       </div>
     );
   }
