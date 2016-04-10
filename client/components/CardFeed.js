@@ -12,7 +12,6 @@ export default class CardFeed extends React.Component {
   render() {
     return (
       <div>
-        <p>Number of cards (unfiltered) is: {this.props.cardData.length}</p>
         {this.props.cardData.map((card) => this.matchesUserFilters(card) ?
           <DishCard data={card} /> :
           null)}
