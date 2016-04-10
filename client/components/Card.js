@@ -12,11 +12,13 @@ export default class DishCard extends React.Component {
   render() {
 
     const cardStyle = {
-      padding: "20px"
+      padding: "30px",
+      minHeight: "550px"
     };
 
     const cardWrapperStyle = {
-      marginBottom: "30px"
+      marginBottom: "30px",
+      display: "block"
     };
 
     const buttonStyle = {
@@ -42,10 +44,10 @@ export default class DishCard extends React.Component {
             subtitle={this.props.data.restaurant_name}
           />
           <row>
-            <strong>
+            <strong style={{clear: "none", float: "right"}}>
               ${this.props.data.cost / 100}
             </strong>
-            <span style={{float: "right"}}>
+            <span style={{float: "left"}}>
               {this.props.data.spicy ? " [🌶]" : ""}
               {this.props.data.gluten_free ? " [🚫🍞]" : ""}
               {this.props.data.vegetarian ? " [🌽]" : ""}

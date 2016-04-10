@@ -199,14 +199,6 @@ class Layout extends React.Component {
           stateToggle={this.stateToggle.bind(this)}
         />
         <br/>
-        <p>
-        state.category - {this.state.category}   |   
-        state.veg - {String(this.state.veg)}   |   
-        state.gf - {String(this.state.gf)}   |   
-        state.noSpice - {String(this.state.noSpice)}   |   
-        state.showFavs - {String(this.state.showFavs)}   |   
-        state.auth - {String(this.state.auth)}
-        </p>
         { this.state.showAdd ? <AddCard 
           dishNameInput={this.dishNameInput.bind(this)}
           restaurantNameInput={this.restaurantNameInput.bind(this)}
@@ -220,7 +212,6 @@ class Layout extends React.Component {
           photoInput={this.photoInput.bind(this)}
           photo={this.state.photo ? this.state.photo[0].preview : null}
           /> : null }
-        <hr/>
         <CardFeed
           boolVeg={this.state.veg}
           boolGF={this.state.gf}

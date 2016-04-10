@@ -90,14 +90,6 @@ export default class Navbar extends React.Component {
             onClick={this.handleToggle.bind(this)}
             style={styles.checkbox}
           />
-          <Checkbox
-            value="showFavs"
-            onClick={this.handleToggle.bind(this)}
-            checkedIcon={<ActionFavorite/>}
-            uncheckedIcon={<ActionFavoriteBorder/>}
-            label="Favorites"
-            style={styles.checkbox}
-          />
         </ToolbarGroup>
         <ToolbarGroup float="right">
           <RaisedButton onClick={this.handleShowAdd.bind(this)} label="ADD" default={true} style={styles.button} />  
@@ -106,3 +98,15 @@ export default class Navbar extends React.Component {
     )
   }
 }
+/*
+          In case we want to filter by favorites later:
+
+          <Checkbox
+            value="showFavs"
+            onClick={this.handleToggle.bind(this)}
+            checkedIcon={<ActionFavorite/>}
+            uncheckedIcon={<ActionFavoriteBorder/>}
+            label="Favorites"
+            style={styles.checkbox}
+          />
+*/
