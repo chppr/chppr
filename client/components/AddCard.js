@@ -62,14 +62,13 @@ export default class AddCard extends React.Component {
     };
 
     return (
-      <div style={styles.block}>
+      <form style={styles.block}>
         <div style={styles.dropzone}>
           <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>
             <div style={styles.text}>Drag your photo here, or click to select a file to upload.</div>
           </Dropzone>
 
-        {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}
-        
+          {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}g        
         </div>
 
         <div style={styles.boxes}>
@@ -108,10 +107,11 @@ export default class AddCard extends React.Component {
             onClick={this.handleSpicyClick.bind(this)}
             style={styles.checkbox}
           /><br/>
-          <RaisedButton onClick={this.handleSubmit.bind(this)} label="Submit" default={true} /> 
+          <RaisedButton type='submit' onClick={this.handleSubmit.bind(this)} label="Submit" default={true} />
         </div> 
 
-      </div>
+        <hr/>
+      </form>
     );
   }
 }
