@@ -10,7 +10,6 @@ import CardFeed from "./components/CardFeed"
 import fetch from "node-fetch";
 import $ from 'jquery';
 
-
 injectTapEventPlugin();
 
 class Layout extends React.Component {
@@ -46,9 +45,9 @@ class Layout extends React.Component {
   categorySelect(category) {
     this.setState({category});
   }
-  photoInput(files) {
-    this.setState({photo: files});
-  }
+  // photoInput(files) {
+  //   this.setState({photo: files});
+  // }
   dishNameInput(dishName) {
     this.setState({dishName: dishName});
   }
@@ -73,61 +72,48 @@ class Layout extends React.Component {
   spicyInput() {
     this.setState({spicyClick: !this.state.spicyClick});
   }
+  photoAdd(url) {
+    this.setState({photo: url})
+  }
   addCardSubmit() {
     var that = this;
     var newDish = {
       // TODO - figure out categories and users
-      "user_id": 1,
+      "user_id": 2,
       "category": 1,
       "timestamp": "01:30:00",
       "dish_name": this.state.dishName,
       "rest_name": this.state.restaurantName,
       "price": Number(this.state.dishPrice),
-      "picture_path": "/pathTo/img",
+      "picture_path": this.state.photo,
       "veggie": this.state.vegClick,
       "gluten_free": this.state.gfClick,
       "spicy": this.state.spicyClick,
       "rating": this.state.dishRating
     }
-    // var oldData = {
-      // user_id: "TODO",
-      // category_id: "TODO",
-      // datetime: Date.now(),
-      // food_item_name: this.state.dishName,
-      // food_desc: this.state.dishDescription,
-      // restaurant_name: this.state.restaurantName,
-      // cost: Number(this.state.dishPrice),
-      // picture: this.state.photo ? this.state.photo[0].preview : null,
-      // vegetarian: this.state.vegClick,
-      // gluten_free: this.state.gfClick,
-      // spicy: this.state.spicyClick
-    // }
-
-    // fetch('/feed', { method: 'POST', body: newDish })
-    // .then(function(res) {
-    //   console.log("New dish posted");
-    //   // this.state.cardData.push(newDish);
-    //   that.setState({showAdd: false});
-    //   that.setState({
-    //     dishName: '',
-    //     restaurantName: '',
-    //     dishDescription: '',
-    //     dishPrice: '',
-    //     dishRating: '',
-    //     vegClick: false,
-    //     gfClick: false,
-    //     spicyClick: false,
-    //     photo: null
-    //   });
-    // })
-    // .catch(function() {
-    //   console.log("Failed to post new dish");
-    // })
     
+    var file = {
+      photo: that.state.photo[0]
+    }
+
+    fetch('http://localhost:4000/upload', {
+      method: 'POST',
+      body: 'test'
+    })
+    .then(function() {
+      console.log("I think the file saved?");
+    })
+    .catch(function(err) {
+      console.log("Yo, I'm pretty sure something didn't work...:", err);
+    })
+
     $.ajax({
       type: "POST",
       url: "/feed",
-      data: newDish
+      data: newDish,
+      cache: false,
+      processData: false,
+      contentType: false
     })
     .done(function() {
       console.log("New dish posted");
@@ -293,8 +279,9 @@ class Layout extends React.Component {
           gfInput={this.gfInput.bind(this)}
           spicyInput={this.spicyInput.bind(this)}
           addCardSubmit={this.addCardSubmit.bind(this)}
-          photoInput={this.photoInput.bind(this)}
+          // photoInput={this.photoInput.bind(this)}
           photo={this.state.photo ? this.state.photo[0].preview : null}
+          photoAdd={this.photoAdd.bind(this)}
           /> : null }
         <CardFeed
           boolVeg={this.state.veg}

@@ -6,10 +6,10 @@ import Checkbox from 'material-ui/lib/checkbox';
 
 export default class AddCard extends React.Component {
 
-  onDrop (files) {
-    console.log('Received file(s): ', files);
-    this.props.photoInput(files);
-  }
+  // onDrop (files) {
+  //   console.log('Received file(s): ', files);
+  //   this.props.photoInput(files);
+  // }
   handleDishName(e) {
     this.props.dishNameInput(e.target.value);
   }
@@ -37,6 +37,9 @@ export default class AddCard extends React.Component {
   handleSubmit() {
     this.props.addCardSubmit();
   }
+  handlePhoto(e) {
+    this.props.photoAdd(e.target.value);
+  }
 
   render() {
 
@@ -63,15 +66,12 @@ export default class AddCard extends React.Component {
 
     return (
       <div style={styles.block}>
-        <div style={styles.dropzone}>
-          <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>
-            <div style={styles.text}>Drag your photo here, or click to select a file to upload.</div>
-          </Dropzone>
-
-          {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}        
-        </div>
 
         <div style={styles.boxes}>
+          <TextField
+            onChange={this.handlePhoto.bind(this)}
+            floatingLabelText="Enter URL for your photo"
+          /><br/>
           <TextField
             onChange={this.handleDishName.bind(this)}
             floatingLabelText="Enter Name of Dish"
@@ -115,3 +115,11 @@ export default class AddCard extends React.Component {
     );
   }
 }
+
+        // <div style={styles.dropzone}>
+        //   <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>
+        //     <div style={styles.text}>Drag your photo here, or click to select a file to upload.</div>
+        //   </Dropzone>
+
+        //   {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}        
+        // </div>
