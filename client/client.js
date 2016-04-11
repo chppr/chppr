@@ -152,7 +152,6 @@ class Layout extends React.Component {
   }
 
   getCardData(){
-<<<<<<< a3eee593b97ea06b936954f7f5ad0b5060558662
     // TODO - Replace this with a database call
     var that = this;
 
@@ -183,9 +182,7 @@ class Layout extends React.Component {
     */
 
     /*
-=======
 
->>>>>>> Ajax calls in client.js
     return [
       {
         user_id: 1,
