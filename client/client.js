@@ -20,7 +20,7 @@ class Layout extends React.Component {
       veg: false,
       gf: false,
       noSpice: false,
-      category: "all",
+      category: null,
       cardData: [],
       showAdd: false,
       showFavs: false,
@@ -108,7 +108,7 @@ class Layout extends React.Component {
     })
 
   ////// VERY HACKY FIX //////
-    if (this.state.dishRating === '') {
+    if (this.state.dishRating !== '') {
 
       $.ajax({
         type: "POST",
@@ -210,6 +210,7 @@ class Layout extends React.Component {
           boolGF={this.state.gf}
           boolNoSpice={this.state.noSpice}
           cardData={this.state.cardData}
+          category={this.state.category}
         />
       </div>
     );

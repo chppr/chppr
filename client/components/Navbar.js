@@ -66,11 +66,12 @@ export default class Navbar extends React.Component {
         <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
-              <MenuItem value={'all'} primaryText="All"/>
-              <MenuItem value={'asian'} primaryText="Asian"/>
-              <MenuItem value={'american'} primaryText="American"/>
-              <MenuItem value={'italian'} primaryText="Italian"/>
-              <MenuItem value={'french'} primaryText="French"/>
+              <MenuItem value={null} primaryText="All"/>
+              <MenuItem value={1} primaryText="Mexican"/>
+              <MenuItem value={2} primaryText="American"/>
+              <MenuItem value={3} primaryText="Asian"/>
+              <MenuItem value={4} primaryText="Italian"/>
+              <MenuItem value={5} primaryText="BBQ"/>
           </DropDownMenu>
           <Checkbox
             value="veg"

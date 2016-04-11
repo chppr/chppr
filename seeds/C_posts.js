@@ -110,7 +110,7 @@ exports.seed = function (knex, Promise) {
 		}),
 		knex('posts').insert({
 			user_id: 3,
-			category: 2,
+			category: 3,
 			timestamp: "02:38:00PM",
 			dish_name: "Tonkotsu Original Ramen",
 			rest_name: "Ramen Tatsu Ya",
