@@ -33,7 +33,7 @@ class Layout extends React.Component {
       gfClick: false,
       spicyClick: false,
       photo: null,
-      dishCat: null
+      dishCat: 999
     };
 
     this.getCardData();
