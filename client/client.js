@@ -8,6 +8,8 @@ import AddCard from "./components/AddCard"
 import CardFeed from "./components/CardFeed"
 
 import fetch from "node-fetch";
+import $ from 'jquery';
+
 
 injectTapEventPlugin();
 
@@ -72,36 +74,85 @@ class Layout extends React.Component {
     this.setState({spicyClick: !this.state.spicyClick});
   }
   addCardSubmit() {
+    var that = this;
     var newDish = {
       // TODO - figure out categories and users
-      user_id: "TODO",
-      category_id: "TODO",
-      datetime: Date.now(),
-      food_item_name: this.state.dishName,
-      food_desc: this.state.dishDescription,
-      restaurant_name: this.state.restaurantName,
-      cost: Number(this.state.dishPrice),
-      picture: this.state.photo ? this.state.photo[0].preview : null,
-      vegetarian: this.state.vegClick,
-      gluten_free: this.state.gfClick,
-      spicy: this.state.spicyClick
+      "postID": 79,
+      "user_id": 1,
+      "category": 1,
+      "timestamp": "01:30:00",
+      "dish_name": this.state.dishName,
+      "rest_name": this.state.restaurantName,
+      "price": Number(this.state.dishPrice),
+      "picture_path": "/pathTo/img",
+      "veggie": this.state.vegClick,
+      "gluten_free": this.state.gfClick,
+      "spicy": this.state.spicyClick,
+      "rating": this.state.dishRating
     }
-    this.state.cardData.push(newDish);
-    this.setState({showAdd: false});
-    this.setState({
-      dishName: '',
-      restaurantName: '',
-      dishDescription: '',
-      dishPrice: '',
-      dishRating: '',
-      vegClick: false,
-      gfClick: false,
-      spicyClick: false,
-      photo: null
-    });
+    // var oldData = {
+      // user_id: "TODO",
+      // category_id: "TODO",
+      // datetime: Date.now(),
+      // food_item_name: this.state.dishName,
+      // food_desc: this.state.dishDescription,
+      // restaurant_name: this.state.restaurantName,
+      // cost: Number(this.state.dishPrice),
+      // picture: this.state.photo ? this.state.photo[0].preview : null,
+      // vegetarian: this.state.vegClick,
+      // gluten_free: this.state.gfClick,
+      // spicy: this.state.spicyClick
+    // }
+
+    // fetch('/feed', { method: 'POST', body: newDish })
+    // .then(function(res) {
+    //   console.log("New dish posted");
+    //   // this.state.cardData.push(newDish);
+    //   that.setState({showAdd: false});
+    //   that.setState({
+    //     dishName: '',
+    //     restaurantName: '',
+    //     dishDescription: '',
+    //     dishPrice: '',
+    //     dishRating: '',
+    //     vegClick: false,
+    //     gfClick: false,
+    //     spicyClick: false,
+    //     photo: null
+    //   });
+    // })
+    // .catch(function() {
+    //   console.log("Failed to post new dish");
+    // })
+    
+    $.ajax({
+      type: "POST",
+      url: "/feed",
+      data: newDish
+    })
+    .done(function() {
+      console.log("New dish posted");
+      // this.state.cardData.push(newDish);
+      that.setState({showAdd: false});
+      that.setState({
+        dishName: '',
+        restaurantName: '',
+        dishDescription: '',
+        dishPrice: '',
+        dishRating: '',
+        vegClick: false,
+        gfClick: false,
+        spicyClick: false,
+        photo: null
+      });
+    })
+    .fail(function() {
+      console.log("Failed to post new dish");
+    })
   }
 
   getCardData(){
+<<<<<<< a3eee593b97ea06b936954f7f5ad0b5060558662
     // TODO - Replace this with a database call
     var that = this;
 
@@ -132,6 +183,9 @@ class Layout extends React.Component {
     */
 
     /*
+=======
+
+>>>>>>> Ajax calls in client.js
     return [
       {
         user_id: 1,
@@ -217,7 +271,7 @@ class Layout extends React.Component {
 
   render() {
 
-    console.log("client.js state:", this.state);
+    // console.log("client.js state:", this.state);
     return (
       <div>
         {/* Pass methods & state vars to Toolbar Component through props */}

@@ -40,6 +40,7 @@
     "history": "^1.17.0",
     "html-webpack-plugin": "^2.15.0",
     "json-loader": "^0.5.4",
+    "jquery": "^2.2.3",
     "knex": "^0.10.0",
     "material-ui": "^0.15.0-alpha.2",
     "method-override": "~1.0.0",
