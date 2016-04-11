@@ -107,33 +107,38 @@ class Layout extends React.Component {
       console.log("Yo, I'm pretty sure something didn't work...:", err);
     })
 
-    $.ajax({
-      type: "POST",
-      url: "/feed",
-      data: newDish,
-      cache: false,
-      processData: false,
-      contentType: false
-    })
-    .done(function() {
-      console.log("New dish posted");
-      that.state.cardData.unshift(newDish);
-      that.setState({showAdd: false});
-      that.setState({
-        dishName: '',
-        restaurantName: '',
-        dishDescription: '',
-        dishPrice: '',
-        dishRating: '',
-        vegClick: false,
-        gfClick: false,
-        spicyClick: false,
-        photo: null
-      });
-    })
-    .fail(function() {
-      console.log("Failed to post new dish");
-    })
+  ////// VERY HACKY FIX //////
+    if (this.state.dishRating === '') {
+
+      $.ajax({
+        type: "POST",
+        url: "/feed",
+        data: newDish,
+        cache: false,
+        processData: false,
+        contentType: false
+      })
+      .done(function() {
+        console.log("New dish posted");
+        that.state.cardData.unshift(newDish);
+        that.setState({showAdd: false});
+        that.setState({
+          dishName: '',
+          restaurantName: '',
+          dishDescription: '',
+          dishPrice: '',
+          dishRating: '',
+          vegClick: false,
+          gfClick: false,
+          spicyClick: false,
+          photo: null
+        });
+      })
+      .fail(function() {
+        console.log("Failed to post new dish");
+      })
+    }
+
   }
 
   getCardData(){
@@ -198,6 +203,7 @@ class Layout extends React.Component {
           // photoInput={this.photoInput.bind(this)}
           photo={this.state.photo ? this.state.photo[0].preview : null}
           photoAdd={this.photoAdd.bind(this)}
+          showAdd={this.state.showAdd}
           /> : null }
         <CardFeed
           boolVeg={this.state.veg}
