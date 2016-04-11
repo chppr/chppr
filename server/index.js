@@ -33,46 +33,42 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-//app.use(sess({
-//	secret: 'secret',
-//	resave: false,
-//	saveUninitialized: false
-//}))
 
-//app.use(passport.initialize())
-//app.use(passport.session())
-//passport.use(new passportLocal.strategy(function(usr,pass,done){
-//	if()
-//	done(null,user)
-//}))
 
 // Mount our main router
 app.use('/', routes)
-//
-// Provide a browserified file at a specified path
-//
-//routes.get('/app-bundle.js',
-//  browserify('./../client/app.js'))
 
-routes.get('/', function (req, res) {
+
+
+
+// ---------- Routes Start Here ------------- //
+
+
+//Login route, default route
+routes.get('/', function(req, res) {
+	res.sendFile(assetFolder + '/login.html')
+})
+
+
+//get endpoint for json obj for posts 
+routes.get('/feed', function (req, res) {
+	Posts.loader()
+	.then(function(posts){
+		res.status(201).send(posts);
+	})
+	.catch(function (err) {
+				console.log('Error getting posts: ', err);
+				return res.status(404).send(err);
+	})
+})
+
+//get endpoint to serve up index.html
+routes.get('/dashboard', function (req, res) {
 	res.sendFile(assetFolder + '/index.html')
 })
 
-// Static assets (html, etc.)
 
-var assetFolder = Path.resolve(__dirname, '../client')
-
-routes.use(express.static(assetFolder))
-
-// Example endpoint (also tested in test/server/index_test.js)
-//
-routes.get('/api/tags-example', function(req, res) {
-  res.send(['node', 'express', 'browserify', 'mithril'])
-})
-
-
-
-//main endpoint for user posts
+//post endpoint for user feed
 routes.post('/feed', function(req, res) {
 	var card = req.body;
 	console.log(req.body);
@@ -101,6 +97,8 @@ routes.post('/categories', function(req, res) {
 			})
 })
 
+
+//Signup And login routes will be changed/deleted once auth is set up
 routes.post('/signup', function(req, res) {
 	var user = req.body;
 	
@@ -132,7 +130,9 @@ routes.post('/login', function (req, res) {
 
 
 
-
+// Static assets (html, etc.)
+var assetFolder = Path.resolve(__dirname, '../client')
+routes.use(express.static(assetFolder))
 
 var port = process.env.PORT || 4000
 app.listen(port)

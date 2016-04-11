@@ -13,3 +13,11 @@ Post.create = function (incomingAttrs) {
       return result[0];
     });
 };
+
+Post.loader = function () {	
+	return db.select('*').from('posts').orderBy('timestamp') //.limit(5).offset(5)
+    .then(function (result) {
+      // Prepare new user for outside world
+      return result;
+    });
+};
