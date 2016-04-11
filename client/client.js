@@ -32,7 +32,8 @@ class Layout extends React.Component {
       vegClick: false,
       gfClick: false,
       spicyClick: false,
-      photo: null
+      photo: null,
+      dishCat: null
     };
 
     this.getCardData();
@@ -75,12 +76,15 @@ class Layout extends React.Component {
   photoAdd(url) {
     this.setState({photo: url})
   }
+  catAdd(category) {
+    this.setState({dishCat: category})
+  }
   addCardSubmit() {
     var that = this;
     var newDish = {
       // TODO - figure out categories and users
-      "user_id": 2,
-      "category": 1,
+      "user_id": 5,
+      "category": this.state.dishCat,
       "timestamp": "01:30:00",
       "dish_name": this.state.dishName,
       "rest_name": this.state.restaurantName,
@@ -96,16 +100,16 @@ class Layout extends React.Component {
       photo: that.state.photo[0]
     }
 
-    fetch('http://localhost:4000/upload', {
-      method: 'POST',
-      body: 'test'
-    })
-    .then(function() {
-      console.log("I think the file saved?");
-    })
-    .catch(function(err) {
-      console.log("Yo, I'm pretty sure something didn't work...:", err);
-    })
+    // fetch('http://localhost:4000/upload', {
+    //   method: 'POST',
+    //   body: 'test'
+    // })
+    // .then(function() {
+    //   console.log("I think the file saved?");
+    // })
+    // .catch(function(err) {
+    //   console.log("Yo, I'm pretty sure something didn't work...:", err);
+    // })
 
   ////// VERY HACKY FIX //////
     if (this.state.dishRating !== '') {
@@ -114,9 +118,9 @@ class Layout extends React.Component {
         type: "POST",
         url: "/feed",
         data: newDish,
-        cache: false,
-        processData: false,
-        contentType: false
+        // cache: false,
+        // processData: false,
+        // contentType: false
       })
       .done(function() {
         console.log("New dish posted");
@@ -131,7 +135,8 @@ class Layout extends React.Component {
           vegClick: false,
           gfClick: false,
           spicyClick: false,
-          photo: null
+          photo: null,
+          dishCat: null
         });
       })
       .fail(function() {
@@ -204,6 +209,8 @@ class Layout extends React.Component {
           photo={this.state.photo ? this.state.photo[0].preview : null}
           photoAdd={this.photoAdd.bind(this)}
           showAdd={this.state.showAdd}
+          catAdd={this.catAdd.bind(this)}
+          dishCat={this.state.dishCat}
           /> : null }
         <CardFeed
           boolVeg={this.state.veg}

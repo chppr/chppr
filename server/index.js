@@ -72,7 +72,7 @@ routes.get('/pictures/')
 //post endpoint for user feed
 routes.post('/feed', function(req, res) {
 	var card = req.body;
-	console.log(req.body);
+	console.log("REQ BODY:", req.body);
 	Posts.create(card)
 	.then(function(post){
 		res.status(201).send(post);
