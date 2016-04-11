@@ -32,7 +32,7 @@ app.use(webpackDevMiddleware(compiler, {
 // Parse incoming request bodies as JSON
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 // Mount our main router
