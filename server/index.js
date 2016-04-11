@@ -67,6 +67,7 @@ routes.get('/dashboard', function (req, res) {
 	res.sendFile(assetFolder + '/index.html')
 })
 
+routes.get('/pictures/')
 
 //post endpoint for user feed
 routes.post('/feed', function(req, res) {

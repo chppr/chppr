@@ -5,7 +5,7 @@ export default class CardFeed extends React.Component {
   matchesUserFilters(c) {
     if (this.props.boolNoSpice && c.spicy) return false;
     if (this.props.boolGF && c.gluten_free === false) return false;
-    if (this.props.boolVeg && c.vegetarian === false) return false;
+    if (this.props.boolVeg && c.veggie === false) return false;
     return true;
   }
 

@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar"
 import AddCard from "./components/AddCard"
 import CardFeed from "./components/CardFeed"
 
+import fetch from "node-fetch";
+
 injectTapEventPlugin();
 
 class Layout extends React.Component {
@@ -18,7 +20,7 @@ class Layout extends React.Component {
       gf: false,
       noSpice: false,
       category: "all",
-      cardData: this.getCardData(),
+      cardData: [],
       showAdd: false,
       showFavs: false,
       dishName: '',
@@ -31,6 +33,8 @@ class Layout extends React.Component {
       spicyClick: false,
       photo: null
     };
+
+    this.getCardData();
   }
 
   stateToggle(event) {
@@ -99,6 +103,35 @@ class Layout extends React.Component {
 
   getCardData(){
     // TODO - Replace this with a database call
+    var that = this;
+
+    fetch('http://localhost:4000/feed')
+    .then(function(res) {
+      return res.json();
+    })
+    .then(function(json) {
+      console.log('got this json', json);
+      that.setState({cardData: json})
+    })
+    .catch(function(err) {
+      console.log('something went wrong getting data', err);
+    });
+        /*
+    $.ajax({
+      url: '/feed',
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        console.log('got this data from /feed', data);
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log('getCardData failed, status: ', status, 'error: ', err);
+      }.bind(this)
+    
+    });
+    */
+
+    /*
     return [
       {
         user_id: 1,
@@ -179,6 +212,7 @@ class Layout extends React.Component {
         spicy: false  
       }
       ];
+      */
   }
 
   render() {

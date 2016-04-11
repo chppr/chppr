@@ -13,7 +13,17 @@ export default class DishCard extends React.Component {
 
     const cardStyle = {
       padding: "30px",
-      minHeight: "550px"
+      height: "650px"
+    };
+
+    const imageStyle = {
+      width: "100%",
+      maxHeight: "360px",
+      width: "auto"
+    };
+
+    const cardMediaStyle = {
+      height: "370px"
     };
 
     const cardWrapperStyle = {
@@ -32,25 +42,24 @@ export default class DishCard extends React.Component {
           style={cardStyle}>
           <CardHeader
             title={"User Number "+ this.props.data.user_id}
-            subtitle={"Category Number "+ this.props.data.category_id}
+            subtitle={"Category Number "+ this.props.data.category}
             avatar="http://lorempixel.com/200/200/"
           />
-          <CardMedia>
-            <img src="http://lorempixel.com/600/337/food/" />
-            <p> pretend img src is: {this.props.data.picture} </p>
+          <CardMedia style={cardMediaStyle}>
+              <img style={imageStyle} src={this.props.data.picture_path} />
           </CardMedia>
           <CardTitle
-            title={this.props.data.food_item_name}
-            subtitle={this.props.data.restaurant_name}
+            title={this.props.data.dish_name}
+            subtitle={this.props.data.rest_name}
           />
           <row>
             <strong style={{clear: "none", float: "right"}}>
-              ${this.props.data.cost / 100}
+              ${this.props.data.price}
             </strong>
             <span style={{float: "left"}}>
               {this.props.data.spicy ? " [🌶]" : ""}
               {this.props.data.gluten_free ? " [🚫🍞]" : ""}
-              {this.props.data.vegetarian ? " [🌽]" : ""}
+              {this.props.data.veggie ? " [🌽]" : ""}
             </span>
           </row>
         </Card>
