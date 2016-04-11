@@ -77,7 +77,6 @@ class Layout extends React.Component {
     var that = this;
     var newDish = {
       // TODO - figure out categories and users
-      "postID": 79,
       "user_id": 1,
       "category": 1,
       "timestamp": "01:30:00",
@@ -132,7 +131,7 @@ class Layout extends React.Component {
     })
     .done(function() {
       console.log("New dish posted");
-      // this.state.cardData.push(newDish);
+      that.state.cardData.unshift(newDish);
       that.setState({showAdd: false});
       that.setState({
         dishName: '',
