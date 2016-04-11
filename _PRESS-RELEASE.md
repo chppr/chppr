@@ -17,28 +17,30 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > YumSnap!
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > For someone who likes to post photos of their awesome meals on social media and for someone who is interested in seeing what people around them are eating.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > YumSnap! is like a combination of Twitter and Yelp, but focused on individual menu items. Using our app, a user can post a new dish to the 'dish feed' that contains information such as the name of the dish, a photo of the dish, the resaurant it can be purchased at, a description of the dish, and the price. Users can then browse our app to see the dishes that people around them have been enjoying. If a user finds a dish they are interested in, all of the relevant information needed to find that dish is clearly listed on our page.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > If you want to find the prices or descriptions of individual menu items on restaurant review apps (like Yelp), you have to navigate through several layers of their app, only to eventually be redirected to a restaurant's website (within the Yelp app). YumSnap! has all of this information on one, simple webpage.
+
+  > If you see a delicious looking meal that one of your friends posted on Instagram or Twitter, you will probably have to nag your friend for the name of the restaurant (and any other relevant information you'd like).
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > On YumSnap!, all of this information is required for each post, so you will always have everything you need to go find a dish that you are interested in eating.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Do you know what you'd like to eat today?"
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Navigate to our page, and login. That's it.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "YumSnap! helped me find my lunch today!"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Try YumSnap! Find great food.
