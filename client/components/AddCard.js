@@ -16,9 +16,9 @@ export default class AddCard extends React.Component {
   handleRestaurantName(e) {
     this.props.restaurantNameInput(e.target.value);
   }
-  handleDishDescription(e) {
-    this.props.dishDescriptionInput(e.target.value);
-  }
+  // handleDishDescription(e) {
+  //   this.props.dishDescriptionInput(e.target.value);
+  // }
   handleDishPrice(e) {
     this.props.dishPriceInput(e.target.value);
   }
@@ -81,10 +81,6 @@ export default class AddCard extends React.Component {
             floatingLabelText="Enter Name of Restaurant"
           /><br/>
           <TextField
-            onChange={this.handleDishDescription.bind(this)}
-            floatingLabelText="Enter Description of Dish"
-          /><br/>
-          <TextField
             onChange={this.handleDishPrice.bind(this)}
             floatingLabelText="Enter Price of Dish"
           /><br/>
@@ -115,6 +111,10 @@ export default class AddCard extends React.Component {
     );
   }
 }
+          /*<TextField
+            onChange={this.handleDishDescription.bind(this)}
+            floatingLabelText="Enter Description of Dish"
+          /><br/>*/
 
         // <div style={styles.dropzone}>
         //   <Dropzone multiple={false} accept={'image/*'} onDrop={this.onDrop.bind(this)}>

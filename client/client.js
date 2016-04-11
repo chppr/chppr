@@ -54,11 +54,11 @@ class Layout extends React.Component {
   restaurantNameInput(restaurantName) {
     this.setState({restaurantName: restaurantName});
   }
-  dishDescriptionInput(dishDescription) {
-    this.setState({dishDescription: dishDescription});
-  }
+  // dishDescriptionInput(dishDescription) {
+  //   this.setState({dishDescription: dishDescription});
+  // }
   dishPriceInput(dishPrice) {
-    this.setState({dishPrice: dishPrice*100});
+    this.setState({dishPrice: dishPrice});
   }
   dishRatingInput(dishRating) {
     this.setState({dishRating: dishRating});
@@ -165,90 +165,6 @@ class Layout extends React.Component {
     
     });
     */
-
-    /*
-
-    return [
-      {
-        user_id: 1,
-        category_id: 3,
-        datetime: 1459536859876,
-        food_item_name: "Bison Burger with Jalapeno",
-        food_desc: "Fresh from Oregon Trail",
-        restaurant_name: "Hut's Hamburgers",
-        cost: 1325,
-        picture: '/photoStorage/burger1.png',
-        vegetarian: false,
-        gluten_free: false,
-        spicy: true
-      },
-      {
-        user_id: 2,
-        category_id: 1,
-        datetime: 1459537259695,
-        food_item_name: "Kiwi Spinach Smoothie",
-        food_desc: "omg I got all my greens",
-        restaurant_name: "Daily Juice",
-        cost: 749,
-        picture: '/photoStorage/kiwiSmoothie.png',
-        vegetarian: true,
-        gluten_free: true,
-        spicy: false  
-      },
-      {
-        user_id: 1,
-        category_id: 2,
-        datetime: 1459537364357,
-        food_item_name: "Rack of Lamb with Mint Jelly",
-        food_desc: "not as good as in auckland, but ok",
-        restaurant_name: "Roaring Fork",
-        cost: 2682,
-        picture: '/photoStorage/lamb1.png',
-        vegetarian: false,
-        gluten_free: false,
-        spicy: false 
-      },
-      {
-        user_id: 3,
-        category_id: 1,
-        datetime: 1459536859876,
-        food_item_name: "Carrot Ginger Cayenne Power Up",
-        food_desc: "Worst. Diet. Ever.",
-        restaurant_name: "JuiceLand",
-        cost: 801,
-        picture: '/photoStorage/juice1.png',
-        vegetarian: true,
-        gluten_free: true,
-        spicy: true  
-      },
-      {
-        user_id: 2,
-        category_id: 2,
-        datetime: 1459537552836,
-        food_item_name: "Fish and Chips",
-        food_desc: "I'd get this every day if I made mad developer money",
-        restaurant_name: "B.D. Riley's",
-        cost: 1455,
-        picture: '/photoStorage/fishAndChips1.png',
-        vegetarian: false,
-        gluten_free: false,
-        spicy: false  
-      },
-      {
-        user_id: 2,
-        category_id: 2,
-        datetime: 1459537552836,
-        food_item_name: "Irish Stew",
-        food_desc: "Classic Irish cuisine. Because the Irish are know for their food.",
-        restaurant_name: "B.D. Riley's",
-        cost: 1595,
-        picture: '/photoStorage/irish_stew.png',
-        vegetarian: false,
-        gluten_free: false,
-        spicy: false  
-      }
-      ];
-      */
   }
 
   render() {
@@ -272,7 +188,7 @@ class Layout extends React.Component {
         { this.state.showAdd ? <AddCard 
           dishNameInput={this.dishNameInput.bind(this)}
           restaurantNameInput={this.restaurantNameInput.bind(this)}
-          dishDescriptionInput={this.dishDescriptionInput.bind(this)}
+          // dishDescriptionInput={this.dishDescriptionInput.bind(this)}
           dishPriceInput={this.dishPriceInput.bind(this)}
           dishRatingInput={this.dishRatingInput.bind(this)}
           vegInput={this.vegInput.bind(this)}
