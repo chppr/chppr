@@ -6,35 +6,11 @@ import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 import RaisedButton from 'material-ui/lib/raised-button';
 import CardText from 'material-ui/lib/card/card-text';
+import {cardStyle, imageStyle, cardMediaStyle, cardWrapperStyle, buttonStyle} from '../inlineStyles';
 
 export default class DishCard extends React.Component {
-
   render() {
-
-    const cardStyle = {
-      padding: "30px",
-      height: "650px"
-    };
-
-    const imageStyle = {
-      width: "100%",
-      maxHeight: "360px",
-      width: "auto"
-    };
-
-    const cardMediaStyle = {
-      height: "370px"
-    };
-
-    const cardWrapperStyle = {
-      marginBottom: "30px",
-      display: "block"
-    };
-
-    const buttonStyle = {
-      backgroundColor: "#E9573F"
-    };
-
+    console.log("ALL DATA:", this.props.data);
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
         <Card
@@ -56,6 +32,9 @@ export default class DishCard extends React.Component {
             <strong style={{clear: "none", float: "right"}}>
               ${this.props.data.price}
             </strong>
+              {Array.apply(null, new Array(this.props.data.rating)).map(function(){
+                return <img style={{height:30, width:30}} src="/icons/star.png"/>
+              })}
             <span style={{float: "left"}}>
               {this.props.data.spicy ? " [🌶]" : ""}
               {this.props.data.gluten_free ? " [🚫🍞]" : ""}

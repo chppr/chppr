@@ -1,10 +1,10 @@
 //var browserify = require('browserify-middleware')
 var express = require('express')
 var webpack = require ('webpack');
-var webpackDevMiddleware = require ('webpack-dev-middleware')  
-//var webpackHotMiddleware = require ('webpack-hot-middleware')  
+var webpackDevMiddleware = require ('webpack-dev-middleware')
+//var webpackHotMiddleware = require ('webpack-hot-middleware')
 var config = require( './../webpack.config.js')
-var compiler = webpack(config)  
+var compiler = webpack(config)
 
 var Path = require('path')
 var session = require('express-session');
@@ -14,21 +14,21 @@ var bodyParser = require('body-parser')
 var passport = require('passport')
 var flash    = require('connect-flash'); // messages stored in session
 
-var Posts = require('./../client/models/posts');
-var Users = require('./../client/models/users');
+var Posts = require('./models/posts');
+var Users = require('./models/users');
 
 var routes = express.Router()
 var app = express()
 
 
-app.use(webpackDevMiddleware(compiler, {  
-    publicPath: config.output.publicPath,  
-    stats: {colors: true}  
+app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: {colors: true}
 }))
 
-//app.use(webpackHotMiddleware(compiler, {  
-//    log: console.log 
-//})) 
+//app.use(webpackHotMiddleware(compiler, {
+//    log: console.log
+//}))
 // Parse incoming request bodies as JSON
 app.use(bodyParser.json())
 app.use(cookieParser());
@@ -50,7 +50,7 @@ routes.get('/', function(req, res) {
 })
 
 
-//get endpoint for json obj for posts 
+//get endpoint for json obj for posts
 routes.get('/feed', function (req, res) {
 	Posts.loader()
 	.then(function(posts){
@@ -102,7 +102,7 @@ routes.post('/categories', function(req, res) {
 //Signup And login routes will be changed/deleted once auth is set up
 routes.post('/signup', function(req, res) {
 	var user = req.body;
-	
+
 	Users.create(user)
 	.then(function(person){
 		res.status(201).send(person);

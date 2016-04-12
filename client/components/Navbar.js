@@ -11,6 +11,7 @@ import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';
 import AuthPanel from "./AuthPanel";
 import AddCard from "./AddCard";
+import {styles} from '../inlineStyles'
 
 export default class Navbar extends React.Component {
 
@@ -32,35 +33,7 @@ export default class Navbar extends React.Component {
     this.props.stateToggle('showAdd');
   }
 
-  render () {
-    const styles = {
-      title: {
-        color: "red",
-        minWidth: 160,
-        maxWidth: 160,
-        fontWeight: 700, 
-        fontSize: "30px",
-        marginRight: 0,
-        // background: "blue",
-      },
-      dropdown: {
-        marginRight: 100,
-        width: 30,
-        // background: "blue",
-      },
-      toolbar: {
-        color: "black",
-      },
-      checkbox: {
-        maxWidth: 150,
-        marginTop: 16,
-        paddingLeft: 10,
-      },
-      button: {
-        margin: 12,
-      }
-    };
-
+  render(){
     return (
       <Toolbar style={styles.toolbar}>
         <ToolbarTitle style={styles.title} text="YumSnap!" />
@@ -93,21 +66,21 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <RaisedButton onClick={this.handleShowAdd.bind(this)} label={!this.props.showAdd ? "ADD DISH" : "CANCEL"} default={true} style={styles.button} />  
+          <RaisedButton onClick={this.handleShowAdd.bind(this)} label={!this.props.showAdd ? "ADD DISH" : "CANCEL"} default={true} style={styles.button} />
         </ToolbarGroup>
       </Toolbar>
     )
   }
 }
 /*
-          In case we want to filter by favorites later:
+  In case we want to filter by favorites later:
 
-          <Checkbox
-            value="showFavs"
-            onClick={this.handleToggle.bind(this)}
-            checkedIcon={<ActionFavorite/>}
-            uncheckedIcon={<ActionFavoriteBorder/>}
-            label="Favorites"
-            style={styles.checkbox}
-          />
+  <Checkbox
+    value="showFavs"
+    onClick={this.handleToggle.bind(this)}
+    checkedIcon={<ActionFavorite/>}
+    uncheckedIcon={<ActionFavoriteBorder/>}
+    label="Favorites"
+    style={styles.checkbox}
+  />
 */
