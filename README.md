@@ -34,7 +34,7 @@ pg_ctl -D /usr/local/var/postgres stop -s -m fast
 ```
 Some helpful bash aliases:
 ```
-alias fukyum='dropdb yumsnap; createdb yumsnap'
+alias restartyumdb='dropdb yumsnap; createdb yumsnap'
 alias startyum='postgres -D /usr/local/var/postgres'
 alias stopyum='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
 ```
