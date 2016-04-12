@@ -1,4 +1,4 @@
-var db = require('./../../app/db');
+var db = require('../db');
 var Promise = require('bluebird');
 
 var Users = module.exports
@@ -10,9 +10,9 @@ var Users = module.exports
 //    })
 //}
 
-Users.create = function (incomingAttrs) {	
+Users.create = function (incomingAttrs) {
 	var attrs = Object.assign({}, incomingAttrs)
-	
+
 	return db('users').insert(attrs)
     .then(function (result) {
       // Prepare new user for outside world
@@ -36,9 +36,9 @@ Users.verify = function (username, password) {
 
 //only did categories here because we only use it once! not an actual relation to the users
 Users.categories = function (incomingAttrs) {
-	
+
 	var attrs = Object.assign({}, incomingAttrs)
-	
+
 	return db('categories').insert(attrs)
     .then(function (result) {
       // Prepare new user for outside world

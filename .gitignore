@@ -1,6 +1,7 @@
 client/client.min.js
 node_modules/
 bower_components/
+yumsnap/
 *.log
 
 build/
