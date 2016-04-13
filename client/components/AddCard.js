@@ -79,6 +79,14 @@ export default class AddCard extends React.Component {
       <div style={styles.block}>
 
         <div style={styles.boxes}>
+          <DropDownMenu /*style={styles.dropdown}*/ value={this.props.dishCat} onChange={this.handleCatSelect.bind(this)}>
+            <MenuItem value={999} primaryText="Select Style of Food"/>
+            <MenuItem value={1} primaryText="Mexican"/>
+            <MenuItem value={2} primaryText="American"/>
+            <MenuItem value={3} primaryText="Asian"/>
+            <MenuItem value={4} primaryText="Italian"/>
+            <MenuItem value={5} primaryText="BBQ"/>
+          </DropDownMenu><br/>
           <TextField
             onChange={this.handlePhoto.bind(this)}
             floatingLabelText="Enter URL for your photo"
@@ -99,14 +107,7 @@ export default class AddCard extends React.Component {
             onChange={this.handleDishRating.bind(this)}
             floatingLabelText="Enter Your Rating of Dish"
           /><br/>
-          <DropDownMenu style={styles.dropdown} value={this.props.dishCat} onChange={this.handleCatSelect.bind(this)}>
-            <MenuItem value={999} primaryText="Category"/>
-            <MenuItem value={1} primaryText="Mexican"/>
-            <MenuItem value={2} primaryText="American"/>
-            <MenuItem value={3} primaryText="Asian"/>
-            <MenuItem value={4} primaryText="Italian"/>
-            <MenuItem value={5} primaryText="BBQ"/>
-          </DropDownMenu><br/>
+
           <Checkbox
             onClick={this.handleVegClick.bind(this)}
             label="Vegetarian"
