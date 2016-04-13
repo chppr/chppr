@@ -12,12 +12,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser')
 
 var passport = require('passport')
+var configPassport = require('./config/passport')(passport)
 var flash    = require('connect-flash'); // messages stored in session
 
-var Posts = require('./../client/models/posts');
-var Users = require('./../client/models/users');
+var Posts = require('./models/posts');
+var Users = require('./models/users');
 
-var routes = express.Router()
 var app = express()
 
 
@@ -26,32 +26,28 @@ app.use(webpackDevMiddleware(compiler, {
     stats: {colors: true}  
 }))
 
-//app.use(webpackHotMiddleware(compiler, {  
-//    log: console.log 
-//})) 
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 // Parse incoming request bodies as JSON
 app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
-// Mount our main router
-app.use('/', routes)
-
-
-
-
 // ---------- Routes Start Here ------------- //
 
-
 //Login route, default route
-routes.get('/', function(req, res) {
-	res.sendFile(assetFolder + '/login.html')
+app.get('/', function(req, res) {
+  console.log('passport logged in: ', req.user)
+  res.sendFile(assetFolder + '/index.html')
 })
 
 
 //get endpoint for json obj for posts 
-routes.get('/feed', function (req, res) {
+app.get('/feed', function (req, res) {
 	Posts.loader()
 	.then(function(posts){
 		res.status(201).send(posts);
@@ -63,14 +59,14 @@ routes.get('/feed', function (req, res) {
 })
 
 //get endpoint to serve up index.html
-routes.get('/dashboard', function (req, res) {
-	res.sendFile(assetFolder + '/index.html')
-})
+// app.get('/dashboard', function (req, res) {
+// 	res.sendFile(assetFolder + '/index.html')
+// })
 
-routes.get('/pictures/')
+app.get('/pictures/')
 
 //post endpoint for user feed
-routes.post('/feed', function(req, res) {
+app.post('/feed', function(req, res) {
 	var card = req.body;
 	console.log("REQ BODY:", req.body);
 	Posts.create(card)
@@ -85,7 +81,7 @@ routes.post('/feed', function(req, res) {
 
 
 // endpoint thats only used to update categories table
-routes.post('/categories', function(req, res) {
+app.post('/categories', function(req, res) {
 	var cats = req.body;
 
 	Users.categories(cats)
@@ -99,39 +95,50 @@ routes.post('/categories', function(req, res) {
 })
 
 
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log('before redirect')
+    res.redirect('/');
+  });
+
+
 //Signup And login routes will be changed/deleted once auth is set up
-routes.post('/signup', function(req, res) {
-	var user = req.body;
+// app.post('/signup', function(req, res) {
+// 	var user = req.body;
 	
-	Users.create(user)
-	.then(function(person){
-		res.status(201).send(person);
-	})
-	.catch(function (err) {
-	console.log('Error creating new user: ', err);
-	return res.status(404).send(err);
-	})
-})
+// 	Users.create(user)
+// 	.then(function(person){
+// 		res.status(201).send(person);
+// 	})
+// 	.catch(function (err) {
+// 	console.log('Error creating new user: ', err);
+// 	return res.status(404).send(err);
+// 	})
+// })
 
 
-routes.post('/login', function (req, res) {
-	var user = req.body.username;
-	var pass = req.body.password;
+// app.get('/login', function (req, res) {
+// 	var user = req.body.username;
+// 	var pass = req.body.password;
 
-	Users.verify(user, pass).then(function (person) {
-		if (person){
-			res.status(201).send(person);
-		}
-		else {
-			res.status(400);
-			res.end('not a user')
-		}
-	})
-})
+// 	Users.verify(user, pass).then(function (person) {
+// 		if (person){
+// 			res.status(201).send(person);
+// 		}
+// 		else {
+// 			res.status(400);
+// 			res.end('not a user')
+// 		}
+// 	})
+// })
 
 /////// NOTE TO FUTURE GROUPS //////
 /////// THIS ALMOST KINDA WORKS ////
-// routes.post('/upload', function (req, res) {
+// app.post('/upload', function (req, res) {
 // 	var file = req.body;
 //   console.log("req body:", file);
 //   var path = "./client/pictures/test4.jpg"
@@ -142,18 +149,13 @@ routes.post('/login', function (req, res) {
 // })
 
 
-// required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
 // route for passport
-require('./models/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+//require('./models/app.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // Static assets (html, etc.)
 var assetFolder = Path.resolve(__dirname, '../client')
-routes.use(express.static(assetFolder))
+app.use(express.static(assetFolder))
 
 var port = process.env.PORT || 4000
 app.listen(port)
