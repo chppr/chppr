@@ -7,7 +7,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 2,
 			category: 2,
-			timestamp: "02:30:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Cajun Chicken & Waffles",
 			rest_name: "Liberty Kitchen",
 			price: 14,
@@ -20,7 +20,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 1,
 			category: 2,
-			timestamp: "02:31:00PM",
+			timestamp: "2016-04-13T16:19:02-05:00",
 			dish_name: "White Mushroom Pizza",
 			rest_name: "Unit D Pizzeria",
 			price: 16,
@@ -33,7 +33,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 3,
 			category: 3,
-			timestamp: "02:32:00PM",
+			timestamp: "2016-04-13T16:18:02-05:00",
 			dish_name: "Hoedeopbap- Sashimi Bibimbap",
 			rest_name: "Hanabi",
 			price: 15,
@@ -46,7 +46,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 4,
 			category: 2,
-			timestamp: "02:33:00PM",
+			timestamp: "2016-04-13T16:13:02-05:00",
 			dish_name: "Smoked Duck Pastrami Sandwich",
 			rest_name: "Noble Pig Sandwich Co.",
 			price: 9,
@@ -59,7 +59,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 5,
 			category: 2,
-			timestamp: "02:34:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Blueberry Swirl & Honeyed Peaches",
 			rest_name: "Lick Honest Ice Creams",
 			price: 5,
@@ -72,7 +72,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 3,
 			category: 1,
-			timestamp: "02:35:00PM",
+			timestamp: "2016-04-13T16:08:02-05:00",
 			dish_name: "Green Chile Queso",
 			rest_name: "Torchy's Tacos",
 			price: 5,
@@ -85,7 +85,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 2,
 			category: 2,
-			timestamp: "02:36:00PM",
+			timestamp: "2016-04-13T13:20:02-05:00",
 			dish_name: "Double Cheese Burger",
 			rest_name: "Shake Shack",
 			price: 8,
@@ -98,7 +98,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 1,
 			category: 4,
-			timestamp: "02:37:00PM",
+			timestamp: "2016-04-13T14:20:02-05:00",
 			dish_name: "Brick Toast",
 			rest_name: "TeaHaus",
 			price: 6,
@@ -111,7 +111,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 3,
 			category: 3,
-			timestamp: "02:38:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Tonkotsu Original Ramen",
 			rest_name: "Ramen Tatsu Ya",
 			price: 9,
@@ -124,7 +124,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 5,
 			category: 3,
-			timestamp: "04:30:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "'Strawberry Fields Forever' Salad",
 			rest_name: "Leaf",
 			price: 11,
@@ -137,7 +137,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 6,
 			category: 2,
-			timestamp: "05:30:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Kiwi Spinach Smoothie",
 			rest_name: "Daily Juice",
 			price: 9,
@@ -150,7 +150,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 2,
 			category: 4,
-			timestamp: "07:30:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Carrot Ginger Cayenne Power Up",
 			rest_name: "JuiceLand",
 			price: 11,
@@ -163,7 +163,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 1,
 			category: 2,
-			timestamp: "06:30:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Stadium Hot Dogs with Jalapeno",
 			rest_name: "Bobs Ballpark",
 			price: 5,
@@ -176,7 +176,7 @@ exports.seed = function (knex, Promise) {
 		knex('posts').insert({
 			user_id: 3,
 			category: 1,
-			timestamp: "08:30:00PM",
+			timestamp: "2016-04-13T16:20:02-05:00",
 			dish_name: "Carne Asada Tacos",
 			rest_name: "King Taco",
 			price: 7,

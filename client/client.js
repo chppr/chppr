@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import moment from 'moment';
 
 import Navbar from "./components/Navbar"
 import AddCard from "./components/AddCard"
@@ -103,7 +104,7 @@ class Layout extends React.Component {
       // TODO - figure out categories and users
       "user_id": 5,
       "category": this.state.dishCat,
-      "timestamp": "01:30:00",
+      "timestamp": moment().format(),
       "dish_name": this.state.dishName,
       "rest_name": this.state.restaurantName,
       "price": Number(this.state.dishPrice),

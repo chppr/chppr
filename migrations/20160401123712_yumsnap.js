@@ -39,10 +39,10 @@ console.log('at start of migration')
 				.references('cid')
 				.inTable('categories');
 			
-			table.time('timestamp');
+			table.dateTime('timestamp');
 			table.string('dish_name');
 			table.string('rest_name');
-			table.integer('price');
+			table.decimal('price', 8, 2);
 			table.string('picture_path');
 			table.boolean('veggie');
 			table.boolean('gluten_free');
