@@ -12,8 +12,8 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash    = require('connect-flash'); // messages stored in session
 
-var Posts = require('./../client/models/posts');
-var Users = require('./../client/models/users');
+var Posts = require('./models/posts');
+var Users = require('./models/users');
 
 var routes = express.Router();
 var app = express();
