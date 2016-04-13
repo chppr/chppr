@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Mount our main router
 // First place requests come!
-app.use('/', routes)
+app.use('/', routes);
 
 
 
