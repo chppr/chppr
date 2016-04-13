@@ -2,6 +2,7 @@ client/client.min.js
 node_modules/
 bower_components/
 *.log
+yumsnap
 
 build/
 dist/
