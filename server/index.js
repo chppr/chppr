@@ -4,16 +4,16 @@ var webpackDevMiddleware = require ('webpack-dev-middleware');
 var config = require( './../webpack.config.js');
 var compiler = webpack(config);
 
-var Path = require('path')
+var Path = require('path');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var passport = require('passport');
-var flash    = require('connect-flash'); // messages stored in session
-
 var Posts = require('./models/posts');
 var Users = require('./models/users');
+
+var passportGithub = require('./auth/github');
 
 var routes = express.Router();
 var app = express();
@@ -28,10 +28,9 @@ app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'supersecretysecret' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
 // Static assets (html, etc.)
 var assetFolder = Path.resolve(__dirname, '../client')
@@ -146,6 +145,19 @@ routes.post('/login', function (req, res) {
 		}
 	})
 })
+
+routes.get('/auth/github', passportGithub.authenticate('github', { scope: [ 'user:email' ] }));
+
+routes.get('/auth/github/callback',
+  passportGithub.authenticate('github', { failureRedirect: '/auth/github' }),
+  function(req, res) {
+    // Successful authentication
+    res.json(req.user);
+    res.redirect('/userhome'); //example
+  });
+
+
+
 
 /////// NOTE TO FUTURE GROUPS //////
 /////// THIS ALMOST KINDA WORKS ////
