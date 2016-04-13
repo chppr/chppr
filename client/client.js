@@ -161,38 +161,22 @@ class Layout extends React.Component {
         console.log("Failed to post new dish");
       })
     }
-
   }
 
   getCardData(){
-    // TODO - Replace this with a database call
-    var that = this;
-
-    fetch('http://localhost:4000/feed')
-    .then(function(res) {
-      return res.json();
-    })
-    .then(function(json) {
-      console.log('got this json', json);
-      that.setState({cardData: json})
-    })
-    .catch(function(err) {
-      console.log('something went wrong getting data', err);
-    });
-        /*
     $.ajax({
+      type: 'GET',
       url: '/feed',
       dataType: 'json',
       cache: false,
       success: function(data) {
-        console.log('got this data from /feed', data);
+        this.setState({cardData: data})
+        console.log('Data received', data);
       }.bind(this),
       error: function(xhr, status, err) {
         console.log('getCardData failed, status: ', status, 'error: ', err);
       }.bind(this)
-    
-    });
-    */
+    });   
   }
 
   render() {
