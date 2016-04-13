@@ -14,11 +14,27 @@ npm install -g knex
 Then start your database and run:
 ```
 postgres -D /usr/local/var/postgres
+```
+In another terminal window:
+```
 createdb yumsnap
 knex migrate:latest
 knex seed:run
 ```
+If the db gets effed up:
+```
+dropdb yumsnap
+createdb yumsnap
+```
+
 Do not CTRL-C to stop Postgres
 To stop your database:
 ```
 pg_ctl -D /usr/local/var/postgres stop -s -m fast
+```
+Some helpful bash aliases:
+```
+alias restartyumdb='dropdb yumsnap; createdb yumsnap;knex migrate:latest; knex seed:run'
+alias startyum='postgres -D /usr/local/var/postgres'
+alias stopyum='pg_ctl -D /usr/local/var/postgres stop -s -m fast'
+```
