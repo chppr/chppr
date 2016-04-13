@@ -10,7 +10,7 @@ var configAuth = require('./auth');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
- // required for persistent login sessions : passport needs to serialize and unserialize users out of session
+ // required for persistent login sessions : passport needs to serialize and deserialize users out of session
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {

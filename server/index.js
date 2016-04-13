@@ -28,8 +28,19 @@ app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Mount our main router
-// First place requests come!
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// Static assets (html, etc.)
+var assetFolder = Path.resolve(__dirname, '../client')
+routes.use(express.static(assetFolder))
+
+var port = process.env.PORT || 4000
+app.listen(port)
+console.log("Listening on port", port)
+
 app.use('/', routes);
 
 
@@ -150,18 +161,4 @@ routes.post('/login', function (req, res) {
 
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 
-// route for passport
-require('./models/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
-// Static assets (html, etc.)
-var assetFolder = Path.resolve(__dirname, '../client')
-routes.use(express.static(assetFolder))
-
-var port = process.env.PORT || 4000
-app.listen(port)
-console.log("Listening on port", port)
