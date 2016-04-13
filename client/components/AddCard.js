@@ -90,24 +90,28 @@ export default class AddCard extends React.Component {
           <TextField
             onChange={this.handlePhoto.bind(this)}
             floatingLabelText="Enter URL for your photo"
+            errorText={this.props.photoError}
           /><br/>
           <TextField
             onChange={this.handleDishName.bind(this)}
             floatingLabelText="Enter Name of Dish"
+            errorText={this.props.dishNameError}
           /><br/>
           <TextField
             onChange={this.handleRestaurantName.bind(this)}
             floatingLabelText="Enter Name of Restaurant"
+            errorText={this.props.restaurantError}
           /><br/>
           <TextField
             onChange={this.handleDishPrice.bind(this)}
             floatingLabelText="Enter Price of Dish"
+            errorText={this.props.priceError}
           /><br/>
           <TextField
             onChange={this.handleDishRating.bind(this)}
             floatingLabelText="Enter Your Rating of Dish"
+            errorText={this.props.ratingError}
           /><br/>
-
           <Checkbox
             onClick={this.handleVegClick.bind(this)}
             label="Vegetarian"

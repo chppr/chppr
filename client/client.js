@@ -35,7 +35,13 @@ class Layout extends React.Component {
       gfClick: false,
       spicyClick: false,
       photo: null,
-      dishCat: 999
+      dishCat: 999,
+      priceError: '',
+      catError: '',
+      photoError: '',
+      ratingError: '',
+      restaurantError: '',
+      dishNameError: ''
     };
 
     this.getCardData();
@@ -43,6 +49,12 @@ class Layout extends React.Component {
 
   stateToggle(event) {
     this.setState({[event]: !this.state[event]});
+    this.setState({priceError: ''})
+    this.setState({catError: ''})
+    this.setState({photoError: ''})
+    this.setState({ratingError: ''})
+    this.setState({restaurantError: ''})
+    this.setState({dishNameError: ''})
   }
 
   categorySelect(category) {
@@ -81,6 +93,56 @@ class Layout extends React.Component {
   catAdd(category) {
     this.setState({dishCat: category})
   }
+  addCardValidation(){
+    var flag = true;
+    if (!this.state.dishCat){
+      this.setState({catError: "Restaurant Catagory required"})
+      flag = false;
+    }
+    else{
+      this.setState({catError: ''})
+    }
+    if (!this.state.dishName){
+      this.setState({dishNameError:"Dish Name required"})
+      flag = false;
+    }
+    else {
+      this.setState({dishNameError:''})
+    }
+    if (!this.state.dishPrice || Number(this.state.dishPrice)<0 || Number(this.state.dishPrice)==0 || Number(this.state.dishPrice)>999999){
+      this.setState({priceError:"Dish Price required"})
+      flag = false;
+    }
+    else{
+      this.setState({priceError:""})
+    }
+    if (typeof Number(this.state.dishRating)!=='number' || !this.state.dishRating || Number(this.state.dishRating)<0 || Number(this.state.dishRating>5) || Math.floor(Number(this.state.dishRating))!==Number(this.state.dishRating)){
+      this.setState({ratingError: "Dish Rating Required"})
+      flag = false;
+    }
+    else{
+      this.setState({ratingError: ""})
+    }
+    if (!this.state.photo){
+      this.setState({photoError:"Dish Photo URL required"})
+      flag = false;
+    }
+    else {
+      this.setState({photoError:""})
+    }
+    if (!this.state.restaurantName) {
+      this.setState({restaurantError:"Restaurant Name required"})
+      flag = false;
+    }
+    else{
+      this.setState({restaurantError:""})
+    } 
+
+      console.log('returning flag',flag)
+    
+    return flag;
+
+  }
   deleteCard(card){
     var that = this;
     console.log('stuff happen',card.postID,'this',this.state.cardData)//working on delete
@@ -99,7 +161,16 @@ class Layout extends React.Component {
     })
   }
   addCardSubmit() {
+
     var that = this;
+
+    var test = that.addCardValidation();
+    console.log('tested flag',test)
+    if (!test){
+      console.log('pjtestDONE')
+      return;
+    }
+
     var newDish = {
       // TODO - figure out categories and users
       "user_id": 5,
@@ -155,7 +226,13 @@ class Layout extends React.Component {
           gfClick: false,
           spicyClick: false,
           photo: null,
-          dishCat: null
+          dishCat: 999,
+          priceError: '',
+          catError: '',
+          photoError: '',
+          ratingError: '',
+          restaurantError: '',
+          dishNameError: ''
         });
       })
       .fail(function() {
@@ -214,6 +291,12 @@ class Layout extends React.Component {
           showAdd={this.state.showAdd}
           catAdd={this.catAdd.bind(this)}
           dishCat={this.state.dishCat}
+          priceError = {this.state.priceError}
+          catError = {this.state.catError}
+          photoError = {this.state.photoError}
+          ratingError = {this.state.ratingError}
+          restaurantError = {this.state.restaurantError}
+          dishNameError = {this.state.dishNameError}
           /> : null }
         <CardFeed
           boolVeg={this.state.veg}
