@@ -30,6 +30,7 @@ export default class Navbar extends React.Component {
 
   handleShowAdd() {
     this.props.stateToggle('showAdd');
+    this.props.stateToggle('showHead');
   }
 
   render () {

@@ -5,6 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import moment from 'moment';
 
 import Navbar from "./components/Navbar"
+import Header from "./components/Header"
 import AddCard from "./components/AddCard"
 import CardFeed from "./components/CardFeed"
 //import DishCard from "./components/Card"
@@ -24,6 +25,7 @@ class Layout extends React.Component {
       noSpice: false,
       category: null,
       cardData: [],
+      showHead: true,
       showAdd: false,
       showFavs: false,
       dishName: '',
@@ -185,7 +187,7 @@ class Layout extends React.Component {
       "spicy": this.state.spicyClick,
       "rating": this.state.dishRating
     }
-    
+
     var file = {
       photo: that.state.photo[0]
     }
@@ -201,7 +203,7 @@ class Layout extends React.Component {
     //   console.log("Yo, I'm pretty sure something didn't work...:", err);
     // })
 
-  ////// VERY HACKY FIX //////
+    ////// VERY HACKY FIX //////
     if (this.state.dishRating !== '') {
 
       $.ajax({
@@ -263,6 +265,7 @@ class Layout extends React.Component {
     return (
       <div>
         {/* Pass methods & state vars to Toolbar Component through props */}
+        <Header/><br/>
         <Navbar
           auth={this.state.auth}
           veg={this.state.veg}
@@ -299,14 +302,14 @@ class Layout extends React.Component {
           dishNameError = {this.state.dishNameError}
           /> : null }
         <CardFeed
-          boolVeg={this.state.veg}
-          boolGF={this.state.gf}
-          boolNoSpice={this.state.noSpice}
-          cardData={this.state.cardData}
-          deleteCard = {this.deleteCard.bind(this)}//working on delete
-          category={this.state.category}
+        boolVeg={this.state.veg}
+        boolGF={this.state.gf}
+        boolNoSpice={this.state.noSpice}
+        cardData={this.state.cardData}
+        deleteCard = {this.deleteCard.bind(this)}//working on delete
+        category={this.state.category}
         />
-      </div>
+        </div>
     );
   }
 }
