@@ -83,6 +83,19 @@ routes.post('/feed', function(req, res) {
 			})
 })
 
+routes.delete('/delete', function(req, res) {
+	console.log('PJ1',req.body)
+	Posts.delete(req.body)
+		.then(function(){
+			res.status(204).send()
+		})
+		.catch(function(err){
+			console.log('failed to delete card')
+			return res.status(404).send(err)
+		})
+
+
+})
 
 // endpoint thats only used to update categories table
 routes.post('/categories', function(req, res) {

@@ -21,3 +21,13 @@ Post.loader = function () {
       return result;
     });
 };
+
+Post.delete = function(cardID) {
+  console.log('PJ2')
+  return db.delete('*').from('posts').where(cardID)
+    .then(function(){
+      console.log('dish deleted');
+      return;
+    })
+
+}

@@ -6,6 +6,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Navbar from "./components/Navbar"
 import AddCard from "./components/AddCard"
 import CardFeed from "./components/CardFeed"
+//import DishCard from "./components/Card"
 
 import fetch from "node-fetch";
 import $ from 'jquery';
@@ -78,6 +79,23 @@ class Layout extends React.Component {
   }
   catAdd(category) {
     this.setState({dishCat: category})
+  }
+  deleteCard(card){
+    var that = this;
+    console.log('stuff happen',card.postID,'this',this.state.cardData)//working on delete
+    var sendCard={
+      "postID":card.postID
+    }
+    $.ajax({
+      type:"DELETE",
+      url:"/delete",
+      data:sendCard
+    })
+    .done(function(){
+      //that.state.cardData.splice(that.state.cardData.indexOf(card))
+      console.log('pjwin')
+      that.getCardData();
+    })
   }
   addCardSubmit() {
     var that = this;
@@ -217,6 +235,7 @@ class Layout extends React.Component {
           boolGF={this.state.gf}
           boolNoSpice={this.state.noSpice}
           cardData={this.state.cardData}
+          deleteCard = {this.deleteCard.bind(this)}//working on delete
           category={this.state.category}
         />
       </div>

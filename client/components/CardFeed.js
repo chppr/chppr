@@ -9,12 +9,18 @@ export default class CardFeed extends React.Component {
     if (this.props.boolVeg && c.veggie === false) return false;
     return true;
   }
+  // handleDelete(){
+  //   this.props.deleteCard();
+  // }
 
   render() {
     return (
       <div>
         {this.props.cardData.map((card) => this.matchesUserFilters(card) ?
-          <DishCard data={card} /> :
+          <DishCard 
+          data={card} 
+          deleteCard = {this.props.deleteCard.bind(this)}
+          /> :
           null)}
       </div>
     );

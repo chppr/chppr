@@ -9,6 +9,11 @@ import CardText from 'material-ui/lib/card/card-text';
 
 export default class DishCard extends React.Component {
 
+  handleDeleteCard(stuff){
+    // console.log('is anything here',stuff,'this',this)
+    this.props.deleteCard(this.props.data);
+  }
+
   render() {
 
     const cardStyle = {
@@ -56,6 +61,7 @@ export default class DishCard extends React.Component {
             <strong style={{clear: "none", float: "right"}}>
               ${this.props.data.price}
             </strong>
+            <RaisedButton onClick={this.handleDeleteCard.bind(this)} label="Delete" default={true}/>
             <span style={{float: "left"}}>
               {this.props.data.spicy ? " [🌶]" : ""}
               {this.props.data.gluten_free ? " [🚫🍞]" : ""}
