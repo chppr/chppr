@@ -59,7 +59,7 @@ export default class DishCard extends React.Component {
           />
           <row>
             <strong style={{clear: "none", float: "right"}}>
-              ${this.props.data.price}
+              ${Number(this.props.data.price).toFixed(2)}
             </strong>
             <RaisedButton onClick={this.handleDeleteCard.bind(this)} label="Delete" default={true}/>
             <span style={{float: "left"}}>

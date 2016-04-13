@@ -16,8 +16,9 @@ export default class CardFeed extends React.Component {
   render() {
     return (
       <div>
-        {this.props.cardData.map((card) => this.matchesUserFilters(card) ?
-          <DishCard 
+        {this.props.cardData.map((card, index) => this.matchesUserFilters(card) ?
+          <DishCard
+          key = {index}
           data={card} 
           deleteCard = {this.props.deleteCard.bind(this)}
           /> :
