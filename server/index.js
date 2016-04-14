@@ -89,7 +89,6 @@ routes.get('/userstate', function(req, res) {
   } else {
     res.statusCode(403).send();
   }
-
 });
 
 //get endpoint to serve up index.html
