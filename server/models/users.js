@@ -28,11 +28,34 @@ Users.verify = function (username, password) {
 		}).limit(1)
 		.then(function (rows) {
 			return rows[0]
-			console.log('user is :' + rows[0]);
 		})
 }
 
+Users.verifyId = function (id) {
+	return db('users').where({
+			gitid: id
+		}).limit(1);
+}
 
+Users.verifyInsert = function (name, gitid) {
+	// console.log('name.user == ', name)
+	return db('users').where({
+		gitid: gitid
+	}).then(function(data) {
+		console.log('found ! = ', data);
+		if(data.length === 0) {
+			console.log('inserting new data!');
+			return db('users').insert({
+				username: name,
+				gitid: gitid
+			}).limit(1);
+		}
+		else {
+			console.log('data found! not inserting!')
+			return Promise.reject({ username: name, gitid: gitid });
+		}
+	})
+}
 
 //only did categories here because we only use it once! not an actual relation to the users
 Users.categories = function (incomingAttrs) {

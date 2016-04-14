@@ -5,8 +5,9 @@ console.log('at start of migration')
 		//users table
 		knex.schema.createTable('users', function(table){
 			table.increments('uid').primary();
+			table.string('gitid').unique();
 			table.string('username').unique();
-			table.string('password')
+			table.string('password');
 		}),
 		
 		//categories table

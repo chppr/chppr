@@ -6,7 +6,7 @@ Post.create = function (incomingAttrs) {
 	
 	var attrs = Object.assign({}, incomingAttrs)
 	
-	console.log('create attrs:', attrs)
+	// console.log('create attrs:', attrs)
   return db('posts').insert(attrs)
     .then(function (result) {
       return result[0];
@@ -16,7 +16,6 @@ Post.create = function (incomingAttrs) {
 Post.loader = function () {	
 	return db.select('*').from('posts').orderBy('timestamp', 'desc')
     .then(function (result) {
-      console.log('posts result: ', result)
       return result;
     });
 };

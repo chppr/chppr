@@ -1,5 +1,3 @@
-//Create an app through the auth provider
-//Update the config file with the required IDs and keys as well as a callback URL
 var ids = {
  github: {
    clientID: "56e130ce9477409180e9",
@@ -10,15 +8,3 @@ var ids = {
 
 module.exports = ids;
 
-
-
- // linkedin: {
- //   clientID: 'get_your_own',
- //   clientSecret: 'get_your_own',
- //   callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
- // },
- // twitter: {
- //   consumerKey: 'get_your_own',
- //   consumerSecret: 'get_your_own',
- //   callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
- // }
