@@ -31,6 +31,25 @@ export default class DishCard extends React.Component {
 
   }
 
+  displayFilledStars(){
+    var string="";
+    for (var i =0 ; i< this.props.data.rating ; i++){
+      string=string+"✮"
+    }
+
+    return string;
+
+  }
+
+  displayBlackStars(){
+    var string = ""
+    for (var i = 0 ; i <(5 - this.props.data.rating); i++){
+      string = string +  "✩"
+    }
+    return string;
+
+  }
+
   render() {
 
     const cardStyle = {
@@ -72,7 +91,15 @@ export default class DishCard extends React.Component {
       left: 10,
       bottom: 17
     }
-
+    const starsStyle = {
+      // backgroundColor: 'black',
+       color: 'blue',
+       fontSize:20
+    }
+    const blackStyle = {
+        color: 'black',
+        fontSize: 20
+    }
   
 
     return (
@@ -97,7 +124,9 @@ export default class DishCard extends React.Component {
               ${Number(this.props.data.price).toFixed(2)}
             </strong>
           <div>
-                {'Rating: '+this.props.data.rating}
+                {'Rating: '}
+                <span style = {starsStyle} >{this.displayFilledStars.bind(this).call()}</span>
+                  <span style = {blackStyle} >{this.displayBlackStars.bind(this).call()}</span>
             <div style={iconStyle}>
               {this.props.data.spicy ? "🔥" : ""}
               {this.props.data.veggie ? "🌽" : ""}
