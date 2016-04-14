@@ -4,7 +4,7 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
-import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 
 export default class DishCard extends React.Component {
@@ -18,13 +18,14 @@ export default class DishCard extends React.Component {
 
     const cardStyle = {
       padding: "30px",
-      height: "650px"
+      height: "700px",
+      position: "relative",
     };
 
     const imageStyle = {
       width: "100%",
       maxHeight: "360px",
-      width: "auto"
+      width: "auto",
     };
 
     const cardMediaStyle = {
@@ -37,8 +38,10 @@ export default class DishCard extends React.Component {
     };
 
     const buttonStyle = {
-      backgroundColor: "#E9573F"
-    };
+      position: "absolute",
+      right: 10,
+      bottom: 10
+    }
 
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
@@ -61,11 +64,17 @@ export default class DishCard extends React.Component {
             <strong style={{clear: "none", float: "right"}}>
               ${Number(this.props.data.price).toFixed(2)}
             </strong>
-            <RaisedButton onClick={this.handleDeleteCard.bind(this)} label="Delete" default={true}/>
+            <FlatButton onClick={this.handleDeleteCard.bind(this)}
+                            label="Remove Dish"
+                            style={buttonStyle}
+                            linkButton={true}
+                            hoverColor= "#E9573F"
+                            rippleColor="red"
+            />
             <span style={{float: "left"}}>
-              {this.props.data.spicy ? " [🌶]" : ""}
-              {this.props.data.gluten_free ? " [🚫🍞]" : ""}
-              {this.props.data.veggie ? " [🌽]" : ""}
+              {this.props.data.spicy ? "🌶" : ""}
+              {this.props.data.veggie ? "🌽" : ""}
+              {this.props.data.gluten_free ? "🚫🍞" : ""}
             </span>
           </row>
         </Card>
