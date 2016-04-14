@@ -7,6 +7,7 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import moment from 'moment';
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class DishCard extends React.Component {
 
@@ -51,6 +52,12 @@ export default class DishCard extends React.Component {
       color: 'gray'
     }
 
+    const iconStyle = {
+      position: "absolute",
+      left: 10,
+      bottom: 17
+    }
+
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
         <Card
@@ -73,9 +80,9 @@ export default class DishCard extends React.Component {
               ${Number(this.props.data.price).toFixed(2)}
             </strong>
           <div>
-              {'Rating: ' + this.props.data.rating +''}
-            <div>
-              {this.props.data.spicy ? "🌶" : ""}
+                {'Rating: '+this.props.data.rating}
+            <div style={iconStyle}>
+              {this.props.data.spicy ? "🔥" : ""}
               {this.props.data.veggie ? "🌽" : ""}
               {this.props.data.gluten_free ? "🚫🍞" : ""}
             </div>
