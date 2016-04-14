@@ -26,11 +26,11 @@ var store = new KnexSessionStore({
   tablename: 'sessions' // optional. Defaults to 'sessions'
 });
 
-
-
 var passportGithub = require('./auth/github');
+
 var passportGoogle = require('./auth/google');
 var passportTwitter = require('./auth/twitter');
+
 
 var routes = express.Router();
 var app = express();
@@ -53,9 +53,11 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use('/', routes);
 
+
 var port = process.env.PORT || 4000;
 app.listen(port);
 console.log("Listening on port", port);
+
 
 
 
@@ -99,19 +101,30 @@ routes.post('/feed', function(req, res) {
     });
 });
 
+
 routes.delete('/delete', function(req, res) {
-  console.log('PJ1', req.body);
-  Posts.delete(req.body)
-    .then(function() {
-      res.status(204).send();
-    })
-    .catch(function(err) {
-      console.log('failed to delete card');
-      return res.status(404).send(err);
-    });
 
-
+	Posts.delete(req.body)
+		.then(function(){
+			res.status(204).send();
+		})
+		.catch(function(err){
+			console.log('failed to delete card');
+			return res.status(404).send(err);
+		});
 });
+
+
+routes.post('/upload', function (req, res) {
+	var file = req.body;
+  console.log("req body:", file);
+  var path = "./client/pictures/test4.jpg"
+  fs.writeFile(path, file.preview, function(err) {
+    if (err) {throw err};
+    console.log('No errors!');
+  });
+});
+
 
 // endpoint thats only used to update categories table
 routes.post('/categories', function(req, res) {
@@ -157,10 +170,17 @@ routes.post('/login', function(req, res) {
   });
 });
 
-routes.get('/auth/github', passportGithub.authenticate('github', { scope: ['user:email'] }));
+
+// Github
+routes.get('/auth/github', passportGithub.authenticate('github', { scope: [ 'user:email' ] }));
 
 routes.get('/auth/github/callback',
   passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }));
+
+// Google
+routes.get('/auth/google', passportGoogle.authenticate('google', { scope: [ 'profile:email' ] }));
+routes.get('/auth/google/callback',
+  passportGoogle.authenticate('google', { failureRedirect: '/auth/google', successRedirect: '/' }));
 
 
 
@@ -179,3 +199,10 @@ routes.get('/auth/github/callback',
 
 
 // required for passport
+
+//Twitter
+routes.get('/auth/twitter', passportTwitter.authenticate('twitter', { scope: [ 'user:email' ] }));
+routes.get('/auth/twitter/callback',
+  passportTwitter.authenticate('twitter', { failureRedirect: '/auth/twitter', successRedirect: '/' }));
+
+
