@@ -58,6 +58,7 @@ class Layout extends React.Component {
     this.setState({restaurantError: ''})
     this.setState({dishNameError: '',
                     dishName: '',
+                    dishCat: 999,
                     restaurantName: '',
                     dishDescription: '',
                     dishPrice: '',
@@ -103,7 +104,7 @@ class Layout extends React.Component {
   }
   addCardValidation(){
     var flag = true;
-    if (!this.state.dishCat){
+    if (this.state.dishCat===999){
       this.setState({catError: "Restaurant Catagory required"})
       flag = false;
     }

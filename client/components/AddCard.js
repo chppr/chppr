@@ -73,10 +73,17 @@ export default class AddCard extends React.Component {
         width: 30,
         // background: "blue",
       },
+      catError :{
+        color:'red'
+      }
     };
 
     return (
       <div style={styles.block}>
+       
+            <script>
+            console.log('pjerror',this.props.catError)
+            </script>
 
         <div style={styles.boxes}>
           <DropDownMenu /*style={styles.dropdown}*/ value={this.props.dishCat} onChange={this.handleCatSelect.bind(this)}>
@@ -87,6 +94,12 @@ export default class AddCard extends React.Component {
             <MenuItem value={4} primaryText="Italian"/>
             <MenuItem value={5} primaryText="BBQ"/>
           </DropDownMenu><br/>
+        <row>
+          <span style={{float: "left"}} style= {styles.catError} >
+              {this.props.catError ? "Restaurant Catagory required":""}
+          </span>
+        </row>
+        <br/>
           <TextField
             onChange={this.handlePhoto.bind(this)}
             floatingLabelText="Enter URL for your photo"
