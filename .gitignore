@@ -8,4 +8,4 @@ build/
 dist/
 
 # authentication keys
-server/config/auth.js
+server/auth/config.js

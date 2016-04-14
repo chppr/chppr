@@ -7,21 +7,21 @@ var init = require('./init');
 
 
 passport.use(new GitHubStrategy({
-  clientID: config.github.clientID,
-  clientSecret: config.github.clientSecret,
-  callbackURL: config.github.callbackURL
-},
+    clientID: config.github.clientID,
+    clientSecret: config.github.clientSecret,
+    callbackURL: config.github.callbackURL
+  },
   function(accessToken, refreshToken, profile, done) {
 
     User.verifyInsert(profile.displayName, profile.id).then(function(user) {
-      // console.log('inserted vi = ', user);
-      return done(null, user);
-    })
-    .catch(function(err) {
-      // console.log('vi prom err', err);
-      return done(null, err);
-    })
-  
+        // console.log('inserted vi = ', user);
+        return done(null, user);
+      })
+      .catch(function(err) {
+        // console.log('vi prom err', err);
+        return done(null, err);
+      });
+
   }));
 
 // serialize user into the session
@@ -38,5 +38,3 @@ module.exports = passport;
 //         console.log('done = ', user)
 //         return done(null, user);
 //       }
-
-

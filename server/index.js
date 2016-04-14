@@ -1,7 +1,7 @@
-var express = require('express')
-var webpack = require ('webpack');
-var webpackDevMiddleware = require ('webpack-dev-middleware');
-var config = require( './../webpack.config.js');
+var express = require('express');
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var config = require('./../webpack.config.js');
 var compiler = webpack(config);
 var passport = require('passport');
 var Posts = require('./models/posts');
@@ -15,35 +15,37 @@ var session = require('express-session');
 var KnexSessionStore = require('connect-session-knex')(session);
 var Knex = require('knex');
 var knex = Knex({
-    client: 'pg',
-    connection: {
-        database: 'yumsnap'
-    }
+  client: 'pg',
+  connection: {
+    database: 'yumsnap'
+  }
 });
 
 var store = new KnexSessionStore({
-    knex: knex,
-    tablename: 'sessions' // optional. Defaults to 'sessions'
+  knex: knex,
+  tablename: 'sessions' // optional. Defaults to 'sessions'
 });
 
 
 
 var passportGithub = require('./auth/github');
+var passportGoogle = require('./auth/google');
+var passportTwitter = require('./auth/twitter');
 
 var routes = express.Router();
 var app = express();
 app.use(logger('dev'));
 
 
-app.use(webpackDevMiddleware(compiler, {  
-    publicPath: config.output.publicPath,  
-    stats: {colors: true}  
-}))
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  stats: { colors: true }
+}));
 
-var assetFolder = Path.resolve(__dirname, '../client')
-app.use(express.static(assetFolder, { index: 'index.html' } ));
+var assetFolder = Path.resolve(__dirname, '../client');
+app.use(express.static(assetFolder, { index: 'index.html' }));
 app.use(cookieParser());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({ secret: 'supersecretysecret', store: store })); // session secret
@@ -51,118 +53,114 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use('/', routes);
 
-var port = process.env.PORT || 4000
-app.listen(port)
-console.log("Listening on port", port)
-
-
-
+var port = process.env.PORT || 4000;
+app.listen(port);
+console.log("Listening on port", port);
 
 
 
 // ---------- Routes Start Here ------------- //
 
-//get endpoint for json obj for posts 
-routes.get('/feed', function (req, res) {
-	console.log('getting feed!')
+//get endpoint for json obj for posts
+routes.get('/feed', function(req, res) {
+  console.log('getting feed!');
 
-	if(req.user) {
-		console.log('user is authed!');
-		console.log('user = ', req.user);
-	}
+  if (req.user) {
+    console.log('user is authed!');
+    console.log('user = ', req.user);
+  }
 
-	Posts.loader()
-	.then(function(posts){
-		res.status(200).send(posts);
-	})
-	.catch(function (err) {
-				console.log('Error getting posts: ', err);
-				return res.status(404).send(err);
-	})
-})
+  Posts.loader()
+    .then(function(posts) {
+      res.status(200).send(posts);
+    })
+    .catch(function(err) {
+      console.log('Error getting posts: ', err);
+      return res.status(404).send(err);
+    });
+});
 
 //get endpoint to serve up index.html
-routes.get('/dashboard', function (req, res) {
-	res.sendFile(assetFolder + '/index.html')
-})
+routes.get('/dashboard', function(req, res) {
+  res.sendFile(assetFolder + '/index.html');
+});
 
 //post endpoint for user feed
 routes.post('/feed', function(req, res) {
-	var card = req.body;
+  var card = req.body;
 
-	Posts.create(card)
-	.then(function(post){
-		res.status(201).send(post);
-	})
-	.catch(function (err) {
-		console.log('Error creating new post: ', err);
-		return res.status(404).send(err);
-	})
-})
+  Posts.create(card)
+    .then(function(post) {
+      res.status(201).send(post);
+    })
+    .catch(function(err) {
+      console.log('Error creating new post: ', err);
+      return res.status(404).send(err);
+    });
+});
 
 routes.delete('/delete', function(req, res) {
-	console.log('PJ1',req.body)
-	Posts.delete(req.body)
-		.then(function(){
-			res.status(204).send()
-		})
-		.catch(function(err){
-			console.log('failed to delete card')
-			return res.status(404).send(err)
-		})
+  console.log('PJ1', req.body);
+  Posts.delete(req.body)
+    .then(function() {
+      res.status(204).send();
+    })
+    .catch(function(err) {
+      console.log('failed to delete card');
+      return res.status(404).send(err);
+    });
 
 
-})
+});
 
 // endpoint thats only used to update categories table
 routes.post('/categories', function(req, res) {
-	var cats = req.body;
+  var cats = req.body;
 
-	Users.categories(cats)
-	.then(function(cat){
-		res.status(201).send(cats);
-	})
-	.catch(function (err) {
-				console.log('Error creating new post: ', err);
-				return res.status(404).send(err);
-			})
-})
+  Users.categories(cats)
+    .then(function(cat) {
+      res.status(201).send(cats);
+    })
+    .catch(function(err) {
+      console.log('Error creating new post: ', err);
+      return res.status(404).send(err);
+    });
+});
 
 
 //Signup And login routes will be changed/deleted once auth is set up
 routes.post('/signup', function(req, res) {
-	var user = req.body;
-	
-	Users.create(user)
-	.then(function(person){
-		res.status(201).send(person);
-	})
-	.catch(function (err) {
-	console.log('Error creating new user: ', err);
-	return res.status(404).send(err);
-	})
-})
+  var user = req.body;
+
+  Users.create(user)
+    .then(function(person) {
+      res.status(201).send(person);
+    })
+    .catch(function(err) {
+      console.log('Error creating new user: ', err);
+      return res.status(404).send(err);
+    });
+});
 
 
-routes.post('/login', function (req, res) {
-	var user = req.body.username;
-	var pass = req.body.password;
+routes.post('/login', function(req, res) {
+  var user = req.body.username;
+  var pass = req.body.password;
 
-	Users.verify(user, pass).then(function (person) {
-		if (person){
-			res.status(201).send(person);
-		}
-		else {
-			res.status(400);
-			res.end('not a user')
-		}
-	})
-})
+  Users.verify(user, pass).then(function(person) {
+    if (person) {
+      res.status(201).send(person);
+    } else {
+      res.status(400);
+      res.end('not a user');
+    }
+  });
+});
 
-routes.get('/auth/github', passportGithub.authenticate('github', { scope: [ 'user:email' ] }));
+routes.get('/auth/github', passportGithub.authenticate('github', { scope: ['user:email'] }));
 
 routes.get('/auth/github/callback',
-  passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }))
+  passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }));
 
 
 
@@ -181,4 +179,3 @@ routes.get('/auth/github/callback',
 
 
 // required for passport
-
