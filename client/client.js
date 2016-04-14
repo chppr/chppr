@@ -56,7 +56,13 @@ class Layout extends React.Component {
     this.setState({photoError: ''})
     this.setState({ratingError: ''})
     this.setState({restaurantError: ''})
-    this.setState({dishNameError: ''})
+    this.setState({dishNameError: '',
+                    dishName: '',
+                    restaurantName: '',
+                    dishDescription: '',
+                    dishPrice: '',
+                    dishRating: '',
+                    photo:null})
   }
 
   categorySelect(category) {
@@ -111,15 +117,37 @@ class Layout extends React.Component {
     else {
       this.setState({dishNameError:''})
     }
-    if (!this.state.dishPrice || Number(this.state.dishPrice)<0 || Number(this.state.dishPrice)==0 || Number(this.state.dishPrice)>999999){
-      this.setState({priceError:"Dish Price required"})
+    if (!this.state.dishPrice || Number(this.state.dishPrice)<0 || Number(this.state.dishPrice)==0 || Number(this.state.dishPrice)>999999 || isNaN( Number(this.state.dishPrice))){
+      if(!this.state.dishPrice){
+        this.setState({priceError:"Dish Price required"})
+      }
+      else if (isNaN( Number(this.state.dishPrice))){
+        this.setState({priceError:"Dish Price must be a number"})
+      } 
+      else if(Number(this.state.dishPrice)<0 || Number(this.state.dishPrice)==0){
+         this.setState({priceError:"Dish Price must be greater than zero"})
+      }
+      else if(Number(this.state.dishPrice)>999999){
+        this.setState({priceError:"We dont show dishes over $1,000,000"})
+      }
       flag = false;
     }
     else{
       this.setState({priceError:""})
     }
-    if (typeof Number(this.state.dishRating)!=='number' || !this.state.dishRating || Number(this.state.dishRating)<0 || Number(this.state.dishRating>5) || Math.floor(Number(this.state.dishRating))!==Number(this.state.dishRating)){
-      this.setState({ratingError: "Dish Rating Required"})
+    if (isNaN(Number(this.state.dishRating)) || !this.state.dishRating || Number(this.state.dishRating)<0 || Number(this.state.dishRating>5) || Math.floor(Number(this.state.dishRating))!==Number(this.state.dishRating)){
+      if (!this.state.dishRating){
+        this.setState({ratingError: "Dish Rating Required"})
+      }
+      else if(isNaN( Number(this.state.dishRating))){
+         this.setState({ratingError: "Dish Rating must be a number"})
+      }
+      else if(Number(this.state.dishRating)<0 || Number(this.state.dishRating>5)){
+        this.setState({ratingError: "Dish Rating must between 0 and 5"})
+      }
+      else if(Math.floor(Number(this.state.dishRating))!==Number(this.state.dishRating)){
+        this.setState({ratingError: "Dish Rating must be a whole number"})
+      }
       flag = false;
     }
     else{
