@@ -85,10 +85,19 @@ routes.get('/feed', function(req, res) {
 
 routes.get('/userstate', function(req, res) {
 	if(req.user) {
-		res.statusCode(400).send(JSON.stringify(req.user));
+		Users.grabID(req.user.passid).then(function(resp){
+			var obj = {
+			user: req.user.user,
+			passid: req.user.passid,
+			userId: resp
+		}
+		console.log('pj5',resp,'more pj',obj)
+		res.status(200).send(JSON.stringify(obj));
+		});
+		
 	}
 	else {
-		res.statusCode(403).send();
+		res.status(403).send();
 	}
 
 });

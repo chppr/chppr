@@ -20,6 +20,15 @@ Users.create = function(incomingAttrs) {
     });
 };
 
+Users.grabID = function(passID){
+  console.log('pjass',passID)
+  return db('users').select('uid').where({
+    passid:passID
+  }).then(function(row){
+    console.log('pjrow',row)
+    return row[0];
+  })
+}
 
 Users.verify = function(username, password) {
   return db('users').where({
@@ -48,14 +57,14 @@ Users.verifyInsert = function(obj) {
   } else {
     session.user = obj.username;
   }
-
+console.log('pjsession',session)
   return db('users').where({
-    passid: session.id
+    passid: session.passid
   }).then(function(data) {
     if (data.length === 0) {
       return db('users').insert({
         user: session.user,
-        passid: session.id
+        passid: session.passid
       }).limit(1).then(function(array) {
         console.log('returning sessions!', session);
         return session;
