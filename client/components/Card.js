@@ -16,6 +16,17 @@ export default class DishCard extends React.Component {
     this.props.deleteCard(this.props.data);
   }
 
+  displayDeleteButton(){
+    if (!(this.props.currentUser == this.props.data.user_id) ){
+      console.log('PJ',this.props.data.user_id)
+      return {display:'none'}
+    }
+    else {
+      return {}
+    }
+
+  }
+
   render() {
 
     const cardStyle = {
@@ -58,6 +69,8 @@ export default class DishCard extends React.Component {
       bottom: 17
     }
 
+  
+
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
         <Card
@@ -94,12 +107,13 @@ export default class DishCard extends React.Component {
             <FlatButton onClick={this.handleDeleteCard.bind(this)}
                         label="Remove Dish"
                         style={buttonStyle}
+                        style = {this.displayDeleteButton.bind(this).call()}
                         linkButton={true}
                         hoverColor= "#E9573F"
                         rippleColor="yellow"
             />
         </Card>
       </div>
-    );
+    ); 
   }
 }

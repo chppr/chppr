@@ -44,7 +44,8 @@ class Layout extends React.Component {
       ratingError: '',
       restaurantError: '',
       dishNameError: '',
-      categories:['Mexican','American','Asian','Italian','BBQ']
+      categories:['Mexican','American','Asian','Italian','BBQ'],
+      currentUser: 1//added to show or remove delete button by pj
     };
 
     this.getCardData();
@@ -340,6 +341,7 @@ class Layout extends React.Component {
         deleteCard = {this.deleteCard.bind(this)}//working on delete
         category={this.state.category}
         categories = {this.state.categories}
+        currentUser = {this.state.currentUser}
         />
         </div>
     );
