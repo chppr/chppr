@@ -28,8 +28,8 @@ var store = new KnexSessionStore({
 
 var passportGithub = require('./auth/github');
 
-var passportGoogle = require('./auth/google');
-var passportTwitter = require('./auth/twitter');
+// var passportGoogle = require('./auth/google');
+// var passportTwitter = require('./auth/twitter');
 
 
 var routes = express.Router();
@@ -190,9 +190,9 @@ routes.get('/auth/github/callback',
   passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }));
 
 // Google
-routes.get('/auth/google', passportGoogle.authenticate('google', { scope: [ 'profile:email' ] }));
-routes.get('/auth/google/callback',
-  passportGoogle.authenticate('google', { failureRedirect: '/auth/google', successRedirect: '/' }));
+// routes.get('/auth/google', passportGoogle.authenticate('google', { scope: [ 'profile:email' ] }));
+// routes.get('/auth/google/callback',
+//   passportGoogle.authenticate('google', { failureRedirect: '/auth/google', successRedirect: '/' }));
 
 
 
@@ -213,8 +213,8 @@ routes.get('/auth/google/callback',
 // required for passport
 
 //Twitter
-routes.get('/auth/twitter', passportTwitter.authenticate('twitter', { scope: [ 'user:email' ] }));
-routes.get('/auth/twitter/callback',
-  passportTwitter.authenticate('twitter', { failureRedirect: '/auth/twitter', successRedirect: '/' }));
+// routes.get('/auth/twitter', passportTwitter.authenticate('twitter', { scope: [ 'user:email' ] }));
+// routes.get('/auth/twitter/callback',
+//   passportTwitter.authenticate('twitter', { failureRedirect: '/auth/twitter', successRedirect: '/' }));
 
 
