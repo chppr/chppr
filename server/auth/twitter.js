@@ -13,18 +13,21 @@ passport.use(new TwitterStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
 
-    
-    User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
-      if(err) {
-        return done(err);
-      } else {
-        return done(null, user);
-      }
-    
-    });
+      User.verifyInsert(profile).then(function(obj) {
+        console.log('inserted vi twitter = ', obj);
+        var send = {
+          user: obj.user,
+          passid: obj.passid
+        };
+        
+        return done(null, send);
+      })
+      .catch(function(err) {
+        console.log('vi prom err = ', err);
+        return done(null, err);
+      });
 
-  }
-));
+  }));
 
 // serialize user into the session
 init();

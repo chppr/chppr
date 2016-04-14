@@ -27,7 +27,6 @@ var store = new KnexSessionStore({
 });
 
 var passportGithub = require('./auth/github');
-
 var passportGoogle = require('./auth/google');
 var passportTwitter = require('./auth/twitter');
 
@@ -185,36 +184,20 @@ routes.post('/login', function(req, res) {
 
 // Github
 routes.get('/auth/github', passportGithub.authenticate('github', { scope: [ 'user:email' ] }));
-
 routes.get('/auth/github/callback',
   passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }));
 
 // Google
-routes.get('/auth/google', passportGoogle.authenticate('google', { scope: [ 'profile:email' ] }));
+routes.get('/auth/google', passportGoogle.authenticate('google', { scope: [ 'profile', 'email' ] }));
 routes.get('/auth/google/callback',
-  passportGoogle.authenticate('google', { failureRedirect: '/auth/google', successRedirect: '/' }));
-
-
-
-
-/////// NOTE TO FUTURE GROUPS //////
-/////// THIS ALMOST KINDA WORKS ////
-// routes.post('/upload', function (req, res) {
-// 	var file = req.body;
-//   console.log("req body:", file);
-//   var path = "./client/pictures/test4.jpg"
-//   fs.writeFile(path, file.preview, function(err) {
-//     if (err) {throw err};
-//     console.log('No errors!');
-//   })
-// })
-
-
-// required for passport
+  passportGoogle.authenticate('google', { failureRedirect: '/auth/google', successRedirect: 'http://localhost:4000' }));
 
 //Twitter
 routes.get('/auth/twitter', passportTwitter.authenticate('twitter', { scope: [ 'user:email' ] }));
 routes.get('/auth/twitter/callback',
   passportTwitter.authenticate('twitter', { failureRedirect: '/auth/twitter', successRedirect: '/' }));
 
-
+app.get('/logout', function (req, res) {
+  req.logOut();
+  res.redirect('/');
+ });

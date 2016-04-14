@@ -7,38 +7,28 @@ var init = require('./init');
 
 
 passport.use(new GoogleStrategy({
-    consumerKey: config.google.consumerKey,
-    consumerSecret: config.google.consumerSecret,
+    clientID: config.google.clientID,
+    clientSecret: config.google.clientSecret,
     callbackURL: config.google.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
 
-    var searchQuery = {
-      name: profile.displayName
-    };
+    User.verifyInsert(profile).then(function(obj) {
+      console.log('data from vins = ', obj);
+      var send = {
+        user: obj.user,
+        passid: obj.passid
+      };
 
-    var updates = {
-      name: profile.displayName,
-      someID: profile.id
-    };
+        return done(null, send);
+      })
+      .catch(function(err) {
+        console.log('vi prom err', err);
+        return done(null, err);
+      });
 
-    var options = {
-      upsert: true
-    };
+  }));
 
-    // update the user if s/he exists or add a new user
-    User.findOneAndUpdate(searchQuery, updates, options, function(err, user) {
-      if(err) {
-        return done(err);
-      } else {
-        return done(null, user);
-      }
-    });
-  }
-
-));
-
-// serialize user into the session
 init();
 
 

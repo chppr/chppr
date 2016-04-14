@@ -5,11 +5,11 @@ exports.seed = function(knex, Promise) {
     knex('users').del(), 
 
     // Inserts seed entries
-    knex('users').insert({ username: 'Rich', password: 'rich'}),
-    knex('users').insert({ username: 'Pat L', password: 'PatL'}),
-    knex('users').insert({ username: 'Hugh', password: 'Hugh'}),
-    knex('users').insert({ username: 'Christina', password: 'Tina'}),
-    knex('users').insert({ username: 'PatD', password: 'PatD'}),
-    knex('users').insert({ username: 'Will', password: 'ferrel'})
+    knex('users').insert({ user: 'Rich', password: 'rich'}),
+    knex('users').insert({ user: 'Pat L', password: 'PatL'}),
+    knex('users').insert({ user: 'Hugh', password: 'Hugh'}),
+    knex('users').insert({ user: 'Christina', password: 'Tina'}),
+    knex('users').insert({ user: 'PatD', password: 'PatD'}),
+    knex('users').insert({ user: 'Will', password: 'ferrel'})
   );
 };

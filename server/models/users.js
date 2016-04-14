@@ -32,28 +32,44 @@ Users.verify = function(username, password) {
 };
 
 Users.verifyId = function(id) {
+  console.log('verifyId id == ', id)
   return db('users').where({
-    gitid: id
+    passid: id
   }).limit(1);
 };
 
-Users.verifyInsert = function(name, gitid) {
-  // console.log('name.user == ', name)
+Users.verifyInsert = function(obj) {
+
+  var session = {};
+  session.passid = obj.id;
+
+  if(obj.provider === 'google') {
+    session.user = obj.displayName;
+  } else {
+    session.user = obj.username;
+  }
+
   return db('users').where({
-    gitid: gitid
+    passid: session.id
   }).then(function(data) {
-    console.log('found ! = ', data);
     if (data.length === 0) {
-      console.log('inserting new data!');
       return db('users').insert({
-        username: name,
-        gitid: gitid
-      }).limit(1);
+        user: session.user,
+        passid: session.id
+      }).limit(1).then(function(array) {
+        console.log('returning sessions!', session);
+        return session;
+      })
     } else {
-      console.log('data found! not inserting!');
-      return Promise.reject({ username: name, gitid: gitid });
+      console.log('datas = ', data);
+      if(Array.isArray(data)) {
+        return data[0];
+      } else {
+        return data;
+      }
     }
-  });
+  })
+
 };
 
 //only did categories here because we only use it once! not an actual relation to the users
