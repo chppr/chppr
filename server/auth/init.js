@@ -5,20 +5,22 @@ var User = require('../models/users');
 module.exports = function() {
 
   passport.serializeUser(function(user, done) {
-    // console.log('serializeUser = ', user.gitid);
-    done(null, user.gitid);
+    console.log('serializeUser = ', user);
+    done(null, user);
   });
 
-  passport.deserializeUser(function(id, done) {
-    // console.log('deserializeUser! now! id = ', id)
-    User.verifyId(id).then(function(data) {
-        console.log('verifyId got = ', data[0].gitid);
-        done(null, data[0].gitid);
-      })
-      .catch(function(err) {
-        console.log('verifyId err = ', err);
-        done(err);
-      });
+  passport.deserializeUser(function(user, done) {
+    console.log('deserializeUser == ', user);
+
+    User.verifyId(user.passid).then(function(data) {
+      console.log('verifyId err = ', data);
+      console.log('user is = ', user)
+      done(null, user);
+    })
+    .catch(function(err) {
+      console.log('deserial errr = ', err);
+      done(null, user);
+    });
   });
 
 };
