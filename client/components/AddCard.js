@@ -5,6 +5,7 @@ import TextField from 'material-ui/lib/text-field';
 import Checkbox from 'material-ui/lib/checkbox';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class AddCard extends React.Component {
 
@@ -25,7 +26,8 @@ export default class AddCard extends React.Component {
     this.props.dishPriceInput(e.target.value);
   }
   handleDishRating(e) {
-    this.props.dishRatingInput(e.target.value);
+    console.log("rating arguments", e)
+    this.props.dishRatingInput(e);
   }
   handleVegClick() {
     window.setTimeout(this.props.vegInput, 0);
@@ -95,10 +97,13 @@ export default class AddCard extends React.Component {
             onChange={this.handleDishPrice.bind(this)}
             floatingLabelText="Enter Price of Dish"
           /><br/>
-          <TextField
-            onChange={this.handleDishRating.bind(this)}
-            floatingLabelText="Enter Your Rating of Dish"
-          /><br/>
+          <StarRatingComponent
+            name="rate1"
+            starCount={5}
+            value={0}
+            onStarClick={this.handleDishRating.bind(this)}
+          />
+                <br/>
           <DropDownMenu style={styles.dropdown} value={this.props.dishCat} onChange={this.handleCatSelect.bind(this)}>
             <MenuItem value={999} primaryText="Category"/>
             <MenuItem value={1} primaryText="Mexican"/>
@@ -123,7 +128,7 @@ export default class AddCard extends React.Component {
             style={styles.checkbox}
           /><br/>
           <RaisedButton onClick={this.handleSubmit.bind(this)} label="Submit" default={true} />
-        </div> 
+        </div>
 
         <hr/>
       </div>
@@ -140,5 +145,5 @@ export default class AddCard extends React.Component {
         //     <div style={styles.text}>Drag your photo here, or click to select a file to upload.</div>
         //   </Dropzone>
 
-        //   {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}        
+        //   {this.props.photo ? <div><br/>Image Preview: <br/><img width='250' src={this.props.photo} /></div> : null}
         // </div>

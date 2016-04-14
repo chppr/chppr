@@ -95,7 +95,7 @@ class Layout extends React.Component {
       "spicy": this.state.spicyClick,
       "rating": this.state.dishRating
     }
-    
+
     var file = {
       photo: that.state.photo[0]
     }
@@ -172,7 +172,7 @@ class Layout extends React.Component {
       error: function(xhr, status, err) {
         console.log('getCardData failed, status: ', status, 'error: ', err);
       }.bind(this)
-    
+
     });
     */
   }
@@ -195,7 +195,7 @@ class Layout extends React.Component {
           stateToggle={this.stateToggle.bind(this)}
         />
         <br/>
-        { this.state.showAdd ? <AddCard 
+        { this.state.showAdd ? <AddCard
           dishNameInput={this.dishNameInput.bind(this)}
           restaurantNameInput={this.restaurantNameInput.bind(this)}
           // dishDescriptionInput={this.dishDescriptionInput.bind(this)}

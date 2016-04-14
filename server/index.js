@@ -1,10 +1,10 @@
 //var browserify = require('browserify-middleware')
 var express = require('express')
 var webpack = require ('webpack');
-var webpackDevMiddleware = require ('webpack-dev-middleware')  
-//var webpackHotMiddleware = require ('webpack-hot-middleware')  
+var webpackDevMiddleware = require ('webpack-dev-middleware')
+//var webpackHotMiddleware = require ('webpack-hot-middleware')
 var config = require( './../webpack.config.js')
-var compiler = webpack(config)  
+var compiler = webpack(config)
 
 var Path = require('path')
 var session = require('express-session');
@@ -13,27 +13,31 @@ var bodyParser = require('body-parser')
 
 var passport = require('passport')
 var flash    = require('connect-flash'); // messages stored in session
+require('./config/passport');
 
-var Posts = require('./../client/models/posts');
-var Users = require('./../client/models/users');
+var Posts = require('./models/posts');
+var Users = require('./models/users');
 
 var routes = express.Router()
 var app = express()
 
 
-app.use(webpackDevMiddleware(compiler, {  
-    publicPath: config.output.publicPath,  
-    stats: {colors: true}  
+app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: {colors: true}
 }))
 
-//app.use(webpackHotMiddleware(compiler, {  
-//    log: console.log 
-//})) 
+//app.use(webpackHotMiddleware(compiler, {
+//    log: console.log
+//}))
 // Parse incoming request bodies as JSON
 app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 // Mount our main router
 app.use('/', routes)
@@ -50,7 +54,7 @@ routes.get('/', function(req, res) {
 })
 
 
-//get endpoint for json obj for posts 
+//get endpoint for json obj for posts
 routes.get('/feed', function (req, res) {
 	Posts.loader()
 	.then(function(posts){
@@ -102,7 +106,7 @@ routes.post('/categories', function(req, res) {
 //Signup And login routes will be changed/deleted once auth is set up
 routes.post('/signup', function(req, res) {
 	var user = req.body;
-	
+
 	Users.create(user)
 	.then(function(person){
 		res.status(201).send(person);
@@ -129,6 +133,48 @@ routes.post('/login', function (req, res) {
 	})
 })
 
+// var authKeys = require('./config/auth');
+// var FacebookStrategy  = require('passport-facebook').Strategy;
+// passport.serializeUser(function(user, done) {
+//   return done(null, String(user.id));
+// });
+
+// passport.deserializeUser(function(id, done) {
+//   return done(null, User.current);
+// });
+
+// passport.use(new FacebookStrategy({
+//     clientID: authKeys.facebookClient,
+//     clientSecret: authKeys.facebookSecret,
+//     callbackURL: "http://localhost:3000/auth/facebook/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     console.log("in construction:", arguments);
+// //    User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+//       return done(err, profile);
+//  //   });
+//   }
+// ));
+
+
+app.get('/auth/facebook', passport.authenticate('facebook'), function(req,res){
+	console.log("got to auth/facebook");
+});
+
+app.get('/auth/noAuth', function(req,res){
+	res.cookie("loggedIn","false");
+	res.redirect('/dashboard');
+})
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/auth/facebook' }),
+  function(req, res) {
+  	console.log("got to callback")
+    // Successful authentication, redirect home.
+    res.clearCookie('loggedIn');
+    res.redirect('/dashboard');
+  });
+
 /////// NOTE TO FUTURE GROUPS //////
 /////// THIS ALMOST KINDA WORKS ////
 // routes.post('/upload', function (req, res) {
@@ -142,11 +188,7 @@ routes.post('/login', function (req, res) {
 // })
 
 
-// required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+
 
 // route for passport
 require('./models/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport

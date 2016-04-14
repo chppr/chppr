@@ -10,17 +10,18 @@ module.exports = function (app, passport){
 	app.get('/', function(req, res){
 		res.render('index.ejs');
 	});
-	// show login form
-	app.get('/login', function(req, res){
-		// render page and pass in any flash data i(f there is any)
-		res.render('login.ejs', {message: req.flash('loginMessage') });
-	});
 
-	// route for logging out
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+	// show login form
+	// app.get('/login', function(req, res){
+	// 	// render page and pass in any flash data i(f there is any)
+	// 	res.render('login.ejs', {message: req.flash('loginMessage') });
+	// });
+
+	// // route for logging out
+ //  app.get('/logout', function(req, res) {
+ //    req.logout();
+ //    res.redirect('/');
+ //  });
 
 	// show sign up form
 	app.get('/signup', function(req, res) {
@@ -38,34 +39,42 @@ module.exports = function (app, passport){
 		});
 	});
 
-    // send to facebook for authentication 
-    app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' })); // to get email from facebook
+  // send to facebook for authentication
+  app.get('/auth/facebook', passport.authenticate('facebook'));
 
-    // handle the callback after facebook has authenticated the user
-    app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
-            successRedirect : '/profile',
-            failureRedirect : '/'
-        }));
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    });
 
-	 // route for twitter authentication and login
-    app.get('/auth/twitter', passport.authenticate('twitter'));
+  app.get('/auth/twitter', passport.authenticate('twitter'));
 
-    // handle the callback after twitter has authenticated the user
-    app.get('/auth/twitter/callback',
-        passport.authenticate('twitter', {
-            successRedirect : '/profile',
-            failureRedirect : '/'
-        }));
+  app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    });
 
- return router; //? need ?
+  app.get('/auth/instagram', passport.authenticate('instagram'));
+
+  app.get('/auth/instagram/callback',
+    passport.authenticate('instagram', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    });
+
+ return router;
 }
 
 
 // route to middleware to make sure user is logged in
 function isLoggedIn(req, res, next) {
 
-	// if user is logged in - 
+	// if user is logged in -
 	if (req.isAuthenticated())
 		return next();
 
