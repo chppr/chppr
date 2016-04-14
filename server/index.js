@@ -41,7 +41,7 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 
 var assetFolder = Path.resolve(__dirname, '../client')
-app.use(express.static(assetFolder, { index: 'login.html' } ));
+app.use(express.static(assetFolder, { index: 'index.html' } ));
 app.use(cookieParser());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
