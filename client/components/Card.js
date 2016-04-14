@@ -6,6 +6,7 @@ import CardMedia from 'material-ui/lib/card/card-media';
 import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
+import moment from 'moment';
 
 export default class DishCard extends React.Component {
 
@@ -43,6 +44,13 @@ export default class DishCard extends React.Component {
       bottom: 10
     }
 
+    const timeStamp = {
+      position: "absolute",
+      right: 8,
+      top: 8,
+      color: 'gray'
+    }
+
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
         <Card
@@ -60,23 +68,29 @@ export default class DishCard extends React.Component {
             title={this.props.data.dish_name}
             subtitle={this.props.data.rest_name}
           />
-          <row>
+          <CardText>
             <strong style={{clear: "none", float: "right"}}>
               ${Number(this.props.data.price).toFixed(2)}
             </strong>
-            <FlatButton onClick={this.handleDeleteCard.bind(this)}
-                            label="Remove Dish"
-                            style={buttonStyle}
-                            linkButton={true}
-                            hoverColor= "#E9573F"
-                            rippleColor="red"
-            />
-            <span style={{float: "left"}}>
+          <div>
+              {'Rating: ' + this.props.data.rating +''}
+            <div>
               {this.props.data.spicy ? "🌶" : ""}
               {this.props.data.veggie ? "🌽" : ""}
               {this.props.data.gluten_free ? "🚫🍞" : ""}
-            </span>
-          </row>
+            </div>
+          </div>
+          <div style={timeStamp}>
+            {moment(this.props.data.timestamp).calendar()}
+          </div>
+          </CardText>
+            <FlatButton onClick={this.handleDeleteCard.bind(this)}
+                        label="Remove Dish"
+                        style={buttonStyle}
+                        linkButton={true}
+                        hoverColor= "#E9573F"
+                        rippleColor="yellow"
+            />
         </Card>
       </div>
     );
