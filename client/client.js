@@ -43,11 +43,13 @@ class Layout extends React.Component {
       photoError: '',
       ratingError: '',
       restaurantError: '',
-      dishNameError: ''
+      dishNameError: '',
+      categories:['Mexican','American','Asian','Italian','BBQ']
     };
 
     this.getCardData();
   }
+ 
 
   stateToggle(event) {
     this.setState({[event]: !this.state[event]});
@@ -337,6 +339,7 @@ class Layout extends React.Component {
         cardData={this.state.cardData}
         deleteCard = {this.deleteCard.bind(this)}//working on delete
         category={this.state.category}
+        categories = {this.state.categories}
         />
         </div>
     );
