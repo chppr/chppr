@@ -22,7 +22,11 @@ export default class DishCard extends React.Component {
       return {display:'none'}
     }
     else {
-      return {}
+      return {
+        position: "absolute",
+        right: 10,
+        bottom: 10
+      }
     }
 
   }
@@ -49,7 +53,7 @@ export default class DishCard extends React.Component {
       marginBottom: "30px",
       display: "block"
     };
-
+    //not in use I pasted into function above
     const buttonStyle = {
       position: "absolute",
       right: 10,
@@ -106,7 +110,6 @@ export default class DishCard extends React.Component {
           </CardText>
             <FlatButton onClick={this.handleDeleteCard.bind(this)}
                         label="Remove Dish"
-                        style={buttonStyle}
                         style = {this.displayDeleteButton.bind(this).call()}
                         linkButton={true}
                         hoverColor= "#E9573F"

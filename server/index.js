@@ -27,14 +27,10 @@ var store = new KnexSessionStore({
 });
 
 var passportGithub = require('./auth/github');
-<<<<<<< HEAD
 
-// var passportGoogle = require('./auth/google');
-// var passportTwitter = require('./auth/twitter');
-=======
 var passportGoogle = require('./auth/google');
 var passportTwitter = require('./auth/twitter');
->>>>>>> dd7d48452b7619b339acf9396233f4a051a7b3b3
+
 
 
 var routes = express.Router();
