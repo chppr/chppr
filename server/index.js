@@ -85,10 +85,10 @@ routes.get('/feed', function(req, res) {
 
 routes.get('/userstate', function(req, res) {
 	if(req.user) {
-		res.statusCode(400).send(JSON.stringify(req.user));
+		res.status(200).send(JSON.stringify(req.user));
 	}
 	else {
-		res.statusCode(403).send();
+		res.status(403).send();
 	}
 
 });
