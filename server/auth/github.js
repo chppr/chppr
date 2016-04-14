@@ -30,13 +30,3 @@ init();
 module.exports = passport;
 
 
-// function(err, user) {
-//       if(err) {
-//         console.log('users ins ver err = ', err);
-//         return done(err);
-//       } else {
-//         console.log('done = ', user)
-//         return done(null, user);
-//       }
-
-
