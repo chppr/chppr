@@ -82,6 +82,16 @@ routes.get('/feed', function(req, res) {
     });
 });
 
+routes.get('/userstate', function(req, res) {
+	if(req.user) {
+		res.statusCode(400).send(JSON.stringify(req.user));
+	}
+	else {
+		res.statusCode(403).send();
+	}
+
+});
+
 //get endpoint to serve up index.html
 routes.get('/dashboard', function(req, res) {
   res.sendFile(assetFolder + '/index.html');
@@ -103,6 +113,8 @@ routes.post('/feed', function(req, res) {
 
 
 routes.delete('/delete', function(req, res) {
+
+	//add check to see if post id matches user id.
 
 	Posts.delete(req.body)
 		.then(function(){
