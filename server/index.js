@@ -26,8 +26,6 @@ var store = new KnexSessionStore({
     tablename: 'sessions' // optional. Defaults to 'sessions'
 });
 
-
-
 var passportGithub = require('./auth/github');
 
 var routes = express.Router();
@@ -54,9 +52,6 @@ app.use('/', routes);
 var port = process.env.PORT || 4000
 app.listen(port)
 console.log("Listening on port", port)
-
-
-
 
 
 
@@ -100,8 +95,8 @@ routes.post('/feed', function(req, res) {
 	})
 })
 
+
 routes.delete('/delete', function(req, res) {
-	console.log('PJ1',req.body)
 	Posts.delete(req.body)
 		.then(function(){
 			res.status(204).send()
@@ -110,8 +105,17 @@ routes.delete('/delete', function(req, res) {
 			console.log('failed to delete card')
 			return res.status(404).send(err)
 		})
+})
 
 
+routes.post('/upload', function (req, res) {
+	var file = req.body;
+  console.log("req body:", file);
+  var path = "./client/pictures/test4.jpg"
+  fs.writeFile(path, file.preview, function(err) {
+    if (err) {throw err};
+    console.log('No errors!');
+  })
 })
 
 // endpoint thats only used to update categories table
@@ -129,56 +133,9 @@ routes.post('/categories', function(req, res) {
 })
 
 
-//Signup And login routes will be changed/deleted once auth is set up
-routes.post('/signup', function(req, res) {
-	var user = req.body;
-	
-	Users.create(user)
-	.then(function(person){
-		res.status(201).send(person);
-	})
-	.catch(function (err) {
-	console.log('Error creating new user: ', err);
-	return res.status(404).send(err);
-	})
-})
-
-
-routes.post('/login', function (req, res) {
-	var user = req.body.username;
-	var pass = req.body.password;
-
-	Users.verify(user, pass).then(function (person) {
-		if (person){
-			res.status(201).send(person);
-		}
-		else {
-			res.status(400);
-			res.end('not a user')
-		}
-	})
-})
-
 routes.get('/auth/github', passportGithub.authenticate('github', { scope: [ 'user:email' ] }));
 
 routes.get('/auth/github/callback',
   passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }))
 
-
-
-
-/////// NOTE TO FUTURE GROUPS //////
-/////// THIS ALMOST KINDA WORKS ////
-// routes.post('/upload', function (req, res) {
-// 	var file = req.body;
-//   console.log("req body:", file);
-//   var path = "./client/pictures/test4.jpg"
-//   fs.writeFile(path, file.preview, function(err) {
-//     if (err) {throw err};
-//     console.log('No errors!');
-//   })
-// })
-
-
-// required for passport
 
