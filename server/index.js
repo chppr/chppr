@@ -155,33 +155,33 @@ routes.post('/categories', function(req, res) {
 
 
 //Signup And login routes will be changed/deleted once auth is set up
-routes.post('/signup', function(req, res) {
-  var user = req.body;
+// routes.post('/signup', function(req, res) {
+//   var user = req.body;
 
-  Users.create(user)
-    .then(function(person) {
-      res.status(201).send(person);
-    })
-    .catch(function(err) {
-      console.log('Error creating new user: ', err);
-      return res.status(404).send(err);
-    });
-});
+//   Users.create(user)
+//     .then(function(person) {
+//       res.status(201).send(person);
+//     })
+//     .catch(function(err) {
+//       console.log('Error creating new user: ', err);
+//       return res.status(404).send(err);
+//     });
+// });
 
 
-routes.post('/login', function(req, res) {
-  var user = req.body.username;
-  var pass = req.body.password;
+// routes.post('/login', function(req, res) {
+//   var user = req.body.username;
+//   var pass = req.body.password;
 
-  Users.verify(user, pass).then(function(person) {
-    if (person) {
-      res.status(201).send(person);
-    } else {
-      res.status(400);
-      res.end('not a user');
-    }
-  });
-});
+//   Users.verify(user, pass).then(function(person) {
+//     if (person) {
+//       res.status(201).send(person);
+//     } else {
+//       res.status(400);
+//       res.end('not a user');
+//     }
+//   });
+// });
 
 
 // Github
