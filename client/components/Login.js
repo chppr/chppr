@@ -8,13 +8,21 @@ render () {
         <div class="container">
 
           <div class="loginbox">
-          <h1>Sign In</h1>
+          <h1>Log In</h1>
 
           <form class="inputdata" name="signinForm" action="/login" method="post">
-          <input type="text" name="username" placeholder="username"/><br/>
-            <input type="password" name="password" placeholder="password"/><br/>
+          <p>
+          <input type="text" name="username" placeholder="username"/>
+          </p>
+          <p>
+            <input type="password" name="password" placeholder="password"/>
+            </p>
+            <p>
             <button class="btn btn-sm btn-social btn-vk"><span class="fa fa-fw fa-sign-in"></span> Login</button>
-          </form>
+
+             </p>
+             </form>
+
        </div>
 
      </div>
