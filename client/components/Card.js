@@ -89,7 +89,8 @@ export default class DishCard extends React.Component {
     const iconStyle = {
       position: "absolute",
       left: 10,
-      bottom: 17
+      bottom: 10,
+      fontSize:20
     }
     const starsStyle = {
       // backgroundColor: 'black',
