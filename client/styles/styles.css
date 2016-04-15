@@ -1,10 +1,10 @@
-#container {
+.container {
 	position: inherit;
 	display: block;
-	height: 30vh;
+	height: 35vh;
 }
 
-#loginbox {
+.loginbox {
 	margin: auto;
 	width: 200px;
 }

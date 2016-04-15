@@ -5,9 +5,9 @@ export default class Login extends React.Component {
 
 render () {
     return (
-        <div id="container">
-        
-          <div id="loginbox">
+        <div class="container">
+
+          <div class="loginbox">
           <h1>Sign In</h1>
 
           <form class="inputdata" name="signinForm" action="/login" method="post">
