@@ -56,6 +56,25 @@ export default class Navbar extends React.Component {
     }
   }
 
+  showLogin() {
+    if ((this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+
+
+  }
+  showLogout() {
+
+    if (!(this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+
+  }
+
   handleShowAdd() {
     console.log('this.props: ', this.props)
     console.log('this.props.currentUser: ', this.props.currentUser)
@@ -122,7 +141,16 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <LoginBar />
+          <div>
+            <a href="/signup" class="btn btn-social  btn-vk" style = {this.showLogin.bind(this).call()}><span class="fa fa-user"></span> Signup</a>
+            <a href="/login" class="btn btn-social  btn-vk" style = {this.showLogin.bind(this).call()}><span class="fa fa-fw fa-sign-in"></span> Login</a>
+            <a href="/logout" class="btn btn-social btn-vk" style = {this.showLogout.bind(this).call()}><span class="fa fa-fw fa-sign-out"></span> Logout</a>
+            <a href="/auth/github" class="btn btn-social-icon  btn-github" style = {this.showLogin.bind(this).call()}><span class="fa fa-github"></span> </a>
+            <a href="/auth/google" class="btn btn-social-icon  btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
+            <a href="/auth/twitter" class="btn btn-social-icon  btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
+
+
+           </div>
           <RaisedButton onClick={this.handleShowAdd.bind(this)}
                         label={!this.props.showAdd ? "ADD DISH" : "CANCEL"}
                         backgroundColor="#7ec0ee"
