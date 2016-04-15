@@ -112,7 +112,7 @@ export default class DishCard extends React.Component {
           style={cardStyle}>
           <CardHeader
             title={this.props.data.user}
-            subtitle={"Category: "+ this.props.categories[this.props.data.category]}
+            subtitle={"Category: "+ this.props.categories[this.props.data.category-1]}
             avatar= {this.profilepicture.bind(this).call()}
           />
           <CardMedia style={cardMediaStyle}>
