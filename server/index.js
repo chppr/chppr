@@ -230,12 +230,6 @@ routes.get('/auth/twitter/callback',
     successRedirect: '/'
   }));
 
-app.get('/logout', function(req, res) {
-  req.logOut();
-  res.redirect('/');
-});
-
-
 // show the home page (will also have our login  links)
 app.get('/', function(req, res) {
   res.render('index.html');
@@ -249,7 +243,7 @@ app.get('/', function(req, res) {
 // });
 
 // LOGOUT
-app.get('/logout', function(req, res) {
+routes.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
