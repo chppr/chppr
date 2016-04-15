@@ -302,9 +302,7 @@ class Layout extends React.Component {
     render() {
 
       // console.log("client.js state:", this.state);
-      return ( < div > { /* Pass methods & state vars to Toolbar Component through props */ } < Login / > < br / >
-        < Signup / > < br / >
-        < Header / > < br / >
+      return ( < div > { /* Pass methods & state vars to Toolbar Component through props */ } 
         < Navbar auth = { this.state.auth }
         currentUser = { this.state.currentUser }
         veg = { this.state.veg }
