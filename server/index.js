@@ -88,12 +88,13 @@ routes.get('/userstate', function(req, res) {
   if (req.user) {
     Users.grabID(req.user.passid).then(function(resp) {
       var obj = {};
-      
+      console.log(resp)
       if(resp[0]) {
         obj = {
           user: req.user.user,
           passid: req.user.passid,
-          userId: resp[0].uid
+          userId: resp[0].uid,
+          profile_picture: resp[0].profile_picture
         };
       } else {
         res.status(403).send();

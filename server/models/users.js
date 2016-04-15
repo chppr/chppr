@@ -29,7 +29,7 @@ Users.create = function(incomingAttrs) {
 };
 
 Users.grabID = function(passID) {
-  return db('users').select('uid').where({
+  return db('users').select('*').where({
     passid: passID
   }).then(function(row) {
     console.log('row here = ', row);
