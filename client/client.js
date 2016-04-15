@@ -47,7 +47,8 @@ class Layout extends React.Component {
       restaurantError: '',
       dishNameError: '',
       categories:['Mexican','American','Asian','Italian','BBQ'],
-      currentUser: ''//added to show or remove delete button by pj
+      currentUserName: '',//added to show or remove delete button by pj
+      currentUser: ''
     };
 
       this.getCardData();
@@ -201,7 +202,7 @@ class Layout extends React.Component {
 
       var newDish = {
         // TODO - figure out categories and users
-        "user_id": 5,
+        "user_id": this.state.currentUser,
         "category": this.state.dishCat,
         "timestamp": moment().format(),
         "dish_name": this.state.dishName,
@@ -267,6 +268,7 @@ class Layout extends React.Component {
           .fail(function() {
             console.log("Failed to post new dish");
           });
+          that.getCardData();
       }
     }
 
@@ -289,7 +291,8 @@ class Layout extends React.Component {
         }).then(function(resp){
         console.log('pjpjpjpjpjpjp',resp)
         //{user: "pmatteu2", passid: "15724258"}
-        that.setState({currentUser: resp.user})
+        that.setState({currentUser: resp.userId})
+        that.setState({currentUserName: resp.user})
        })
       }.bind(this),
       error: function(xhr, status, err) {

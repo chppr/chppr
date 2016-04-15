@@ -26,7 +26,7 @@ Users.grabID = function(passID){
     passid:passID
   }).then(function(row){
     console.log('pjrow',row)
-    return row[0];
+    return row[0].uid;
   })
 }
 

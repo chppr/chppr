@@ -14,8 +14,9 @@ Post.create = function(incomingAttrs) {
 };
 
 Post.loader = function() {
-  return db.select('*').from('posts').orderBy('timestamp', 'desc')
+  return db.select('*').from('posts').innerJoin('users','posts.user_id' , 'users.uid').orderBy('timestamp', 'desc')
     .then(function(result) {
+      //console.log('pjults',result)
       return result;
     });
 };
