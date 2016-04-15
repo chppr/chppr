@@ -22,11 +22,11 @@ Users.create = function(incomingAttrs) {
 
 Users.grabID = function(passID) {
   console.log('pjass', passID);
-  return db('users').select('uid').where({
+  return db('users').select('*').where({
     passid: passID
   }).then(function(row) {
     console.log('pjrow', row);
-    return row[0].uid;
+    return row[0];
   });
 };
 

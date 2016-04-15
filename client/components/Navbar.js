@@ -12,6 +12,7 @@ import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';
 import AuthPanel from "./AuthPanel";
 import AddCard from "./AddCard";
+import Avatar from 'material-ui/lib/avatar';
 
 export default class Navbar extends React.Component {
 
@@ -38,6 +39,37 @@ export default class Navbar extends React.Component {
     else {
       return {
         margin: 12
+      }
+    }
+
+  }
+  avatarStyle(){
+    if (!this.props.currentAvatar){
+      return {
+        display:'none'
+      }
+    }
+    else {
+      return {
+        //margin:'auto'
+      }
+    }
+  }
+
+  showLogin() {
+    if ((this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+
+
+  }
+  showLogout() {
+
+    if (!(this.props.currentUser) ){
+      return {
+        display:'none'
       }
     }
 
@@ -78,7 +110,8 @@ export default class Navbar extends React.Component {
 
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle text="YumSnap!" />
+        <Avatar src = {this.props.currentAvatar} float = 'left' style = {this.avatarStyle.bind(this).call()} size = {55}/>
+        <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
               <MenuItem value={null} primaryText="All"/>
@@ -108,7 +141,16 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <LoginBar />
+          <div>
+            <a href="/signup" class="btn btn-social  btn-vk" style = {this.showLogin.bind(this).call()}><span class="fa fa-user"></span> Signup</a>
+            <a href="/login" class="btn btn-social  btn-vk" style = {this.showLogin.bind(this).call()}><span class="fa fa-fw fa-sign-in"></span> Login</a>
+            <a href="/logout" class="btn btn-social btn-vk" style = {this.showLogout.bind(this).call()}><span class="fa fa-fw fa-sign-out"></span> Logout</a>
+            <a href="/auth/github" class="btn btn-social-icon  btn-github" style = {this.showLogin.bind(this).call()}><span class="fa fa-github"></span> </a>
+            <a href="/auth/google" class="btn btn-social-icon  btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
+            <a href="/auth/twitter" class="btn btn-social-icon  btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
+
+
+           </div>
           <RaisedButton onClick={this.handleShowAdd.bind(this)}
                         label={!this.props.showAdd ? "ADD DISH" : "CANCEL"}
                         backgroundColor="#7ec0ee"
