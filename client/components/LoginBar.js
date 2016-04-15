@@ -5,7 +5,7 @@ export default class LoginBar extends React.Component{
     return (
 
       <div>
-      <p>Login or Register with:</p>
+         <p>Login or Register with:</p>
 
       <a href="/login" class="btn btn-social btn-vk"><span class="fa fa-fw fa-sign-in"></span> Login</a>
       <a href="/logout" class="btn btn-social btn-vk"><span class="fa fa-fw fa-sign-out"></span> Logout</a>

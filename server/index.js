@@ -95,7 +95,7 @@ routes.get('/userstate', function(req, res) {
 		console.log('pj5',resp,'more pj',obj)
 		res.status(200).send(JSON.stringify(obj));
 		});
-		
+
 	}
 	else {
 		res.status(403).send();
@@ -167,35 +167,7 @@ routes.post('/categories', function(req, res) {
 });
 
 
-//Signup And login routes will be changed/deleted once auth is set up
-// routes.post('/signup', function(req, res) {
-//   var user = req.body;
-
-//   Users.create(user)
-//     .then(function(person) {
-//       res.status(201).send(person);
-//     })
-//     .catch(function(err) {
-//       console.log('Error creating new user: ', err);
-//       return res.status(404).send(err);
-//     });
-// });
-
-
-// routes.post('/login', function(req, res) {
-//   var user = req.body.username;
-//   var pass = req.body.password;
-
-//   Users.verify(user, pass).then(function(person) {
-//     if (person) {
-//       res.status(201).send(person);
-//     } else {
-//       res.status(400);
-//       res.end('not a user');
-//     }
-//   });
-// });
-
+//------Authentication Routes
 
 // Github
 routes.get('/auth/github', passportGithub.authenticate('github', {
@@ -231,12 +203,12 @@ routes.get('/auth/twitter/callback',
   }));
 
 // show the home page (will also have our login  links)
-app.get('/', function(req, res) {
+routes.get('/', function(req, res) {
   res.render('index.html');
 });
 
 // PROFILE SECTION
-// app.get('/profile', isLoggedIn, function(req, res) {
+// routes.get('/profile', isLoggedIn, function(req, res) {
 //   res.render('user_profile.ejs', {
 //     user: req.user
 //   });
@@ -250,14 +222,14 @@ routes.get('/logout', function(req, res) {
 
 // -----------------Authenticate  login-----------
 // show the login form
-app.get('/login', function(req, res) {
+routes.get('/login', function(req, res) {
   res.render('user_login.ejs', {
     // message: req.flash('loginMessage')
   });
 });
 
 // process the login form
-app.post('/login', passport.authenticate('local-login', {
+routes.post('/login', passport.authenticate('local-login', {
   successRedirect: '/',
   failureRedirect: '/login',
   // failureFlash: true // allow flash messages
@@ -265,14 +237,14 @@ app.post('/login', passport.authenticate('local-login', {
 
 // ----------------User  Registration------
 // show the signup form
-app.get('/register', function(req, res) {
+routes.get('/register', function(req, res) {
   res.render('user_registration.ejs', {
     message: req.flash('loginMessage')
   });
 });
 
 // process the signup form
-app.post('/register', passport.authenticate('local-signup', {
+routes.post('/register', passport.authenticate('local-signup', {
   successRedirect: '/',
   failureRedirect: '/register',
   // failureFlash: true // allow flash messages
