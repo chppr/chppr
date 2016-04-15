@@ -37,7 +37,7 @@ var init = require('./init');
  passport.use('local-signup', new LocalStrategy({
      usernameField: 'username',
      passwordField: 'password'
-   }, function(obj, username, password, done) {
+   }, function(username, password, done, obj) {
 
       console.log('PROFILE === ', username, password);
       var insert = {
