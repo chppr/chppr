@@ -41,7 +41,6 @@ export default class Navbar extends React.Component {
         margin: 12
       }
     }
-
   }
   avatarStyle(){
     if (!this.props.currentAvatar){
@@ -95,11 +94,11 @@ export default class Navbar extends React.Component {
       },
       dropdown: {
         marginRight: 100,
-        width: 30,
-        // background: "blue",
+        // width: 30,
       },
       toolbar: {
         color: "black",
+        fill: 'black'
       },
       checkbox: {
         maxWidth: 150,
@@ -113,7 +112,7 @@ export default class Navbar extends React.Component {
         <Avatar src = {this.props.currentAvatar} float = 'left' style = {this.avatarStyle.bind(this).call()} size = {55}/>
         <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
-          <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
+          <DropDownMenu style={styles.dropdown} iconStyle={{fill: 'black'}} labelStyle={{fontSize: '18', fontWeight: 'bold', textDecoration: 'underline'}} value={this.props.category} onChange={this.handleCategory.bind(this)}>
               <MenuItem value={null} primaryText="All"/>
               <MenuItem value={1} primaryText="Mexican"/>
               <MenuItem value={2} primaryText="American"/>
@@ -121,6 +120,7 @@ export default class Navbar extends React.Component {
               <MenuItem value={4} primaryText="Italian"/>
               <MenuItem value={5} primaryText="BBQ"/>
           </DropDownMenu>
+        
           <Checkbox
             value="veg"
             onClick={this.handleToggle.bind(this)}
