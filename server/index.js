@@ -171,7 +171,7 @@ routes.post('/categories', function(req, res) {
 
 // Github
 routes.get('/auth/github', passportGithub.authenticate('github', {
-  scope: ['user:email']
+  //scope: ['user:email']
 }));
 
 routes.get('/auth/github/callback',

@@ -45,6 +45,15 @@ export default class DishCard extends React.Component {
     return starString;
   };
 
+  profilepicture(){
+    if (this.props.data.profile_picture){
+      return this.props.data.profile_picture
+    }
+    else{
+    return "http://lorempixel.com/200/200/"
+    }
+  }
+
   render() {
 
     const cardStyle = {
@@ -95,7 +104,7 @@ export default class DishCard extends React.Component {
         color: 'black',
         fontSize: 20
     }
-  
+    
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
         <Card
@@ -104,7 +113,7 @@ export default class DishCard extends React.Component {
           <CardHeader
             title={this.props.data.user}
             subtitle={"Category: "+ this.props.categories[this.props.data.category]}
-            avatar="http://lorempixel.com/200/200/"
+            avatar= {this.profilepicture.bind(this).call()}
           />
           <CardMedia style={cardMediaStyle}>
               <img style={imageStyle} src={this.props.data.picture_path} />

@@ -48,7 +48,7 @@ Users.verifyId = function(id) {
 };
 
 Users.verifyInsert = function(obj) {
-
+console.log('PJOBJ',obj)
   var session = {};
   session.passid = obj.id;
 
@@ -56,6 +56,16 @@ Users.verifyInsert = function(obj) {
     session.user = obj.displayName;
   } else {
     session.user = obj.username;
+    
+  }
+  if (obj.provider === 'github'){
+    session.profile_picture = obj._json.avatar_url
+    if (obj._json.name){
+      session.user = obj._json.name;
+    }
+    else{
+      session.user = obj.username;
+    }
   }
 console.log('pjsession',session)
   return db('users').where({
@@ -64,7 +74,8 @@ console.log('pjsession',session)
     if (data.length === 0) {
       return db('users').insert({
         user: session.user,
-        passid: session.passid
+        passid: session.passid,
+        profile_picture: session.profile_picture
       }).limit(1).then(function(array) {
         console.log('returning sessions!', session);
         return session;

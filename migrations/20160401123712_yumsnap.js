@@ -8,6 +8,7 @@ console.log('at start of migration')
 			table.string('passid').unique();
 			table.string('user');
 			table.string('password');
+			table.string('profile_picture');
 		}),
 		
 		//categories table
