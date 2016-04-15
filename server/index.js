@@ -100,7 +100,6 @@ routes.get('/userstate', function(req, res) {
     res.status(403).send();
   }
 
-
 });
 
 //get endpoint to serve up index.html
@@ -201,10 +200,6 @@ routes.get('/auth/twitter/callback',
     successRedirect: '/'
   }));
 
-// show the home page (will also have our login links)
-routes.get('/', function(req, res) {
-  res.render('/');
-});
 
 // PROFILE SECTION
 routes.get('/', isLoggedIn, function(req, res) {
@@ -222,31 +217,25 @@ routes.get('/logout', function(req, res) {
 // -----------------Authenticate  login-----------
 // show the login form
 routes.get('/login', function(req, res) {
-  res.render('signin.js', {
-    // message: req.flash('loginMessage')
-  });
+  res.render('/login');
 });
 
 // process the login form
 routes.post('/login', passport.authenticate('local-login', {
   successRedirect: '/',
-  failureRedirect: '/login',
-  // failureFlash: true // allow flash messages
+  failureRedirect: '/login'
 }));
 
 // ----------------User  Registration------
 // show the signup form
 routes.get('/signup', function(req, res) {
-  res.render('signup.js', {
-    // message: req.flash('loginMessage')
-  });
+  res.render('/signup');
 });
 
 // process the signup form
 routes.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/',
-  failureRedirect: '/signup',
-  // failureFlash: true // allow flash messages
+  failureRedirect: '/signup'
 }));
 
 // route middleware to ensure user is logged in
