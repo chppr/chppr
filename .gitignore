@@ -1,10 +1,16 @@
 client/client.min.js
 node_modules/
 bower_components/
+yumsnap/
 *.log
+
 
 build/
 dist/
+client/pictures
 
 # authentication keys
 server/config/auth.js
+
+# mac files
+.DS_Store

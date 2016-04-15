@@ -10,7 +10,8 @@ import Checkbox from 'material-ui/lib/checkbox';
 import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';
 import AuthPanel from "./AuthPanel";
-import AddCard from "./AddCard";
+import Avatar from 'material-ui/lib/avatar';
+import {styles} from '../inlineStyles';
 
 export default class Navbar extends React.Component {
 
@@ -21,58 +22,46 @@ export default class Navbar extends React.Component {
   // YES, this setTimeout looks janky but it was the only way I found that displays the checked boxes after selecting them
   handleToggle(e) {
     const toggleFilter = e.target.value;
-    window.setTimeout(
-      function(){
-      this.props.stateToggle(toggleFilter)}.bind(this),
-      0
-    );
+    window.setTimeout(function(){
+        this.props.stateToggle(toggleFilter);
+      }
+      .bind(this), 0);
+  }
+
+  redirect(){
+    window.location.href = "http://localhost:4000/auth/logout";
   }
 
   handleShowAdd() {
     this.props.stateToggle('showAdd');
   }
 
-  render () {
-    const styles = {
-      title: {
-        color: "red",
-        minWidth: 160,
-        maxWidth: 160,
-        fontWeight: 700, 
-        fontSize: "30px",
-        marginRight: 0,
-        // background: "blue",
-      },
-      dropdown: {
-        marginRight: 100,
-        width: 30,
-        // background: "blue",
-      },
-      toolbar: {
-        color: "black",
-      },
-      checkbox: {
-        maxWidth: 150,
-        marginTop: 16,
-        paddingLeft: 10,
-      },
-      button: {
-        margin: 12,
-      }
-    };
-
+  render(){
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle style={styles.title} text="YumSnap!" />
+        <ToolbarTitle style={styles.title} className="nav-title" text="Yumster" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
-              <MenuItem value={null} primaryText="All"/>
-              <MenuItem value={1} primaryText="Mexican"/>
-              <MenuItem value={2} primaryText="American"/>
-              <MenuItem value={3} primaryText="Asian"/>
-              <MenuItem value={4} primaryText="Italian"/>
-              <MenuItem value={5} primaryText="BBQ"/>
+            <MenuItem value={null} primaryText="All"/>
+            <MenuItem value={1} primaryText="Mexican"/>
+            <MenuItem value={2} primaryText="American"/>
+            <MenuItem value={3} primaryText="Asian"/>
+            <MenuItem value={4} primaryText="Italian"/>
+            <MenuItem value={5} primaryText="Brunch"/>
+            <MenuItem value={6} primaryText="Greek"/>
+            <MenuItem value={7} primaryText="German"/>
+            <MenuItem value={8} primaryText="Brazilian"/>
+            <MenuItem value={9} primaryText="BBQ"/>
+            <MenuItem value={10} primaryText="Cuban"/>
+            <MenuItem value={11} primaryText="Cajun"/>
+            <MenuItem value={12} primaryText="Southern"/>
+            <MenuItem value={13} primaryText="Non-Alcoholic"/>
+            <MenuItem value={14} primaryText="Alcoholic"/>
+            <MenuItem value={15} primaryText="Desserts"/>
           </DropDownMenu>
+
+
+
           <Checkbox
             value="veg"
             onClick={this.handleToggle.bind(this)}
@@ -93,21 +82,38 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <RaisedButton onClick={this.handleShowAdd.bind(this)} label={!this.props.showAdd ? "ADD DISH" : "CANCEL"} default={true} style={styles.button} />  
+          {
+            getCookieValue("profilePic")
+            ? <Avatar style={{margin: 10}} src={decodeURIComponent(getCookieValue("profilePic"))} />
+            : null
+          }{
+            document.cookie.split("; ").indexOf("loggedIn=false")!==-1
+             ? <a href="/" className="btn btn-primary" >Log in</a>
+             : <div>
+                 <RaisedButton onClick={this.redirect} label="LOGOUT" default={true} style={styles.button} />
+                 <RaisedButton onClick={this.handleShowAdd.bind(this)} label={!this.props.showAdd ? "ADD DISH" : "CANCEL"} default={true} style={styles.button} />
+               </div>
+          }
         </ToolbarGroup>
       </Toolbar>
     )
   }
 }
-/*
-          In case we want to filter by favorites later:
 
-          <Checkbox
-            value="showFavs"
-            onClick={this.handleToggle.bind(this)}
-            checkedIcon={<ActionFavorite/>}
-            uncheckedIcon={<ActionFavoriteBorder/>}
-            label="Favorites"
-            style={styles.checkbox}
-          />
+
+function getCookieValue(a, b) {
+    b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+}
+/*
+  In case we want to filter by favorites later:
+
+  <Checkbox
+    value="showFavs"
+    onClick={this.handleToggle.bind(this)}
+    checkedIcon={<ActionFavorite/>}
+    uncheckedIcon={<ActionFavoriteBorder/>}
+    label="Favorites"
+    style={styles.checkbox}
+  />
 */
