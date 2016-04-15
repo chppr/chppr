@@ -1,5 +1,6 @@
 import React from 'react';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import LoginBar from './LoginBar';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Toolbar from 'material-ui/lib/toolbar/toolbar';
@@ -77,7 +78,7 @@ export default class Navbar extends React.Component {
 
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle style={styles.title} text="YumSnap!" />
+        <ToolbarTitle text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
               <MenuItem value={null} primaryText="All"/>
@@ -107,6 +108,7 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
+          <LoginBar />
           <RaisedButton onClick={this.handleShowAdd.bind(this)}
                         label={!this.props.showAdd ? "ADD DISH" : "CANCEL"}
                         backgroundColor="#7ec0ee"

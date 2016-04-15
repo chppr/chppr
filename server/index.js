@@ -201,13 +201,6 @@ routes.get('/auth/twitter/callback',
   }));
 
 
-// PROFILE SECTION
-routes.get('/', isLoggedIn, function(req, res) {
-  res.render('/', {
-    user: req.user
-  });
-});
-
 // LOGOUT
 routes.get('/logout', function(req, res) {
   req.logout();
@@ -215,34 +208,15 @@ routes.get('/logout', function(req, res) {
 });
 
 // -----------------Authenticate  login-----------
-// show the login form
-routes.get('/login', function(req, res) {
-  res.render('/login');
-});
-
 // process the login form
-routes.post('/login', passport.authenticate('local-login', {
+routes.post('/login', passportLocal.authenticate('local-login', {
   successRedirect: '/',
-  failureRedirect: '/login'
+  failureRedirect: 'http://www.google.com'
 }));
 
 // ----------------User  Registration------
-// show the signup form
-routes.get('/signup', function(req, res) {
-  res.render('/signup');
-});
-
 // process the signup form
-routes.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/',
-  failureRedirect: '/signup'
+routes.post('/signup', passportLocal.authenticate('local-signup', {
+  successRedirect: '/index.html',
+  failureRedirect: 'http://www.yahoo.com'
 }));
-
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated())
-    return next();
-
-  res.redirect('/');
-
-}

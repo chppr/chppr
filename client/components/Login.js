@@ -6,19 +6,18 @@ render () {
     return (
         <div>
           <h1>Sign In</h1>
-          <form class="inputdata" name="signinForm">
-            <input type="text" placeholder="username"/><br/>
-            <input type="password" placeholder="password"/><br/>
 
-<a href="/login" class="btn btn-sm btn-social btn-vk"><span class="fa fa-fw fa-sign-in"></span> Login</a>
-
-          </form>
-          <h6>
+          <form class="inputdata" name="signinForm" action="/login" method="post">
+          <input type="text" name="username" placeholder="username"/><br/>
+            <input type="password" name="password" placeholder="password"/><br/>
+            <button class="btn btn-sm btn-social btn-vk"><span class="fa fa-fw fa-sign-in"></span> Login</button>
+             </form>
+              <h6>
             <a href="/signup">Don't have an account?<br/>
-              <strong>Create one!</strong>
-            </a>
-          </h6>
-          </div>
+           <strong>Create one!</strong>
+         </a>
+       </h6>
+     </div>
     )
   }
 }
