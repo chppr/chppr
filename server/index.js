@@ -90,7 +90,8 @@ routes.get('/userstate', function(req, res) {
       var obj = {
         user: req.user.user,
         passid: req.user.passid,
-        userId: resp
+        userId: resp.uid,
+        profile_picture: resp.profile_picture
       };
       console.log('pj5', resp, 'more pj', obj);
       res.status(200).send(JSON.stringify(obj));

@@ -12,6 +12,7 @@ import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';
 import AuthPanel from "./AuthPanel";
 import AddCard from "./AddCard";
+import Avatar from 'material-ui/lib/avatar';
 
 export default class Navbar extends React.Component {
 
@@ -41,6 +42,18 @@ export default class Navbar extends React.Component {
       }
     }
 
+  }
+  avatarStyle(){
+    if (!this.props.currentAvatar){
+      return {
+        display:'none'
+      }
+    }
+    else {
+      return {
+        //margin:'auto'
+      }
+    }
   }
 
   handleShowAdd() {
@@ -78,7 +91,8 @@ export default class Navbar extends React.Component {
 
     return (
       <Toolbar style={styles.toolbar}>
-        <ToolbarTitle text="YumSnap!" />
+        <Avatar src = {this.props.currentAvatar} float = 'left' style = {this.avatarStyle.bind(this).call()} size = {55}/>
+        <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
           <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
               <MenuItem value={null} primaryText="All"/>

@@ -48,7 +48,8 @@ class Layout extends React.Component {
       dishNameError: '',
       categories:['Mexican','American','Asian','Italian','BBQ'],
       currentUserName: '',//added to show or remove delete button by pj
-      currentUser: ''
+      currentUser: '',
+      currentAvatar: ''
     };
 
       this.getCardData();
@@ -290,6 +291,8 @@ class Layout extends React.Component {
         //{user: "pmatteu2", passid: "15724258"}
         that.setState({currentUser: resp.userId})
         that.setState({currentUserName: resp.user})
+        that.setState({currentAvatar:resp.profile_picture})
+        console.log("PJPJPJ121212", resp.profile_picture)
        })
       }.bind(this),
       error: function(xhr, status, err) {
@@ -313,6 +316,7 @@ class Layout extends React.Component {
         category = { this.state.category }
         categorySelect = { this.categorySelect.bind(this) }
         stateToggle = { this.stateToggle.bind(this) }
+        currentAvatar = {this.state.currentAvatar}
         /> < br / > {
           this.state.showAdd ? < AddCard
           dishNameInput = { this.dishNameInput.bind(this) }
