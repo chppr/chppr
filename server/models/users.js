@@ -20,15 +20,15 @@ Users.create = function(incomingAttrs) {
     });
 };
 
-Users.grabID = function(passID){
-  console.log('pjass',passID)
+Users.grabID = function(passID) {
+  console.log('pjass', passID);
   return db('users').select('uid').where({
-    passid:passID
-  }).then(function(row){
-    console.log('pjrow',row)
+    passid: passID
+  }).then(function(row) {
+    console.log('pjrow', row);
     return row[0].uid;
-  })
-}
+  });
+};
 
 Users.verify = function(username, password) {
   return db('users').where({
@@ -41,7 +41,7 @@ Users.verify = function(username, password) {
 };
 
 Users.verifyId = function(id) {
-  console.log('verifyId id == ', id)
+  console.log('verifyId id == ', id);
   return db('users').where({
     passid: id
   }).limit(1);
@@ -52,7 +52,7 @@ console.log('PJOBJ',obj)
   var session = {};
   session.passid = obj.id;
 
-  if(obj.provider === 'google') {
+  if (obj.provider === 'google') {
     session.user = obj.displayName;
   } else {
     session.user = obj.username;
@@ -67,7 +67,7 @@ console.log('PJOBJ',obj)
       session.user = obj.username;
     }
   }
-console.log('pjsession',session)
+  console.log('pjsession', session);
   return db('users').where({
     passid: session.passid
   }).then(function(data) {
@@ -79,16 +79,16 @@ console.log('pjsession',session)
       }).limit(1).then(function(array) {
         console.log('returning sessions!', session);
         return session;
-      })
+      });
     } else {
       console.log('datas = ', data);
-      if(Array.isArray(data)) {
+      if (Array.isArray(data)) {
         return data[0];
       } else {
         return data;
       }
     }
-  })
+  });
 
 };
 
@@ -103,3 +103,4 @@ Users.categories = function(incomingAttrs) {
       return result[0];
     });
 };
+
