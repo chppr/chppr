@@ -193,7 +193,7 @@ exports.seed = function (knex, Promise) {
 			dish_name: "Sponge",
 			rest_name: "Bob",
 			price: 537085,
-			picture_path: "https://en.wikipedia.org/wiki/SpongeBob_SquarePants_(character)#/media/File:Spongebob-squarepants.png",
+			picture_path: "https://upload.wikimedia.org/wikipedia/en/5/5c/Spongebob-squarepants.png",
 			veggie: false,
 			gluten_free: false,
 			spicy: true,
