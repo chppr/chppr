@@ -37,9 +37,7 @@ export default class Navbar extends React.Component {
       }
     }
     else {
-      return {
-        margin: 12
-      }
+      return 
     }
   }
   avatarStyle(){
@@ -151,7 +149,7 @@ export default class Navbar extends React.Component {
             style={styles.checkbox}
           />
         </ToolbarGroup>
-        <ToolbarSeparator />
+        <ToolbarSeparator style={ {marginLeft: '20px'} }/>
         <ToolbarGroup float="right">
           <RaisedButton 
             linkButton={true}
@@ -179,7 +177,7 @@ export default class Navbar extends React.Component {
             onClick = {this.handleShowLogin.bind(this)}
           />
           <div style={styles.socialbtns}>
-            
+            <div className="superbutton">
             <a href="/auth/github" 
                class="btn btn-social-icon btn-lg  btn-github" 
                style = {this.showLogin.bind(this).call()}>
@@ -189,7 +187,8 @@ export default class Navbar extends React.Component {
             </a>
             <a href="/auth/google" class="btn btn-social-icon btn-lg btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
             <a href="/auth/twitter" class="btn btn-social-icon btn-lg btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
-           </div>
+            </div>
+          </div>
         </ToolbarGroup>
       </Toolbar>
     )

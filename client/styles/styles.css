@@ -8,3 +8,9 @@
 	margin: auto;
 	width: 200px;
 }
+
+.superbutton {
+	margin-right: -20px;
+	padding-top: 6px;
+	padding-left: 40px;
+}
