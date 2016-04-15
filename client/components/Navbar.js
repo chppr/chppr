@@ -110,6 +110,11 @@ export default class Navbar extends React.Component {
         maxWidth: 150,
         marginTop: 16,
         paddingLeft: 10,
+      },
+      socialbtns: {
+        // position: 'absolute',
+        // top: 0,
+        // right: 0
       }
     };
 
@@ -173,11 +178,17 @@ export default class Navbar extends React.Component {
             style = {this.showLogin.bind(this).call()}
             onClick = {this.handleShowLogin.bind(this)}
           />
-          <div>
+          <div style={styles.socialbtns}>
             
-            <a href="/auth/github" class="btn btn-social-icon  btn-github" style = {this.showLogin.bind(this).call()}><span class="fa fa-github"></span> </a>
-            <a href="/auth/google" class="btn btn-social-icon  btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
-            <a href="/auth/twitter" class="btn btn-social-icon  btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
+            <a href="/auth/github" 
+               class="btn btn-social-icon btn-lg  btn-github" 
+               style = {this.showLogin.bind(this).call()}>
+               <span 
+               class="fa fa-github">
+               </span> 
+            </a>
+            <a href="/auth/google" class="btn btn-social-icon btn-lg btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
+            <a href="/auth/twitter" class="btn btn-social-icon btn-lg btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
            </div>
         </ToolbarGroup>
       </Toolbar>
