@@ -95,6 +95,8 @@ export default class Navbar extends React.Component {
         fontWeight: 700, 
         fontSize: "30px",
         marginRight: 0,
+        paddingLeft: 12,
+        fontFamily: 'MasterOfBreak'
       },
       dropdown: {
         marginRight: 100,
