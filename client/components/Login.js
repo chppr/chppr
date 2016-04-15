@@ -14,12 +14,7 @@ render () {
           <input type="text" name="username" placeholder="username"/><br/>
             <input type="password" name="password" placeholder="password"/><br/>
             <button class="btn btn-sm btn-social btn-vk"><span class="fa fa-fw fa-sign-in"></span> Login</button>
-             </form>
-              <h6>
-            <a href="/signup">Don't have an account?<br/>
-           <strong>Create one!</strong>
-         </a>
-       </h6>
+          </form>
        </div>
 
      </div>
