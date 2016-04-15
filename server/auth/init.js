@@ -13,15 +13,14 @@ module.exports = function() {
     console.log('deserializeUser == ', user);
 
     User.verifyId(user.passid).then(function(data) {
-      console.log('verifyId err = ', data);
-      console.log('user is = ', user)
-      done(null, user);
-    })
-    .catch(function(err) {
-      console.log('deserial errr = ', err);
-      done(null, user);
-    });
+        console.log('verifyId err = ', data);
+        console.log('user is = ', user);
+        done(null, user);
+      })
+      .catch(function(err) {
+        console.log('deserial errr = ', err);
+        done(null, user);
+      });
   });
 
 };
-

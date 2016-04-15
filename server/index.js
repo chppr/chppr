@@ -27,8 +27,8 @@ var store = new KnexSessionStore({
 });
 
 var passportGithub = require('./auth/github');
-
 var passportGoogle = require('./auth/google');
+var passportLocal = require('./auth/local');
 var passportTwitter = require('./auth/twitter');
 
 
@@ -84,6 +84,7 @@ routes.get('/feed', function(req, res) {
 });
 
 routes.get('/userstate', function(req, res) {
+
 	if(req.user) {
 		Users.grabID(req.user.passid).then(function(resp){
 			var obj = {
@@ -99,6 +100,7 @@ routes.get('/userstate', function(req, res) {
 	else {
 		res.status(403).send();
 	}
+
 
 });
 
@@ -124,25 +126,27 @@ routes.post('/feed', function(req, res) {
 
 routes.delete('/delete', function(req, res) {
 
-	//add check to see if post id matches user id.
+  //add check to see if post id matches user id.
 
-	Posts.delete(req.body)
-		.then(function(){
-			res.status(204).send();
-		})
-		.catch(function(err){
-			console.log('failed to delete card');
-			return res.status(404).send(err);
-		});
+  Posts.delete(req.body)
+    .then(function() {
+      res.status(204).send();
+    })
+    .catch(function(err) {
+      console.log('failed to delete card');
+      return res.status(404).send(err);
+    });
 });
 
 
-routes.post('/upload', function (req, res) {
-	var file = req.body;
+routes.post('/upload', function(req, res) {
+  var file = req.body;
   console.log("req body:", file);
-  var path = "./client/pictures/test4.jpg"
+  var path = "./client/pictures/test4.jpg";
   fs.writeFile(path, file.preview, function(err) {
-    if (err) {throw err};
+    if (err) {
+      throw err;
+    }
     console.log('No errors!');
   });
 });
@@ -164,51 +168,118 @@ routes.post('/categories', function(req, res) {
 
 
 //Signup And login routes will be changed/deleted once auth is set up
-routes.post('/signup', function(req, res) {
-  var user = req.body;
+// routes.post('/signup', function(req, res) {
+//   var user = req.body;
 
-  Users.create(user)
-    .then(function(person) {
-      res.status(201).send(person);
-    })
-    .catch(function(err) {
-      console.log('Error creating new user: ', err);
-      return res.status(404).send(err);
-    });
-});
+//   Users.create(user)
+//     .then(function(person) {
+//       res.status(201).send(person);
+//     })
+//     .catch(function(err) {
+//       console.log('Error creating new user: ', err);
+//       return res.status(404).send(err);
+//     });
+// });
 
 
-routes.post('/login', function(req, res) {
-  var user = req.body.username;
-  var pass = req.body.password;
+// routes.post('/login', function(req, res) {
+//   var user = req.body.username;
+//   var pass = req.body.password;
 
-  Users.verify(user, pass).then(function(person) {
-    if (person) {
-      res.status(201).send(person);
-    } else {
-      res.status(400);
-      res.end('not a user');
-    }
-  });
-});
+//   Users.verify(user, pass).then(function(person) {
+//     if (person) {
+//       res.status(201).send(person);
+//     } else {
+//       res.status(400);
+//       res.end('not a user');
+//     }
+//   });
+// });
 
 
 // Github
-routes.get('/auth/github', passportGithub.authenticate('github', { scope: [ 'user:email' ] }));
+routes.get('/auth/github', passportGithub.authenticate('github', {
+  scope: ['user:email']
+}));
+
 routes.get('/auth/github/callback',
-  passportGithub.authenticate('github', { failureRedirect: '/auth/github', successRedirect: '/' }));
+  passportGithub.authenticate('github', {
+    failureRedirect: '/auth/github',
+    successRedirect: '/'
+  }));
 
 // Google
-routes.get('/auth/google', passportGoogle.authenticate('google', { scope: [ 'profile', 'email' ] }));
+routes.get('/auth/google', passportGoogle.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
 routes.get('/auth/google/callback',
-  passportGoogle.authenticate('google', { failureRedirect: '/auth/google', successRedirect: 'http://localhost:4000' }));
+  passportGoogle.authenticate('google', {
+    failureRedirect: '/auth/google',
+    successRedirect: 'http://localhost:4000'
+  }));
 
 //Twitter
-routes.get('/auth/twitter', passportTwitter.authenticate('twitter', { scope: [ 'user:email' ] }));
-routes.get('/auth/twitter/callback',
-  passportTwitter.authenticate('twitter', { failureRedirect: '/auth/twitter', successRedirect: '/' }));
+routes.get('/auth/twitter', passportTwitter.authenticate('twitter', {
+  scope: ['user:email']
+}));
 
-app.get('/logout', function (req, res) {
+routes.get('/auth/twitter/callback',
+  passportTwitter.authenticate('twitter', {
+    failureRedirect: '/auth/twitter',
+    successRedirect: '/'
+  }));
+
+app.get('/logout', function(req, res) {
   req.logOut();
   res.redirect('/');
- });
+});
+
+
+// show the home page (will also have our login  links)
+app.get('/', function(req, res) {
+  res.render('index.html');
+});
+
+// PROFILE SECTION
+// app.get('/profile', isLoggedIn, function(req, res) {
+//   res.render('user_profile.ejs', {
+//     user: req.user
+//   });
+// });
+
+// LOGOUT
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+// -----------------Authenticate  login-----------
+// show the login form
+app.get('/login', function(req, res) {
+  res.render('user_login.ejs', {
+    // message: req.flash('loginMessage')
+  });
+});
+
+// process the login form
+app.post('/login', passport.authenticate('local-login', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  // failureFlash: true // allow flash messages
+}));
+
+// ----------------User  Registration------
+// show the signup form
+app.get('/register', function(req, res) {
+  res.render('user_registration.ejs', {
+    message: req.flash('loginMessage')
+  });
+});
+
+// process the signup form
+app.post('/register', passport.authenticate('local-signup', {
+  successRedirect: '/',
+  failureRedirect: '/register',
+  // failureFlash: true // allow flash messages
+}));

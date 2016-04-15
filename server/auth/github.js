@@ -14,23 +14,22 @@ passport.use(new GitHubStrategy({
   function(accessToken, refreshToken, profile, done) {
 
     User.verifyInsert(profile).then(function(obj) {
-      console.log('inserted vi github = ', obj);
-      var send = {
-        user: obj.user,
-        passid: obj.passid
-      };
-      
-      return done(null, send);
-    })
-    .catch(function(err) {
-      console.log('vi prom err = ', err);
-      return done(null, err);
-    });
+        console.log('inserted vi github = ', obj);
+        var send = {
+          user: obj.user,
+          passid: obj.passid
+        };
 
-}));
+        return done(null, send);
+      })
+      .catch(function(err) {
+        console.log('vi prom err = ', err);
+        return done(null, err);
+      });
+
+  }));
 
 // serialize user into the session
 init();
 
 module.exports = passport;
-

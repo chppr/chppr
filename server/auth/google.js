@@ -14,11 +14,11 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
 
     User.verifyInsert(profile).then(function(obj) {
-      console.log('data from vins = ', obj);
-      var send = {
-        user: obj.user,
-        passid: obj.passid
-      };
+        console.log('data from vins = ', obj);
+        var send = {
+          user: obj.user,
+          passid: obj.passid
+        };
 
         return done(null, send);
       })
