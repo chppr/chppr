@@ -108,7 +108,7 @@ export default class DishCard extends React.Component {
           className=""
           style={cardStyle}>
           <CardHeader
-            title={"User Number "+ this.props.data.user}
+            title={this.props.data.user}
             subtitle={"Category: "+ this.props.categories[this.props.data.category]}
             avatar="http://lorempixel.com/200/200/"
           />
