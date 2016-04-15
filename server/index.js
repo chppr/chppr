@@ -85,21 +85,20 @@ routes.get('/feed', function(req, res) {
 
 routes.get('/userstate', function(req, res) {
 
-	if(req.user) {
-		Users.grabID(req.user.passid).then(function(resp){
-			var obj = {
-			user: req.user.user,
-			passid: req.user.passid,
-			userId: resp
-		}
-		console.log('pj5',resp,'more pj',obj)
-		res.status(200).send(JSON.stringify(obj));
-		});
+  if (req.user) {
+    Users.grabID(req.user.passid).then(function(resp) {
+      var obj = {
+        user: req.user.user,
+        passid: req.user.passid,
+        userId: resp
+      };
+      console.log('pj5', resp, 'more pj', obj);
+      res.status(200).send(JSON.stringify(obj));
+    });
 
-	}
-	else {
-		res.status(403).send();
-	}
+  } else {
+    res.status(403).send();
+  }
 
 
 });
@@ -202,17 +201,17 @@ routes.get('/auth/twitter/callback',
     successRedirect: '/'
   }));
 
-// show the home page (will also have our login  links)
+// show the home page (will also have our login links)
 routes.get('/', function(req, res) {
-  res.render('index.html');
+  res.render('/');
 });
 
 // PROFILE SECTION
-// routes.get('/profile', isLoggedIn, function(req, res) {
-//   res.render('user_profile.ejs', {
-//     user: req.user
-//   });
-// });
+routes.get('/', isLoggedIn, function(req, res) {
+  res.render('/', {
+    user: req.user
+  });
+});
 
 // LOGOUT
 routes.get('/logout', function(req, res) {
@@ -223,7 +222,7 @@ routes.get('/logout', function(req, res) {
 // -----------------Authenticate  login-----------
 // show the login form
 routes.get('/login', function(req, res) {
-  res.render('user_login.ejs', {
+  res.render('signin.js', {
     // message: req.flash('loginMessage')
   });
 });
@@ -237,15 +236,24 @@ routes.post('/login', passport.authenticate('local-login', {
 
 // ----------------User  Registration------
 // show the signup form
-routes.get('/register', function(req, res) {
-  res.render('user_registration.ejs', {
-    message: req.flash('loginMessage')
+routes.get('/signup', function(req, res) {
+  res.render('signup.js', {
+    // message: req.flash('loginMessage')
   });
 });
 
 // process the signup form
-routes.post('/register', passport.authenticate('local-signup', {
+routes.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/',
-  failureRedirect: '/register',
+  failureRedirect: '/signup',
   // failureFlash: true // allow flash messages
 }));
+
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+
+  res.redirect('/');
+
+}
