@@ -7,19 +7,18 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import moment from 'moment';
-import StarRatingComponent from 'react-star-rating-component';
 
 export default class DishCard extends React.Component {
 
   handleDeleteCard(stuff){
-    // console.log('is anything here',stuff,'this',this)
     this.props.deleteCard(this.props.data);
   }
 
   displayDeleteButton(){
     if (!(this.props.currentUser == this.props.data.user_id) ){
-      //console.log('PJ',this.props.data.user_id)
-      return {display:'none'}
+      return {
+        display:'none'
+      }
     }
     else {
       return {
@@ -28,27 +27,23 @@ export default class DishCard extends React.Component {
         bottom: 10
       }
     }
-
-  }
+  };
 
   displayFilledStars(){
-    var string="";
-    for (var i =0 ; i< this.props.data.rating ; i++){
-      string=string+"✮"
+    var starString="";
+    for (var i = 0; i < this.props.data.rating; i++){
+      starString += "✮";
     }
+    return starString;
+  };
 
-    return string;
-
-  }
-
-  displayBlackStars(){
-    var string = ""
-    for (var i = 0 ; i <(5 - this.props.data.rating); i++){
-      string = string +  "✩"
+  displayEmptyStars(){
+    var starString = ""
+    for (var i = 0; i < (5 - this.props.data.rating); i++){
+      starString += "✩";
     }
-    return string;
-
-  }
+    return starString;
+  };
 
   render() {
 
@@ -93,16 +88,14 @@ export default class DishCard extends React.Component {
       fontSize:20
     }
     const starsStyle = {
-      // backgroundColor: 'black',
        color: 'blue',
        fontSize:20
     }
-    const blackStyle = {
+    const emptyStarStyle = {
         color: 'black',
         fontSize: 20
     }
   
-
     return (
       <div className="cardWrapper col-sm-6 col-lg-4" style={cardWrapperStyle}>
         <Card
@@ -124,10 +117,10 @@ export default class DishCard extends React.Component {
             <strong style={{clear: "none", float: "right"}}>
               ${Number(this.props.data.price).toFixed(2)}
             </strong>
-          <div>
+            <div>
                 {'Rating: '}
                 <span style = {starsStyle} >{this.displayFilledStars.bind(this).call()}</span>
-                  <span style = {blackStyle} >{this.displayBlackStars.bind(this).call()}</span>
+                <span style = {emptyStarStyle} >{this.displayEmptyStars.bind(this).call()}</span>
             <div style={iconStyle}>
               {this.props.data.spicy ? "🔥" : ""}
               {this.props.data.veggie ? "🌽" : ""}

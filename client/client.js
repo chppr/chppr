@@ -173,7 +173,6 @@ class Layout extends React.Component {
     }
     deleteCard(card) {
       var that = this;
-      console.log('stuff happen', card.postID, 'this', this.state.cardData); //working on delete
       var sendCard = {
         "postID": card.postID
       };
@@ -183,8 +182,6 @@ class Layout extends React.Component {
           data: sendCard
         })
         .done(function() {
-          //that.state.cardData.splice(that.state.cardData.indexOf(card))
-          console.log('pjwin');
           that.getCardData();
         });
     }
@@ -309,6 +306,7 @@ class Layout extends React.Component {
         < Signup / > < br / >
         < Header / > < br / >
         < Navbar auth = { this.state.auth }
+        currentUser = { this.state.currentUser }
         veg = { this.state.veg }
         gf = { this.state.gf }
         noSpice = { this.state.noSpice }

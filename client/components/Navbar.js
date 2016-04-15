@@ -28,7 +28,23 @@ export default class Navbar extends React.Component {
     );
   }
 
+   displayAddPostButton(){
+    if (!(this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+    else {
+      return {
+        margin: 12
+      }
+    }
+
+  }
+
   handleShowAdd() {
+    console.log('this.props: ', this.props)
+    console.log('this.props.currentUser: ', this.props.currentUser)
     this.props.stateToggle('showAdd');
     this.props.stateToggle('showHead');
   }
@@ -56,9 +72,6 @@ export default class Navbar extends React.Component {
         maxWidth: 150,
         marginTop: 16,
         paddingLeft: 10,
-      },
-      button: {
-        margin: 12,
       }
     };
 
@@ -94,7 +107,10 @@ export default class Navbar extends React.Component {
           />
         </ToolbarGroup>
         <ToolbarGroup float="right">
-          <RaisedButton onClick={this.handleShowAdd.bind(this)} label={!this.props.showAdd ? "ADD DISH" : "CANCEL"} default={true} style={styles.button} />  
+          <RaisedButton onClick={this.handleShowAdd.bind(this)}
+                        label={!this.props.showAdd ? "ADD DISH" : "CANCEL"}
+                        backgroundColor="#7ec0ee"
+                        style={this.displayAddPostButton.bind(this).call()} />  
         </ToolbarGroup>
       </Toolbar>
     )
