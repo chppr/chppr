@@ -5,7 +5,9 @@ export default class Login extends React.Component {
 
 render () {
     return (
-        <div>
+        <div id="container">
+        
+          <div id="loginbox">
           <h1>Sign In</h1>
 
           <form class="inputdata" name="signinForm" action="/login" method="post">
@@ -18,6 +20,8 @@ render () {
            <strong>Create one!</strong>
          </a>
        </h6>
+       </div>
+
      </div>
     )
   }
