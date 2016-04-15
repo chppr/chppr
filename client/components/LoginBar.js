@@ -18,5 +18,6 @@ export default class LoginBar extends React.Component{
   }
 }
 
+
       //<a href="/logout" class="btn btn-social btn-sm btn-vk"><span class="fa fa-fw fa-sign-out"></span> Logout</a>
 

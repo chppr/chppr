@@ -49,7 +49,9 @@ class Layout extends React.Component {
       categories:['Mexican','American','Asian','Italian','BBQ'],
       currentUserName: '',//added to show or remove delete button by pj
       currentUser: '',
-      currentAvatar: ''
+      currentAvatar: '',
+      showSignup: false,
+      showLogin: false
     };
 
       this.getCardData();
@@ -76,6 +78,24 @@ class Layout extends React.Component {
       });
     }
 
+    toggleSignup(){
+      if(!this.state.showSignup){
+        this.setState({showSignup:true})
+        this.setState({showLogin:false})
+     }
+     else{
+      this.setState({showSignup:false})
+     }
+    }
+    toggleLogin(){
+      if (!this.state.showLogin){
+       this.setState({showLogin:true})
+       this.setState({showSignup:false})
+      }
+      else {
+        this.setState({showLogin:false})
+      }
+    }
     categorySelect(category) {
         this.setState({ category });
       }
@@ -292,6 +312,7 @@ class Layout extends React.Component {
         that.setState({currentUser: resp.userId})
         that.setState({currentUserName: resp.user})
         that.setState({currentAvatar:resp.profile_picture})
+        that.setState({showSignup:false})
         console.log("PJPJPJ121212", resp.profile_picture)
        })
       }.bind(this),
@@ -306,6 +327,7 @@ class Layout extends React.Component {
 
       // console.log("client.js state:", this.state);
       return ( < div > { /* Pass methods & state vars to Toolbar Component through props */ } 
+        
         < Navbar auth = { this.state.auth }
         currentUser = { this.state.currentUser }
         veg = { this.state.veg }
@@ -317,7 +339,17 @@ class Layout extends React.Component {
         categorySelect = { this.categorySelect.bind(this) }
         stateToggle = { this.stateToggle.bind(this) }
         currentAvatar = {this.state.currentAvatar}
-        /> {
+        toggleLogin = {this.toggleLogin.bind(this)}
+        toggleSignup = {this.toggleSignup.bind(this)}
+        /> 
+        {
+          this.state.showSignup ? < Signup /> : null
+        }
+        {
+          this.state.showLogin ? < Login /> : null
+        }
+
+         {
           this.state.showAdd ? < AddCard
           dishNameInput = { this.dishNameInput.bind(this) }
           restaurantNameInput = { this.restaurantNameInput.bind(this) }

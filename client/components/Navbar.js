@@ -73,6 +73,13 @@ export default class Navbar extends React.Component {
     }
 
   }
+  handleShowSignup() {
+    this.props.toggleSignup()
+  }
+
+  handleShowLogin() {
+    this.props.toggleLogin()
+  }
 
   handleShowAdd() {
     console.log('this.props: ', this.props)
@@ -139,21 +146,39 @@ export default class Navbar extends React.Component {
             style={styles.checkbox}
           />
         </ToolbarGroup>
+        <ToolbarSeparator />
         <ToolbarGroup float="right">
-          <div>
-            <a href="/signup" class="btn btn-social  btn-vk" style = {this.showLogin.bind(this).call()}><span class="fa fa-user"></span> Signup</a>
-            <a href="/login" class="btn btn-social  btn-vk" style = {this.showLogin.bind(this).call()}><span class="fa fa-fw fa-sign-in"></span> Login</a>
-            <a href="/logout" class="btn btn-social btn-vk" style = {this.showLogout.bind(this).call()}><span class="fa fa-fw fa-sign-out"></span> Logout</a>
-            <a href="/auth/github" class="btn btn-social-icon  btn-github" style = {this.showLogin.bind(this).call()}><span class="fa fa-github"></span> </a>
-            <a href="/auth/google" class="btn btn-social-icon  btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
-            <a href="/auth/twitter" class="btn btn-social-icon  btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
-
-
-           </div>
+          <RaisedButton 
+            linkButton={true}
+            href={"/logout"}
+            label='Logout'
+            style = {this.showLogout.bind(this).call()}
+          />
           <RaisedButton onClick={this.handleShowAdd.bind(this)}
                         label={!this.props.showAdd ? "ADD DISH" : "CANCEL"}
                         backgroundColor="#7ec0ee"
-                        style={this.displayAddPostButton.bind(this).call()} />  
+                        style={this.displayAddPostButton.bind(this).call()} 
+          /> 
+          <RaisedButton 
+            linkButton={true}
+           
+            label='Signup'
+            style = {this.showLogin.bind(this).call()}
+            onClick = {this.handleShowSignup.bind(this)}
+          />
+          <RaisedButton 
+            linkButton={true}
+            
+            label='Login'
+            style = {this.showLogin.bind(this).call()}
+            onClick = {this.handleShowLogin.bind(this)}
+          />
+          <div>
+            
+            <a href="/auth/github" class="btn btn-social-icon  btn-github" style = {this.showLogin.bind(this).call()}><span class="fa fa-github"></span> </a>
+            <a href="/auth/google" class="btn btn-social-icon  btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
+            <a href="/auth/twitter" class="btn btn-social-icon  btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
+           </div>
         </ToolbarGroup>
       </Toolbar>
     )
