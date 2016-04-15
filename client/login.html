@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>YumSnap!</title>
+    <title>Yumster</title>
+    <!-- <link rel="shorcut icon" height="10px" href="/favicon.png" type="image/png"/> -->
     <!-- change this up! http://www.bootstrapcdn.com/bootswatch/ -->
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cosmo/bootstrap.min.css" type="text/css" rel="stylesheet"/>
   </head>
@@ -12,20 +13,19 @@
     <div class="container">
 
     <div class="jumbotron text-center">
-        <h1><span class="fa fa-lock"></span> Yum Snap</h1>
+        <h1><span class="fa fa-lock"></span> 👅umster</h1>
 
-        <p>Login or Register with:</p>          
+        <p>Login or Register with:</p>
 
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+        <!--         
+          <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+          <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a> 
+        -->
+        <a href="/auth/noAuth" class="btn btn-warning"><span class="fa"></span> Sign in Later </a>
         <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
         <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
 
-
-
+      </div>
     </div>
-
-</div>
-    <script src="client.min.js"></script>
   </body>
 </html>

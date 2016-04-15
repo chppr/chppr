@@ -2,13 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import request from 'superagent';
 
-import Navbar from "./components/Navbar"
-import AddCard from "./components/AddCard"
-import CardFeed from "./components/CardFeed"
+import Navbar from "./components/Navbar";
+import AddCard from "./components/AddCard";
+import CardFeed from "./components/CardFeed";
 
-import fetch from "node-fetch";
-import $ from 'jquery';
 
 injectTapEventPlugin();
 
@@ -19,6 +18,8 @@ class Layout extends React.Component {
       auth: false,
       veg: false,
       gf: false,
+      bev: false,
+      des: false,
       noSpice: false,
       category: null,
       cardData: [],
@@ -32,7 +33,11 @@ class Layout extends React.Component {
       vegClick: false,
       gfClick: false,
       spicyClick: false,
+      bevClick: false,
+      dessertClick: false, 
       photo: null,
+      photoUrl: null,
+      photoFile: null,
       dishCat: 999
     };
 
@@ -46,18 +51,15 @@ class Layout extends React.Component {
   categorySelect(category) {
     this.setState({category});
   }
-  // photoInput(files) {
-  //   this.setState({photo: files});
-  // }
   dishNameInput(dishName) {
     this.setState({dishName: dishName});
   }
   restaurantNameInput(restaurantName) {
     this.setState({restaurantName: restaurantName});
   }
-  // dishDescriptionInput(dishDescription) {
-  //   this.setState({dishDescription: dishDescription});
-  // }
+  dishDescriptionInput(dishDescription) {
+    this.setState({dishDescription: dishDescription});
+  }
   dishPriceInput(dishPrice) {
     this.setState({dishPrice: dishPrice});
   }
@@ -73,11 +75,33 @@ class Layout extends React.Component {
   spicyInput() {
     this.setState({spicyClick: !this.state.spicyClick});
   }
-  photoAdd(url) {
-    this.setState({photo: url})
-  }
+  // bevInput() {
+  //   this.setState({bevClick: !this.state.bevClick});
+  // }
+  // dessertInput() {
+  //   this.setState({dessertClick: !this.state.dessertClick});
+  // }
   catAdd(category) {
-    this.setState({dishCat: category})
+    this.setState({dishCat: category});
+  }
+  photoAdd(url) {
+    this.setState({photo: url});
+  }
+  photoInput(file) {
+    var that = this;
+    var photo = new FormData();
+    photo.append('photo', file[0]);
+
+    this.setState({photo: null});
+    this.setState({photoFile: file[0]});
+
+    request.post('/upload')
+      .send(photo)
+      .end(function(err, response) {
+        if (err) { console.error(err); }
+        that.setState({photoUrl: './pictures/' + response.text});
+        console.log("Upload successful");
+      });
   }
   addCardSubmit() {
     var that = this;
@@ -89,96 +113,56 @@ class Layout extends React.Component {
       "dish_name": this.state.dishName,
       "rest_name": this.state.restaurantName,
       "price": Number(this.state.dishPrice),
-      "picture_path": this.state.photo,
+      "picture_path": this.state.photoUrl || this.state.photo,
       "veggie": this.state.vegClick,
       "gluten_free": this.state.gfClick,
       "spicy": this.state.spicyClick,
+      "profilepic": 'https://avatars2.githubusercontent.com/u/16125598',
+      "name": 'Matt J Kelly',
+      "dish_description": this.state.dishDescription,
       "rating": this.state.dishRating
-    }
-    
-    var file = {
-      photo: that.state.photo[0]
-    }
+      // "bev": this.state.bevClick,
+      // "dessert": this.state.dessertClick,
+    };
 
-    // fetch('http://localhost:4000/upload', {
-    //   method: 'POST',
-    //   body: 'test'
-    // })
-    // .then(function() {
-    //   console.log("I think the file saved?");
-    // })
-    // .catch(function(err) {
-    //   console.log("Yo, I'm pretty sure something didn't work...:", err);
-    // })
-
-  ////// VERY HACKY FIX //////
-    if (this.state.dishRating !== '') {
-
-      $.ajax({
-        type: "POST",
-        url: "/feed",
-        data: newDish,
-        // cache: false,
-        // processData: false,
-        // contentType: false
-      })
-      .done(function() {
-        console.log("New dish posted");
-        that.state.cardData.unshift(newDish);
-        that.setState({showAdd: false});
-        that.setState({
-          dishName: '',
-          restaurantName: '',
-          dishDescription: '',
-          dishPrice: '',
-          dishRating: '',
-          vegClick: false,
-          gfClick: false,
-          spicyClick: false,
-          photo: null,
-          dishCat: null
+    if (this.state.dishRating && this.state.dishName && this.state.dishCat) {
+      request.post('/feed')
+        .send(newDish)
+        .end(function(err, response) {
+          if (err) { console.error( "Failed to upload dish", err); }
+          console.log("New Dish Successful");
+          that.state.cardData.unshift(newDish);
+          that.setState({showAdd: false});
+          that.setState({
+            dishName: '',
+            restaurantName: '',
+            dishDescription: '',
+            dishPrice: '',
+            dishRating: '',
+            vegClick: false,
+            gfClick: false,
+            spicyClick: false,
+            // bevClick: false,
+            // dessertClick: false,
+            photo: null,
+            photoUrl: null,
+            photoFile: null,
+            dishCat: null
+          });
         });
-      })
-      .fail(function() {
-        console.log("Failed to post new dish");
-      })
     }
-
   }
-
   getCardData(){
-    // TODO - Replace this with a database call
     var that = this;
 
-    fetch('http://localhost:4000/feed')
-    .then(function(res) {
-      return res.json();
-    })
-    .then(function(json) {
-      console.log('got this json', json);
-      that.setState({cardData: json})
-    })
-    .catch(function(err) {
-      console.log('something went wrong getting data', err);
-    });
-        /*
-    $.ajax({
-      url: '/feed',
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        console.log('got this data from /feed', data);
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.log('getCardData failed, status: ', status, 'error: ', err);
-      }.bind(this)
-    
-    });
-    */
+    request.get('/feed')
+      .end(function(err, res) {
+        if (err) { console.error( "Error:", err); }
+        that.setState({cardData: res.body});
+      });
   }
 
   render() {
-
     // console.log("client.js state:", this.state);
     return (
       <div>
@@ -195,19 +179,20 @@ class Layout extends React.Component {
           stateToggle={this.stateToggle.bind(this)}
         />
         <br/>
-        { this.state.showAdd ? <AddCard 
+        { this.state.showAdd ? <AddCard
           dishNameInput={this.dishNameInput.bind(this)}
           restaurantNameInput={this.restaurantNameInput.bind(this)}
-          // dishDescriptionInput={this.dishDescriptionInput.bind(this)}
+          dishDescriptionInput={this.dishDescriptionInput.bind(this)}
           dishPriceInput={this.dishPriceInput.bind(this)}
           dishRatingInput={this.dishRatingInput.bind(this)}
           vegInput={this.vegInput.bind(this)}
           gfInput={this.gfInput.bind(this)}
           spicyInput={this.spicyInput.bind(this)}
+
           addCardSubmit={this.addCardSubmit.bind(this)}
-          // photoInput={this.photoInput.bind(this)}
-          photo={this.state.photo ? this.state.photo[0].preview : null}
           photoAdd={this.photoAdd.bind(this)}
+          photoInput={this.photoInput.bind(this)}
+          photo={this.state.photoFile ? this.state.photoFile.preview : null}
           showAdd={this.state.showAdd}
           catAdd={this.catAdd.bind(this)}
           dishCat={this.state.dishCat}

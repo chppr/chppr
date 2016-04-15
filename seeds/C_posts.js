@@ -17,9 +17,10 @@ exports.seed = function (knex, Promise) {
 			spicy: false,
 			rating: 5
 		}),
+		
 		knex('posts').insert({
 			user_id: 1,
-			category: 2,
+			category: 4,
 			timestamp: "02:31:00PM",
 			dish_name: "White Mushroom Pizza",
 			rest_name: "Unit D Pizzeria",
@@ -58,7 +59,7 @@ exports.seed = function (knex, Promise) {
 		}),
 		knex('posts').insert({
 			user_id: 5,
-			category: 2,
+			category: 15,
 			timestamp: "02:34:00PM",
 			dish_name: "Blueberry Swirl & Honeyed Peaches",
 			rest_name: "Lick Honest Ice Creams",
@@ -97,7 +98,7 @@ exports.seed = function (knex, Promise) {
 		}),
 		knex('posts').insert({
 			user_id: 1,
-			category: 4,
+			category: 15,
 			timestamp: "02:37:00PM",
 			dish_name: "Brick Toast",
 			rest_name: "TeaHaus",
@@ -123,7 +124,7 @@ exports.seed = function (knex, Promise) {
 		}),
 		knex('posts').insert({
 			user_id: 5,
-			category: 3,
+			category: 2,
 			timestamp: "04:30:00PM",
 			dish_name: "'Strawberry Fields Forever' Salad",
 			rest_name: "Leaf",
@@ -135,8 +136,8 @@ exports.seed = function (knex, Promise) {
 			rating: 5
 		}),
 		knex('posts').insert({
-			user_id: 6,
-			category: 2,
+			user_id: 2,
+			category: 13,
 			timestamp: "05:30:00PM",
 			dish_name: "Kiwi Spinach Smoothie",
 			rest_name: "Daily Juice",
@@ -149,7 +150,7 @@ exports.seed = function (knex, Promise) {
 		}),
 		knex('posts').insert({
 			user_id: 2,
-			category: 4,
+			category: 13,
 			timestamp: "07:30:00PM",
 			dish_name: "Carrot Ginger Cayenne Power Up",
 			rest_name: "JuiceLand",
