@@ -9,7 +9,9 @@ render () {
           <form class="inputdata" name="signinForm">
             <input type="text" placeholder="username"/><br/>
             <input type="password" placeholder="password"/><br/>
-            <button class="btn btn-sm btn-submit">sign in</button>
+
+<a href="/login" class="btn btn-sm btn-social btn-vk"><span class="fa fa-fw fa-sign-in"></span> Login</a>
+
           </form>
           <h6>
             <a href="/signup">Don't have an account?<br/>
