@@ -73,9 +73,14 @@ export default class DishCard extends React.Component {
     };
 
     const cardWrapperStyle = {
-      marginBottom: "30px",
-      display: "block"
+      display: "block",
+      borderBottom: '30px solid',
+      borderTop: '30px solid',
+      borderColor: '#36454f',
+
+      backgroundColor: "#36454f"
     };
+    
     //not in use I pasted into function above
     const buttonStyle = {
       position: "absolute",

@@ -90,7 +90,6 @@ export default class Navbar extends React.Component {
         fontWeight: 700, 
         fontSize: "30px",
         marginRight: 0,
-        // background: "blue",
       },
       dropdown: {
         marginRight: 100,
@@ -98,7 +97,7 @@ export default class Navbar extends React.Component {
       },
       toolbar: {
         color: "black",
-        fill: 'black'
+        fill: 'black',
       },
       checkbox: {
         maxWidth: 150,

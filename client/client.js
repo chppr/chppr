@@ -317,7 +317,7 @@ class Layout extends React.Component {
         categorySelect = { this.categorySelect.bind(this) }
         stateToggle = { this.stateToggle.bind(this) }
         currentAvatar = {this.state.currentAvatar}
-        /> < br / > {
+        /> {
           this.state.showAdd ? < AddCard
           dishNameInput = { this.dishNameInput.bind(this) }
           restaurantNameInput = { this.restaurantNameInput.bind(this) }
