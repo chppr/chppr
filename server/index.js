@@ -87,13 +87,18 @@ routes.get('/userstate', function(req, res) {
 
   if (req.user) {
     Users.grabID(req.user.passid).then(function(resp) {
-      var obj = {
-        user: req.user.user,
-        passid: req.user.passid,
-        userId: resp.uid,
-        profile_picture: resp.profile_picture
-      };
-      console.log('pj5', resp, 'more pj', obj);
+      var obj = {};
+      
+      if(resp[0]) {
+        obj = {
+          user: req.user.user,
+          passid: req.user.passid,
+          userId: resp[0].uid
+        };
+      } else {
+        res.status(403).send();
+      }
+      
       res.status(200).send(JSON.stringify(obj));
     });
 
@@ -208,7 +213,7 @@ routes.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-// -----------------Authenticate  login-----------
+// -----------------Authenticate  login-----------------
 // process the login form
 routes.post('/login', passportLocal.authenticate('local-login', {
   successRedirect: '/',

@@ -10,6 +10,14 @@ var Users = module.exports;
 //    })
 //}
 
+Users.checkId = function(obj) {
+  return db('users').where({
+    user: obj.username,
+    passid: obj.id
+  }).limit(1);
+}
+
+
 Users.create = function(incomingAttrs) {
   var attrs = Object.assign({}, incomingAttrs);
 
@@ -21,12 +29,11 @@ Users.create = function(incomingAttrs) {
 };
 
 Users.grabID = function(passID) {
-  console.log('pjass', passID);
-  return db('users').select('*').where({
+  return db('users').select('uid').where({
     passid: passID
   }).then(function(row) {
-    console.log('pjrow', row);
-    return row[0];
+    console.log('row here = ', row);
+    return row;
   });
 };
 
@@ -48,7 +55,6 @@ Users.verifyId = function(id) {
 };
 
 Users.verifyInsert = function(obj) {
-console.log('PJOBJ',obj)
   var session = {};
   session.passid = obj.id;
 
@@ -56,10 +62,11 @@ console.log('PJOBJ',obj)
     session.user = obj.displayName;
   } else {
     session.user = obj.username;
-    
   }
+
   if (obj.provider === 'github'){
-    session.profile_picture = obj._json.avatar_url
+    session.profile_picture = obj._json.avatar_url;
+
     if (obj._json.name){
       session.user = obj._json.name;
     }
@@ -67,7 +74,8 @@ console.log('PJOBJ',obj)
       session.user = obj.username;
     }
   }
-  console.log('pjsession', session);
+
+
   return db('users').where({
     passid: session.passid
   }).then(function(data) {

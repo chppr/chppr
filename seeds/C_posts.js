@@ -185,6 +185,19 @@ exports.seed = function (knex, Promise) {
 			gluten_free: false,
 			spicy: false,
 			rating: 5
+		}),
+		knex('posts').insert({
+			user_id: 2,
+			category: 2,
+			timestamp: "2016-04-13T16:20:02-05:00",
+			dish_name: "Sponge",
+			rest_name: "Bob",
+			price: 537085,
+			picture_path: "https://en.wikipedia.org/wiki/SpongeBob_SquarePants_(character)#/media/File:Spongebob-squarepants.png",
+			veggie: false,
+			gluten_free: false,
+			spicy: true,
+			rating: 5
 		})
 	);
 };
