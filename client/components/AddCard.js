@@ -82,7 +82,7 @@ export default class AddCard extends React.Component {
       <div style={styles.block}>
        
             <script>
-            console.log('pjerror',this.props.catError)
+            console.log('catError',this.props.catError)
             </script>
 
         <div style={styles.boxes}>
