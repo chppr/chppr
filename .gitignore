@@ -1,10 +1,9 @@
+server/auth/config.js
 client/client.min.js
 node_modules/
 bower_components/
 *.log
+yumsnap
 
 build/
 dist/
-
-# authentication keys
-server/config/auth.js

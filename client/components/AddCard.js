@@ -73,40 +73,58 @@ export default class AddCard extends React.Component {
         width: 30,
         // background: "blue",
       },
+      catError :{
+        color:'red'
+      }
     };
 
     return (
       <div style={styles.block}>
+       
+            <script>
+            console.log('catError',this.props.catError)
+            </script>
 
         <div style={styles.boxes}>
-          <TextField
-            onChange={this.handlePhoto.bind(this)}
-            floatingLabelText="Enter URL for your photo"
-          /><br/>
-          <TextField
-            onChange={this.handleDishName.bind(this)}
-            floatingLabelText="Enter Name of Dish"
-          /><br/>
-          <TextField
-            onChange={this.handleRestaurantName.bind(this)}
-            floatingLabelText="Enter Name of Restaurant"
-          /><br/>
-          <TextField
-            onChange={this.handleDishPrice.bind(this)}
-            floatingLabelText="Enter Price of Dish"
-          /><br/>
-          <TextField
-            onChange={this.handleDishRating.bind(this)}
-            floatingLabelText="Enter Your Rating of Dish"
-          /><br/>
-          <DropDownMenu style={styles.dropdown} value={this.props.dishCat} onChange={this.handleCatSelect.bind(this)}>
-            <MenuItem value={999} primaryText="Category"/>
+          <DropDownMenu /*style={styles.dropdown}*/ value={this.props.dishCat} onChange={this.handleCatSelect.bind(this)}>
+            <MenuItem value={999} primaryText="Select Style of Food"/>
             <MenuItem value={1} primaryText="Mexican"/>
             <MenuItem value={2} primaryText="American"/>
             <MenuItem value={3} primaryText="Asian"/>
             <MenuItem value={4} primaryText="Italian"/>
             <MenuItem value={5} primaryText="BBQ"/>
           </DropDownMenu><br/>
+        <row>
+          <span style={{float: "left"}} style= {styles.catError} >
+              {this.props.catError ? "Restaurant Catagory required":""}
+          </span>
+        </row>
+        <br/>
+          <TextField
+            onChange={this.handlePhoto.bind(this)}
+            floatingLabelText="Enter URL for your photo"
+            errorText={this.props.photoError}
+          /><br/>
+          <TextField
+            onChange={this.handleDishName.bind(this)}
+            floatingLabelText="Enter Name of Dish"
+            errorText={this.props.dishNameError}
+          /><br/>
+          <TextField
+            onChange={this.handleRestaurantName.bind(this)}
+            floatingLabelText="Enter Name of Restaurant"
+            errorText={this.props.restaurantError}
+          /><br/>
+          <TextField
+            onChange={this.handleDishPrice.bind(this)}
+            floatingLabelText="Enter Price of Dish"
+            errorText={this.props.priceError}
+          /><br/>
+          <TextField
+            onChange={this.handleDishRating.bind(this)}
+            floatingLabelText="Enter Your Rating of Dish"
+            errorText={this.props.ratingError}
+          /><br/>
           <Checkbox
             onClick={this.handleVegClick.bind(this)}
             label="Vegetarian"

@@ -1,5 +1,6 @@
 import React from 'react';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import LoginBar from './LoginBar';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Toolbar from 'material-ui/lib/toolbar/toolbar';
@@ -11,6 +12,7 @@ import ActionFavorite from 'material-ui/lib/svg-icons/action/favorite';
 import ActionFavoriteBorder from 'material-ui/lib/svg-icons/action/favorite-border';
 import AuthPanel from "./AuthPanel";
 import AddCard from "./AddCard";
+import Avatar from 'material-ui/lib/avatar';
 
 export default class Navbar extends React.Component {
 
@@ -28,8 +30,60 @@ export default class Navbar extends React.Component {
     );
   }
 
+   displayAddPostButton(){
+    if (!(this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+    else {
+      return 
+    }
+  }
+  avatarStyle(){
+    if (!this.props.currentAvatar){
+      return {
+        display:'none'
+      }
+    }
+    else {
+      return {
+        //margin:'auto'
+      }
+    }
+  }
+
+  showLogin() {
+    if ((this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+
+
+  }
+  showLogout() {
+
+    if (!(this.props.currentUser) ){
+      return {
+        display:'none'
+      }
+    }
+
+  }
+  handleShowSignup() {
+    this.props.toggleSignup()
+  }
+
+  handleShowLogin() {
+    this.props.toggleLogin()
+  }
+
   handleShowAdd() {
+    console.log('this.props: ', this.props)
+    console.log('this.props.currentUser: ', this.props.currentUser)
     this.props.stateToggle('showAdd');
+    this.props.stateToggle('showHead');
   }
 
   render () {
@@ -41,31 +95,35 @@ export default class Navbar extends React.Component {
         fontWeight: 700, 
         fontSize: "30px",
         marginRight: 0,
-        // background: "blue",
+        paddingLeft: 12,
+        fontFamily: 'MasterOfBreak'
       },
       dropdown: {
         marginRight: 100,
-        width: 30,
-        // background: "blue",
+        // width: 30,
       },
       toolbar: {
         color: "black",
+        fill: 'black',
       },
       checkbox: {
         maxWidth: 150,
         marginTop: 16,
         paddingLeft: 10,
       },
-      button: {
-        margin: 12,
+      socialbtns: {
+        // position: 'absolute',
+        // top: 0,
+        // right: 0
       }
     };
 
     return (
       <Toolbar style={styles.toolbar}>
+        <Avatar src = {this.props.currentAvatar} float = 'left' style = {this.avatarStyle.bind(this).call()} size = {55}/>
         <ToolbarTitle style={styles.title} text="YumSnap!" />
         <ToolbarGroup firstChild={true} float="left">
-          <DropDownMenu style={styles.dropdown} value={this.props.category} onChange={this.handleCategory.bind(this)}>
+          <DropDownMenu style={styles.dropdown} iconStyle={{fill: 'black'}} labelStyle={{fontSize: '18', fontWeight: 'bold', textDecoration: 'underline'}} value={this.props.category} onChange={this.handleCategory.bind(this)}>
               <MenuItem value={null} primaryText="All"/>
               <MenuItem value={1} primaryText="Mexican"/>
               <MenuItem value={2} primaryText="American"/>
@@ -73,6 +131,7 @@ export default class Navbar extends React.Component {
               <MenuItem value={4} primaryText="Italian"/>
               <MenuItem value={5} primaryText="BBQ"/>
           </DropDownMenu>
+        
           <Checkbox
             value="veg"
             onClick={this.handleToggle.bind(this)}
@@ -92,8 +151,46 @@ export default class Navbar extends React.Component {
             style={styles.checkbox}
           />
         </ToolbarGroup>
+        <ToolbarSeparator style={ {marginLeft: '20px'} }/>
         <ToolbarGroup float="right">
-          <RaisedButton onClick={this.handleShowAdd.bind(this)} label={!this.props.showAdd ? "ADD DISH" : "CANCEL"} default={true} style={styles.button} />  
+          <RaisedButton 
+            linkButton={true}
+            href={"/logout"}
+            label='Logout'
+            style = {this.showLogout.bind(this).call()}
+          />
+          <RaisedButton onClick={this.handleShowAdd.bind(this)}
+                        label={!this.props.showAdd ? "ADD DISH" : "CANCEL"}
+                        backgroundColor="#7ec0ee"
+                        style={this.displayAddPostButton.bind(this).call()} 
+          /> 
+          <RaisedButton 
+            linkButton={true}
+           
+            label='Signup'
+            style = {this.showLogin.bind(this).call()}
+            onClick = {this.handleShowSignup.bind(this)}
+          />
+          <RaisedButton 
+            linkButton={true}
+            
+            label='Login'
+            style = {this.showLogin.bind(this).call()}
+            onClick = {this.handleShowLogin.bind(this)}
+          />
+          <div style={styles.socialbtns}>
+            <div className="superbutton">
+            <a href="/auth/github" 
+               class="btn btn-social-icon btn-lg  btn-github" 
+               style = {this.showLogin.bind(this).call()}>
+               <span 
+               class="fa fa-github">
+               </span> 
+            </a>
+            <a href="/auth/google" class="btn btn-social-icon btn-lg btn-google" style = {this.showLogin.bind(this).call()}><span class="fa fa-google"></span> </a>
+            <a href="/auth/twitter" class="btn btn-social-icon btn-lg btn-twitter" style = {this.showLogin.bind(this).call()}><span class="fa fa-twitter"></span> </a>
+            </div>
+          </div>
         </ToolbarGroup>
       </Toolbar>
     )
