@@ -1,5 +1,7 @@
 # YumSnap!
 
+![Image of YumSnap](https://raw.githubusercontent.com/all-american-regex/YumSnap/master/client/YumSnap2.png)
+
 ## Database Setup
 
 If you don't have Postgres on your computer run
