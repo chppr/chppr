@@ -1,5 +1,5 @@
 import React from "react";
-import DishCard from "./Card"
+import DishCard from "./Card";
 
 export default class CardFeed extends React.Component {
   matchesUserFilters(c) {
@@ -13,9 +13,9 @@ export default class CardFeed extends React.Component {
   render() {
     return (
       <div>
-        {this.props.cardData.map((card) => this.matchesUserFilters(card) ?
-          <DishCard data={card} /> :
-          null)}
+        {this.props.cardData.map((card, index) => this.matchesUserFilters(card) ?
+          <DishCard key={index} data={card} /> : null)
+        }
       </div>
     );
   }

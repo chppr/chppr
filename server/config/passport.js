@@ -1,131 +1,77 @@
-var FacebookStrategy = require('passport-facebook').Strategy;
-var TwitterStrategy  = require('passport-twitter').Strategy;
-
-// ****************
-// load up the user model (user schema)
-var User = require('../models/user.js');
-
-// load up the auth variables
-var configAuth = require('./auth');
-
-// expose this function to our app using module.exports
-module.exports = function(passport) {
- // required for persistent login sessions : passport needs to serialize and unserialize users out of session
-
-    // used to serialize the user for the session
-    passport.serializeUser(function(user, done) {
-        done(null, user.id);
-    });
-
-    // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
-    });
-
-// FACEBOOK
-    passport.use(new FacebookStrategy({
-
-        // pull in our app id and secret from our auth.js file
-        clientID        : configAuth.facebookAuth.clientID,
-        clientSecret    : configAuth.facebookAuth.clientSecret,
-        callbackURL     : configAuth.facebookAuth.callbackURL
-
-    },
-
-    // facebook will send back the token and profile
-    function(token, refreshToken, profile, done) {
-
-        // asynchronous
-        process.nextTick(function() {
-
-            // find the user in the database based on their facebook id
-            User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
-
-                // if there is an error, stop everything and return that
-                // ie an error connecting to the database
-                if (err)
-                    return done(err);
-
-                // if the user is found, then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if there is no user found with that facebook id, create them
-                    var newUser            = new User();
-
-                    // set all of the facebook information in our user model
-                    newUser.facebook.id    = profile.id; // set the users facebook id                   
-                    newUser.facebook.token = token; // we will save the token that facebook provides to the user                    
-                    newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
-                    newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-
-                    // save our user to the database
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-
-                        // if successful, return the new user
-                        return done(null, newUser);
-                    });
-                } // close else
-
-            });
-        });
-
-    }));
-// fb token close FN
-
-// TWITTER
-    passport.use(new TwitterStrategy({
-
-        consumerKey     : configAuth.twitterAuth.consumerKey,
-        consumerSecret  : configAuth.twitterAuth.consumerSecret,
-        callbackURL     : configAuth.twitterAuth.callbackURL
-
-    },
-    function(token, tokenSecret, profile, done) {
-
-    // make the code asynchronous
-    // User.findOne won't fire until we have all our data back from Twitter
-        process.nextTick(function() {
-
-            User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
-
-                // if there is an error, stop everything and return that
-                // ie an error connecting to the database
-                if (err)
-                    return done(err);
-
-                // if the user is found then log them in
-                if (user) {
-                    return done(null, user); // user found, return that user
-                } else {
-                    // if there is no user, create them
-                    var newUser                 = new User();
-
-                    // set all of the user data that we need
-                    newUser.twitter.id          = profile.id;
-                    newUser.twitter.token       = token;
-                    newUser.twitter.username    = profile.username;
-                    newUser.twitter.displayName = profile.displayName;
-
-                    // save our user into the database
-                    newUser.save(function(err) {
-                        if (err)
-                            throw err;
-                        return done(null, newUser);
-                    });
-                }
-            });
-
-    });
-
-   })); 
-    // close twitter strategy
-
-}; // close entire exports FN? sublime highlights this as extra.
+var passport = require('passport');
+var FacebookStrategy  = require('passport-facebook').Strategy;
+var InstagramStrategy = require('passport-instagram').Strategy;
+var TwitterStrategy   = require('passport-twitter').Strategy;
 
 
+if (!process.env.NODE_ENV !== 'production'){
+  var authKeys = require('./auth');
+}
 
+var FacebookID = process.env.FACEBOOK_ID || authKeys.facebookClient;
+var FacebookSecret = process.env.FACEBOOK_SECRET || authKeys.facebookSecret;
+var TwitterID = process.env.TWITTER_ID || authkeys.twitterClient;
+var TwitterSecret = process.env.TWITTER_SECRET || authKeys.twitterSecret;
+
+var fbProfileInfo = {}
+var twitProfileInfo = {}
+var thisUser;
+var FacebookStrategy  = require('passport-facebook').Strategy;
+
+passport.serializeUser(function(user, done) {
+  return done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  return done(null, thisUser);
+});
+
+passport.use(new FacebookStrategy({
+    clientID: FacebookID,
+    clientSecret: FacebookSecret,
+    callbackURL: '/auth/facebook/callback',
+    profileFields: ['id', 'displayName', 'picture.type(large)']
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log("in construction:", profile.photos[0].value, profile.displayName);
+    fbProfileInfo.pic = profile.photos[0].value;
+    fbProfileInfo.name = profile.displayName;
+    thisUser = profile;
+    thisUser.id = 1;
+    return done(null, thisUser);
+  }
+));
+
+module.exports = function get () {
+    return [fbProfileInfo, twitProfileInfo];
+
+  }
+
+passport.use(new TwitterStrategy({
+    consumerKey: TwitterID,
+    consumerSecret: TwitterSecret,
+    callbackURL: '/auth/twitter/callback'
+  },
+  function(accessToken, tokenSecret, profile, done) {
+    console.log("in construction:", arguments);
+    twitProfileInfo.pic = profile.photos[0].value;
+    twitProfileInfo.name = profile.displayName;
+    thisUser = profile;
+    thisUser.id =1;
+    // User.findOrCreate({ twitterId: profile.id }, function (err, user) {
+    return done(null, thisUser);
+    }
+  ));
+
+// passport.use(new InstagramStrategy({
+//     clientID: INSTAGRAM_CLIENT_ID,
+//     clientSecret: INSTAGRAM_CLIENT_SECRET,
+//     callbackURL: "http://localhost:4000/auth/instagram/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     console.log("in construction:", arguments);
+//     User.findOrCreate({ instagramId: profile.id }, function (err, user) {
+//       return done(err, user);
+//     });
+//   }
+// ));
